@@ -1,0 +1,7 @@
+name: login-form-validation
+summary: Add a login form with email and password validation using fake credentials and no backend service.
+schema: spec-driven
+artifacts:
+  - proposal
+  - design
+  - tasks

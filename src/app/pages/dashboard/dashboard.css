@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.active-link {
+    @apply bg-blue-600 rounded-lg text-white;
+}

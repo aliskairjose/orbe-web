@@ -1,0 +1,7 @@
+name: protect-dashboard-routes
+summary: Add route guards to protect the dashboard and its child routes from unauthorized access.
+schema: spec-driven
+artifacts:
+  - proposal
+  - design
+  - tasks
