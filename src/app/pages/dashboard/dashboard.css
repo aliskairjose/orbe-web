@@ -13,3 +13,7 @@
 .sidebar-link svg {
     @apply w-5 h-5 mr-3;
 }
+
+.dashboard-main {
+    min-height: 0;
+}

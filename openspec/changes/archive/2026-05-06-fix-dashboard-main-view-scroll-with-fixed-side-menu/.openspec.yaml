@@ -1,0 +1,2 @@
+title: Fix dashboard main view scroll with fixed sidebar
+summary: Keep the dashboard sidebar fixed while allowing the main content to scroll independently on desktop layouts.
