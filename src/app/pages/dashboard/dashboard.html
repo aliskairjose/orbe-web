@@ -1,107 +1,115 @@
 <div class="min-h-screen bg-gray-100 flex">
 
   <aside id="sidebar"
-    class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0">
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:inset-0"
+    [class.-translate-x-full]="!isSidebarOpen()" [class.translate-x-0]="isSidebarOpen()">
     <div class="flex items-center justify-between h-16 px-6 bg-slate-950">
-      <span class="text-2xl font-bold tracking-wider text-blue-400">DASHBOARD</span>
-      <button (click)="toggleSidebar()" class="lg:hidden p-2 rounded-md hover:bg-slate-800 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="X 6 18L18 6M6 6l12 12"></path>
+      <span class="text-2xl font-bold tracking-wider text-blue-400">Orbe</span>
+      <button (click)="toggleSidebar()" class="lg:hidden p-2 rounded-md hover:bg-slate-800 focus:outline-none"
+        [attr.aria-label]="isSidebarOpen() ? 'Cerrar menú' : 'Abrir menú'"
+        [attr.aria-expanded]="isSidebarOpen().toString()"
+        aria-controls="sidebar">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
 
-    <nav class="mt-6 px-4 space-y-2">
+    <nav aria-label="Main dashboard navigation" class="mt-6 px-4 space-y-2">
       <a routerLink="." [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 ">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 home-3 1 1 1H13a1 1 0 011-1V14a1 1 0 011-1h2a1 1 0 011 1v3a1 1 0 001 1h2a1 1 0 001-1V10a1 1 0 00-1-1h-4">
-          </path>
+            d="M3 12l9-9 9 9m-3 0v8a2 2 0 01-2 2h-4a2 2 0 01-2-2v-5H9v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
         </svg>
         Inicio
       </a>
       <a routerLink="users" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
-          </path>
+            d="M17 20h5v-2a4 4 0 00-4-4h-1m-6 6H4v-2a4 4 0 014-4h1m0-4a4 4 0 110-8 4 4 0 010 8zm6 0a4 4 0 110-8 4 4 0 010 8z" />
         </svg>
         Usuarios
       </a>
       <a routerLink="chats" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+            d="M7 8h10M7 12h6M5 4h14a2 2 0 012 2v12l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2z" />
         </svg>
         Chats
       </a>
       <a routerLink="categories" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+            d="M7 6h3l7 7-3 3-7-7V6zm3 3a1 1 0 11-2 0 1 1 0 012 0z" />
         </svg>
         Categorías
       </a>
       <a routerLink="transactions" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+            d="M3 17l6-6 4 4 8-8" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14 7h7v7" />
         </svg>
         Transacciones
       </a>
       <a routerLink="banks" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 21h16V10H4v11zm8-16l7 5H5l7-5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h2m2 0h2m-4 4h2m2 0h2" />
         </svg>
         Bancos
       </a>
       <a routerLink="bank-accounts" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+            d="M4 7h16v10H4z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 7l3-3h10l3 3" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a1 1 0 100 2 1 1 0 000-2z" />
         </svg>
         Cuentas
       </a>
       <a routerLink="legals" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+            d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14 2v6h6" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14h6M9 18h6M9 10h3" />
         </svg>
         Legal
       </a>
       <a routerLink="plans" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="flex items-center px-4 py-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="sidebar-link">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-          </path>
+            d="M4 17h4V9H4v8zm6 0h4V5h-4v12zm6 0h4V13h-4v4z" />
         </svg>
         Planes y paquetes
       </a>
     </nav>
   </aside>
 
+  <div class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden transition-opacity duration-300"
+    [class.pointer-events-none]="!isSidebarOpen()" [class.opacity-0]="!isSidebarOpen()" (click)="toggleSidebar()"
+    aria-hidden="true"></div>
+
   <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
     <header class="flex items-center justify-between h-16 bg-white border-b px-6">
       <div class="flex items-center">
         <button (click)="toggleSidebar()"
-          class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
+          aria-label="Abrir menú">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>

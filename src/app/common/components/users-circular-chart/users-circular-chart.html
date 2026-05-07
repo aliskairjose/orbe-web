@@ -1,0 +1,24 @@
+<div class="flex flex-col items-center p-8 bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-sm mx-auto">
+  <h3 class="text-xl font-bold text-slate-800 mb-6">Distribución de Usuarios</h3>
+
+  <div 
+    class="relative w-48 h-48 rounded-full shadow-inner flex items-center justify-center transition-transform hover:scale-105 duration-500"
+    [style.background]="'conic-gradient(#3b82f6 0% ' + userPercentage() + '%, #a855f7 ' + userPercentage() + '% 100%)'"
+  >
+    <div class="absolute w-32 h-32 bg-white rounded-full flex flex-col items-center justify-center shadow-sm">
+      <span class="text-3xl font-black text-slate-700">{{ total() }}</span>
+      <span class="text-xs text-slate-400 uppercase font-semibold">Totales</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mt-8 w-full">
+    <div class="flex flex-col items-center p-3 rounded-2xl bg-blue-50 border border-blue-100">
+      <span class="text-blue-600 font-bold text-lg">{{ userCount() }}</span>
+      <span class="text-blue-400 text-xs font-medium uppercase">Clientes</span>
+    </div>
+    <div class="flex flex-col items-center p-3 rounded-2xl bg-purple-50 border border-purple-100">
+      <span class="text-purple-600 font-bold text-lg">{{ advisorCount() }}</span>
+      <span class="text-purple-400 text-xs font-medium uppercase">Asesores</span>
+    </div>
+  </div>
+</div>

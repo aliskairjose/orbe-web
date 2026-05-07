@@ -1,0 +1,5 @@
+name: redisenar-side-menu-dashboard-iconos
+description: Redesign the dashboard side menu to use descriptive section icons and improve sidebar usability.
+apply:
+  requires:
+    - tasks

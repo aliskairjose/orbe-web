@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { UsersCircularChart } from '../../../common/components';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [UsersCircularChart],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

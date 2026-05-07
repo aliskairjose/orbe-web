@@ -64,6 +64,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/dashboard/transactions/transactions').then((m) => m.Transactions),
       },
+      {
+        path: 'chats',
+        loadComponent: () =>
+          import('./pages/dashboard/chats/chats').then((m) => m.Chats),
+      },
     ]
   }
 ];
