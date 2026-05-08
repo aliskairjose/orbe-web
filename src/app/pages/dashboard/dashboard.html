@@ -8,97 +8,26 @@
     <div class="flex items-center justify-between h-16 px-6 bg-white">
       <span class="text-2xl font-semibold tracking-widest text-green-800">Orbe</span>
       <button
-          (click)="toggleSidebar()"
-          class="lg:hidden flex items-center p-1.5 rounded-md text-gray-600 bg-gray-100 hover:bg-gray-100 focus:outline-none"
-          aria-label="Abrir menú"
-        >
-          <span class="material-symbols-outlined"> close </span>
-        </button>
+        (click)="toggleSidebar()"
+        class="lg:hidden flex items-center p-1.5 rounded-md text-gray-600 bg-gray-100 hover:bg-gray-100 focus:outline-none"
+        aria-label="Abrir menú"
+      >
+        <span class="material-symbols-outlined"> close </span>
+      </button>
     </div>
 
     <nav aria-label="Main dashboard navigation" class="mt-6 px-4 space-y-2">
-      <a
-        routerLink="."
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> dashboard </span>
-        Inicio
-      </a>
-      <a
-        routerLink="users"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> account_circle </span>
-        Usuarios
-      </a>
-      <a
-        routerLink="chats"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined">message</span>
-        Chats
-      </a>
-      <a
-        routerLink="categories"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined">category</span>
-
-        Categorías
-      </a>
-      <a
-        routerLink="transactions"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> finance_mode </span>
-        Transacciones
-      </a>
-      <a
-        routerLink="banks"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> account_balance </span>
-        Bancos
-      </a>
-      <a
-        routerLink="bank-accounts"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> account_balance </span>
-        Cuentas
-      </a>
-      <a
-        routerLink="legals"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> contract_edit </span>
-        Legal
-      </a>
-      <a
-        routerLink="plans"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLinkActive="active-link"
-        class="sidebar-link"
-      >
-        <span class="material-symbols-outlined"> view_object_track </span>
-        Planes y paquetes
-      </a>
+      @for (m of menu; track $index) {
+        <a
+          [routerLink]="m.path"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active-link"
+          class="sidebar-link"
+        >
+          <span class="material-symbols-outlined"> {{ m.icon }} </span>
+          {{ m.label }}
+        </a>
+      }
     </nav>
   </aside>
 
@@ -157,8 +86,8 @@
 
     <!-- Sub Bar -->
     <div
-    [class.pointer-events-none]="!isSubBarOpen()"
-    [class.hidden]="!isSubBarOpen()"
+      [class.pointer-events-none]="!isSubBarOpen()"
+      [class.hidden]="!isSubBarOpen()"
       class="flex items-center justify-between px-6 h-16 border-b border-gray-200 shadow md:mx-6 md:hidden"
     >
       <span

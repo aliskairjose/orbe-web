@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { SIDE_MENU } from '@core/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +11,8 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 })
 export class Dashboard {
   private readonly router = inject(Router);
+  menu = SIDE_MENU;
+  
   isSidebarOpen = signal(false);
   isSubBarOpen = signal(false);
   

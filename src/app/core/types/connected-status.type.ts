@@ -1,0 +1,1 @@
+export type TConnectStatus = 'Online' | 'Offline' | 'Busy' | 'Away'; 

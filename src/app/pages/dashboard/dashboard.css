@@ -9,8 +9,10 @@
     @apply bg-gray-100 text-gray-700;
 }
 
-.sidebar-link svg {
-    @apply w-5 h-5 mr-3;
+.sidebar-link {
+    span {
+        @apply  mr-1.5;
+    }
 }
 
 .dashboard-main {
