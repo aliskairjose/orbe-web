@@ -5,7 +5,7 @@ import {
   AnnualUserRegister,
   UserCard,
   UserStatusPieChart,
-} from '../../../common/components';
+} from '@shared/components';
 
 import { CommonModule } from '@angular/common';
 interface Metric {

@@ -41,7 +41,12 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "define": {
+                "API_URL": "'https://api.orbe.app'",
+                "ENV": "'production'",
+                "APP_VERSION": "'1.0.0'"
+              }
             },
             "development": {
               "optimization": false,
@@ -52,7 +57,12 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.development.ts"
                 }
-              ]
+              ],
+              "define": {
+                "API_URL": "'http://localhost:3000'",
+                "ENV": "'development'",
+                "APP_VERSION": "'1.0.0'"
+              }
             }
           },
           "defaultConfiguration": "production"
