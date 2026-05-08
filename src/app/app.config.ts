@@ -9,21 +9,22 @@ import { withNgxsStoragePlugin } from '@ngxs/storage-plugin';
 import { withNgxsWebSocketPlugin } from '@ngxs/websocket-plugin';
 import { provideStore } from '@ngxs/store';
 import { environment } from '@envs/environment.development';
+import { AuthStates } from './pages/auth/store/auth.states';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideStore(
-      [],
+      [AuthStates],
       {
         developmentMode: !environment.production,
       },
       withNgxsFormPlugin(),
       withNgxsLoggerPlugin(),
       withNgxsRouterPlugin(),
-      withNgxsStoragePlugin({ keys: [] }),
-      withNgxsWebSocketPlugin(),
+      withNgxsStoragePlugin({ keys: [AuthStates] }),
+      withNgxsWebSocketPlugin({url: 'https://wss.orbeapp.net'}),
     ),
   ],
 };

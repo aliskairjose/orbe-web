@@ -43,7 +43,8 @@
               ],
               "outputHashing": "all",
               "define": {
-                "API_URL": "'https://api.orbe.app'",
+                "API_URL": "'https://api.orbeapp.net'",
+                "WS": "'https://wss.orbeapp.net'",
                 "ENV": "'production'",
                 "APP_VERSION": "'1.0.0'"
               }
@@ -60,6 +61,7 @@
               ],
               "define": {
                 "API_URL": "'http://localhost:3000'",
+                "WS": "'https://wss.orbeapp.net'",
                 "ENV": "'development'",
                 "APP_VERSION": "'1.0.0'"
               }
