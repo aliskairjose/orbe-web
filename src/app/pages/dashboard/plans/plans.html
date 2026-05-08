@@ -1,4 +1,4 @@
-<div class="p-8 bg-gray-50 min-h-screen">
+<div class="p-8 min-h-screen">
   <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200">
     <!-- Header & Tabs -->
     <div class="border-b border-gray-200">
@@ -48,15 +48,24 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full">
-                  {{ plan.amount |currency:'USD':'symbol' }}
+                  {{ plan.amount | currency: 'USD' : 'symbol' }}
                 </span>
-              </td><td class="px-6 py-4 whitespace-nowrap">
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full">
-                  {{ plan.bonus | currency:'USD':'symbol' }}
+                  {{ plan.bonus | currency: 'USD' : 'symbol' }}
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                {{ plan.status }}
+                <span
+                  [class.bg-green-100]="plan.isActive"
+                  [class.text-green-800]="plan.isActive"
+                  [class.bg-red-100]="!plan.isActive"
+                  [class.text-red-800]="!plan.isActive"
+                  class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full text-green-500"
+                >
+                  {{ plan.isActive ? 'Activo' : 'Inactivo' }}
+                </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <button class="text-blue-600 hover:text-blue-900">Editar</button>

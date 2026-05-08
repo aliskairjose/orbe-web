@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
 })
 export class Plans {
   plans = [
-    {name: 'Basic', amount: 15, bonus: 2, status: 'active'},
-    {name: 'Pro', amount: 30, bonus: 5, status: 'active'},
-    {name: 'Enterprise', amount: 50, bonus: 7, status: 'active'}
+    {name: 'Basic', amount: 15, bonus: 2, isActive: true},
+    {name: 'Pro', amount: 30, bonus: 5, isActive: true},
+    {name: 'Enterprise', amount: 50, bonus: 7, isActive: true}
   ]
 }
