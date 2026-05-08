@@ -1,9 +1,9 @@
 <div class="min-h-screen bg-gray-100 flex">
 
   <aside id="sidebar"
-    class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:inset-0"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-white text-white transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:inset-0 shadow-lg"
     [class.-translate-x-full]="!isSidebarOpen()" [class.translate-x-0]="isSidebarOpen()">
-    <div class="flex items-center justify-between h-16 px-6 bg-slate-950">
+    <div class="flex items-center justify-between h-16 px-6 bg-white">
       <span class="text-2xl font-bold tracking-wider text-blue-400">Orbe</span>
       <button (click)="toggleSidebar()" class="lg:hidden p-2 rounded-md hover:bg-slate-800 focus:outline-none"
         [attr.aria-label]="isSidebarOpen() ? 'Cerrar menú' : 'Abrir menú'"
@@ -99,12 +99,12 @@
     </nav>
   </aside>
 
-  <div class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden transition-opacity duration-300"
+  <div class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden transition-opacity duration-300 h-screen overflow-auto"
     [class.pointer-events-none]="!isSidebarOpen()" [class.opacity-0]="!isSidebarOpen()" (click)="toggleSidebar()"
     aria-hidden="true"></div>
 
-  <div class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden">
-    <header class="flex items-center justify-between h-16 bg-white border-b px-6">
+  <div class="flex-1 min-w-0 h-screen overflow-x-hidden overflow-y-scroll">
+    <header class="flex items-center justify-between h-16  border-b border-gray-200 mx-6">
       <div class="flex items-center">
         <button (click)="toggleSidebar()"
           class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
@@ -116,15 +116,42 @@
         <h1 class="ml-4 text-xl font-semibold text-gray-800">Resumen General</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xs">JD
+         <div class="flex flex-row items-center gap-x-3">
+        <span
+          class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer"
+          (click)="updateRate()"
+        >
+          Tasa: {{ rate() | currency }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="size-5"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+
+        <div class="relative shrink-0">
+          <img
+            [src]="user().avatar"
+            [alt]="user().name"
+            class="w-10 h-10 rounded-full border border-gray-200 object-cover"
+          />
+          <span
+            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"
+          ></span>
         </div>
+      </div>
       </div>
     </header>
 
-    <main class="flex-1 min-h-0 overflow-x-hidden overflow-y-auto bg-gray-100 p-6 dashboard-main">
-
+    <main class="flex-1 min-h-screen bg-gray-100 p-6 dashboard-main">
       <router-outlet />
-
     </main>
   </div>
 </div>

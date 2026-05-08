@@ -1,0 +1,58 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-xl border border-gray-100">
+  <h2 class="text-lg font-bold text-gray-800 mb-6 text-center">Estado de Usuarios</h2>
+
+  <div class="flex flex-col items-center gap-8">
+    <!-- El Gráfico de Torta -->
+    <div 
+      [ngStyle]="chartStyle"
+      class="w-48 h-48 rounded-full shadow-inner relative group transition-transform hover:scale-105 duration-500">
+      
+      <!-- Agujero central para convertirlo en Donut (Opcional) -->
+      <div class="absolute inset-0 m-auto w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm">
+        <div class="text-center">
+          <p class="text-xs text-gray-400 font-medium uppercase">Total</p>
+          <p class="text-xl font-black text-gray-700">100%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leyenda Detallada -->
+    <div class="grid grid-cols-2 gap-1 w-full">
+      <!-- Activos -->
+      <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+        <div>
+          <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Activos</p>
+          <p class="text-sm font-bold text-gray-700">{{stats.activos}}%</p>
+        </div>
+      </div>
+
+      <!-- Inactivos -->
+      <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+        <div>
+          <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Inactivos</p>
+          <p class="text-sm font-bold text-gray-700">{{stats.inactivos}}%</p>
+        </div>
+      </div>
+
+      <!-- Suspendidos -->
+      <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <div>
+          <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Suspendidos</p>
+          <p class="text-sm font-bold text-gray-700">{{stats.suspendidos}}%</p>
+        </div>
+      </div>
+
+      <!-- Bloqueados -->
+      <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+        <span class="w-3 h-3 rounded-full bg-gray-500"></span>
+        <div>
+          <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Bloqueados</p>
+          <p class="text-sm font-bold text-gray-700">{{stats.bloqueados}}%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
