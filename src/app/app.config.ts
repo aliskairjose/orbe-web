@@ -8,6 +8,7 @@ import { withNgxsRouterPlugin } from '@ngxs/router-plugin';
 import { withNgxsStoragePlugin } from '@ngxs/storage-plugin';
 import { withNgxsWebSocketPlugin } from '@ngxs/websocket-plugin';
 import { provideStore } from '@ngxs/store';
+import { environment } from '@envs/environment.development';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,10 +16,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(
       [],
+      {
+        developmentMode: !environment.production,
+      },
       withNgxsFormPlugin(),
       withNgxsLoggerPlugin(),
       withNgxsRouterPlugin(),
-      withNgxsStoragePlugin(),
+      withNgxsStoragePlugin({ keys: [] }),
       withNgxsWebSocketPlugin(),
     ),
   ],
