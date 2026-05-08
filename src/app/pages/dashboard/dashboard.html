@@ -8,14 +8,12 @@
     <div class="flex items-center justify-between h-16 px-6 bg-white">
       <span class="text-2xl font-semibold tracking-widest text-green-800">Orbe</span>
       <button
-        (click)="toggleSidebar()"
-        class="lg:hidden p-2 rounded-md hover:bg-slate-800 focus:outline-none"
-        [attr.aria-label]="isSidebarOpen() ? 'Cerrar menú' : 'Abrir menú'"
-        [attr.aria-expanded]="isSidebarOpen().toString()"
-        aria-controls="sidebar"
-      >
-        <span class="material-symbols-outlined"> menu </span>
-      </button>
+          (click)="toggleSidebar()"
+          class="lg:hidden flex items-center p-1.5 rounded-md text-gray-600 bg-gray-100 hover:bg-gray-100 focus:outline-none"
+          aria-label="Abrir menú"
+        >
+          <span class="material-symbols-outlined"> close </span>
+        </button>
     </div>
 
     <nav aria-label="Main dashboard navigation" class="mt-6 px-4 space-y-2">
