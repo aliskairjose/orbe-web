@@ -1,152 +1,163 @@
 <div class="min-h-screen bg-gray-100 flex">
-
-  <aside id="sidebar"
+  <aside
+    id="sidebar"
     class="fixed inset-y-0 left-0 z-50 w-64 bg-white text-white transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:inset-0 shadow-lg"
-    [class.-translate-x-full]="!isSidebarOpen()" [class.translate-x-0]="isSidebarOpen()">
+    [class.-translate-x-full]="!isSidebarOpen()"
+    [class.translate-x-0]="isSidebarOpen()"
+  >
     <div class="flex items-center justify-between h-16 px-6 bg-white">
       <span class="text-2xl font-bold tracking-wider text-blue-400">Orbe</span>
-      <button (click)="toggleSidebar()" class="lg:hidden p-2 rounded-md hover:bg-slate-800 focus:outline-none"
+      <button
+        (click)="toggleSidebar()"
+        class="lg:hidden p-2 rounded-md hover:bg-slate-800 focus:outline-none"
         [attr.aria-label]="isSidebarOpen() ? 'Cerrar menú' : 'Abrir menú'"
         [attr.aria-expanded]="isSidebarOpen().toString()"
-        aria-controls="sidebar">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        aria-controls="sidebar"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
         </svg>
       </button>
     </div>
 
     <nav aria-label="Main dashboard navigation" class="mt-6 px-4 space-y-2">
-      <a routerLink="." [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 12l9-9 9 9m-3 0v8a2 2 0 01-2 2h-4a2 2 0 01-2-2v-5H9v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
-        </svg>
+      <a
+        routerLink="."
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> dashboard </span>
         Inicio
       </a>
-      <a routerLink="users" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M17 20h5v-2a4 4 0 00-4-4h-1m-6 6H4v-2a4 4 0 014-4h1m0-4a4 4 0 110-8 4 4 0 010 8zm6 0a4 4 0 110-8 4 4 0 010 8z" />
-        </svg>
+      <a
+        routerLink="users"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> account_circle </span>
         Usuarios
       </a>
-      <a routerLink="chats" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M7 8h10M7 12h6M5 4h14a2 2 0 012 2v12l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2z" />
-        </svg>
+      <a
+        routerLink="chats"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined">message</span>
         Chats
       </a>
-      <a routerLink="categories" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M7 6h3l7 7-3 3-7-7V6zm3 3a1 1 0 11-2 0 1 1 0 012 0z" />
-        </svg>
+      <a
+        routerLink="categories"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined">category</span>
+
         Categorías
       </a>
-      <a routerLink="transactions" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 17l6-6 4 4 8-8" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M14 7h7v7" />
-        </svg>
+      <a
+        routerLink="transactions"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> finance_mode </span>
         Transacciones
       </a>
-      <a routerLink="banks" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 21h16V10H4v11zm8-16l7 5H5l7-5z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h2m2 0h2m-4 4h2m2 0h2" />
-        </svg>
+      <a
+        routerLink="banks"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> account_balance </span>
         Bancos
       </a>
-      <a routerLink="bank-accounts" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 7h16v10H4z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 7l3-3h10l3 3" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a1 1 0 100 2 1 1 0 000-2z" />
-        </svg>
+      <a
+        routerLink="bank-accounts"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> account_balance </span>
         Cuentas
       </a>
-      <a routerLink="legals" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M14 2v6h6" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14h6M9 18h6M9 10h3" />
-        </svg>
+      <a
+        routerLink="legals"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> contract_edit </span>
         Legal
       </a>
-      <a routerLink="plans" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link"
-        class="sidebar-link">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 17h4V9H4v8zm6 0h4V5h-4v12zm6 0h4V13h-4v4z" />
-        </svg>
+      <a
+        routerLink="plans"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        class="sidebar-link"
+      >
+        <span class="material-symbols-outlined"> view_object_track </span>
         Planes y paquetes
       </a>
     </nav>
   </aside>
 
-  <div class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden transition-opacity duration-300 h-screen overflow-auto"
-    [class.pointer-events-none]="!isSidebarOpen()" [class.opacity-0]="!isSidebarOpen()" (click)="toggleSidebar()"
-    aria-hidden="true"></div>
+  <div
+    class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden transition-opacity duration-300 h-screen overflow-auto"
+    [class.pointer-events-none]="!isSidebarOpen()"
+    [class.opacity-0]="!isSidebarOpen()"
+    (click)="toggleSidebar()"
+    aria-hidden="true"
+  ></div>
 
   <div class="flex-1 min-w-0 h-screen overflow-x-hidden overflow-y-scroll">
-    <header class="flex items-center justify-between h-16  border-b border-gray-200 mx-6">
+    <header class="flex items-center justify-between h-16 border-b border-gray-200 mx-6">
       <div class="flex items-center">
-        <button (click)="toggleSidebar()"
+        <button
+          (click)="toggleSidebar()"
           class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
-          aria-label="Abrir menú">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+          aria-label="Abrir menú"
+        >
+          <span class="material-symbols-outlined"> menu </span>
         </button>
         <h1 class="ml-4 text-xl font-semibold text-gray-800">Resumen General</h1>
       </div>
       <div class="flex items-center space-x-4">
-         <div class="flex flex-row items-center gap-x-3">
-        <span
-          class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer"
-          (click)="updateRate()"
-        >
-          Tasa: {{ rate() | currency }}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="size-5"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </span>
-
-        <div class="relative shrink-0">
-          <img
-            [src]="user().avatar"
-            [alt]="user().name"
-            class="w-10 h-10 rounded-full border border-gray-200 object-cover"
-          />
+        <div class="flex flex-row items-center gap-x-3">
           <span
-            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"
-          ></span>
+            class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer"
+            (click)="updateRate()"
+          >
+            Tasa: {{ rate() | currency }}
+            <span class="material-symbols-outlined"> currency_exchange </span>
+          </span>
+
+          <div class="relative shrink-0">
+            <img
+              [src]="user().avatar"
+              [alt]="user().name"
+              class="w-10 h-10 rounded-full border border-gray-200 object-cover"
+            />
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"
+            ></span>
+          </div>
         </div>
-      </div>
       </div>
     </header>
 

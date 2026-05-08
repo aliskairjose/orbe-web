@@ -1,36 +1,42 @@
 <div
-    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+  class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+>
+  <!-- Avatar con Indicador de Estado Online ficticio -->
+  <div class="relative shrink-0">
+    <img
+      [src]="user().avatar"
+      [alt]="user().firstName"
+      class="w-10 h-10 rounded-full border border-gray-200 object-cover"
+    />
+    <span
+      class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"
+    ></span>
+  </div>
 
-    <!-- Avatar con Indicador de Estado Online ficticio -->
-    <div class="relative shrink-0">
-        <img [src]="user().avatar" [alt]="user().firstName"
-            class="w-10 h-10 rounded-full border border-gray-200 object-cover">
-        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span>
+  <!-- Info del Usuario -->
+  <div class="flex-1 min-w-0">
+    <div class="flex items-center justify-between">
+      <h3 class="text-sm font-semibold text-gray-800 truncate">
+        {{ user().firstName }} {{ user().lastName }}
+      </h3>
     </div>
 
-    <!-- Info del Usuario -->
-    <div class="flex-1 min-w-0">
-        <div class="flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-gray-800 truncate">
-                {{ user().firstName }} {{ user().lastName }}
-            </h3>
-        </div>
+    <!-- Metadata -->
+    <div class="flex items-center text-[11px] text-gray-400 mt-0.5">
+      <span class="material-symbols-outlined" style="font-size: 12px"> calendar_today </span>
 
-        <!-- Metadata -->
-        <div class="flex items-center text-[11px] text-gray-400 mt-0.5">
-            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            Registrado: {{ user().createdAt }}
-        </div>
+      Registrado: {{ user().createdAt }}
     </div>
+  </div>
 
-    <!-- Role Badge -->
-    <span [ngClass]="{
-          'bg-indigo-100 text-indigo-700': user().role === 'User',
-          'bg-green-100 text-green-600': user().role === 'Advisor'
-        }" class="text-[10px] px-2 py-0.5 rounded-full font-medium">
-        {{ user().role }}
-    </span>
+  <!-- Role Badge -->
+  <span
+    [ngClass]="{
+      'bg-indigo-100 text-indigo-700': user().role === 'User',
+      'bg-green-100 text-green-600': user().role === 'Advisor',
+    }"
+    class="text-[10px] px-2 py-0.5 rounded-full font-medium"
+  >
+    {{ user().role }}
+  </span>
 </div>
