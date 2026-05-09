@@ -29,7 +29,12 @@
     "@ngxs/store": "^21.0.0",
     "@ngxs/websocket-plugin": "21.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "ngx-socket-io": "^4.7.0",
+    "ngx-spinner": "^18.0.0",
+    "notyf": "^3.10.0",
+    "socket.io-client": "^4.8.1",
+    "tinymce": "^8.4.0"
   },
   "devDependencies": {
     "@angular/build": "^21.2.9",

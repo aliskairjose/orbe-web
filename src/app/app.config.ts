@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       withNgxsLoggerPlugin(),
       withNgxsRouterPlugin(),
       withNgxsStoragePlugin({ keys: [AuthStates] }),
-      withNgxsWebSocketPlugin({url: 'https://wss.orbeapp.net'}),
+      withNgxsWebSocketPlugin({url: API_SOCKET}),
     ),
   ],
 };
