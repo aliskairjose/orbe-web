@@ -1,10 +1,6 @@
 <div class="login-page">
-  <form [formGroup]="loginForm" (ngSubmit)="submit()" class="login-form" novalidate>
+  <form (submit)="onSubmit($event)" class="login-form" novalidate>
     <h1 class="form-title">Login</h1>
-
-    <div *ngIf="loginError()" class="error-banner" role="alert">
-      Invalid email or password.
-    </div>
 
     <div class="field">
       <label for="email">Email</label>
@@ -14,12 +10,16 @@
         formControlName="email"
         autocomplete="email"
         aria-describedby="email-error"
-        [class.invalid]="emailControl?.invalid && emailControl?.touched"
+        [formField]="form.email"
+        [class.invalid]="form.email().invalid() && form.email().touched()"
       />
-      <p *ngIf="emailControl?.touched && emailControl?.invalid" id="email-error" class="field-error">
-        <ng-container *ngIf="emailControl?.hasError('required')">Email is required.</ng-container>
-        <ng-container *ngIf="!emailControl?.hasError('required') && emailControl?.hasError('email')">Enter a valid email address.</ng-container>
-      </p>
+      @if (form.email().touched() && form.email().invalid()) {
+        <ul class="field-error">
+          @for (error of form.email().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
     </div>
 
     <div class="field">
@@ -30,15 +30,18 @@
         formControlName="password"
         autocomplete="current-password"
         aria-describedby="password-error"
-        [class.invalid]="passwordControl?.invalid && passwordControl?.touched"
+        [formField]="form.password"
+        [class.invalid]="form.password().invalid() && form.password().touched()"
       />
-      <p *ngIf="passwordControl?.touched && passwordControl?.hasError('required')" id="password-error" class="field-error">
-        Password is required.
-      </p>
+      @if (form.password().touched() && form.password().invalid()) {
+        <div class="field-error">
+          @for (error of form.password().errors(); track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
-    <button type="submit" [disabled]="loginForm.invalid">Log in</button>
-
-    <p class="hint">Use <strong>user@example.com</strong> / <strong>password123</strong></p>
+    <button type="submit" >Log in</button>
   </form>
 </div>
