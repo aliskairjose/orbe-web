@@ -1,0 +1,50 @@
+<div class="p-8 min-h-screen">
+	<div class="max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200">
+		<!-- Header & Tabs -->
+		<div class="border-b border-gray-200">
+			<div class="flex p-4 items-center justify-between">
+				<h2 class="text-xl font-bold text-gray-800">
+					<ng-content />
+				</h2>
+			</div>
+		</div>
+
+		<!-- Table Container -->
+		<div class="overflow-x-auto">
+			<table class="min-w-full divide-y divide-gray-200">
+				<thead class="bg-gray-50">
+					<tr>
+						@for (header of data().headers; track $index) {
+						<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+							{{ header }}
+						</th>
+						}
+					</tr>
+				</thead>
+				<tbody class="bg-white divide-y divide-gray-200">
+					@for (row of data().rows; track $index) {
+					<tr class="hover:bg-gray-50 transition-colors">
+						@for (cell of row; track $index) {
+						<td class="px-6 py-4 whitespace-nowrap text text-gray-600">
+							@switch (cell.type) {
+								@case ('text') {
+									{{ cell.label }}
+								}
+								@case ('date') {
+									{{ cell.label | date }}
+								}
+								@case ('badge') {
+									<span class="px-4 inline-flex text-xs leading-5 rounded bg-gray-100 text-gray-800 border border-gray-300">
+										{{ cell.label }}
+									</span>
+								}
+							}
+						</td>
+						}
+					</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
