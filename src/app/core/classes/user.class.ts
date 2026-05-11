@@ -1,25 +1,15 @@
-export class Advisor {
+import { DBUser } from './bduser.class';
+
+export class User extends DBUser {
   dbUser: IDBUser;
 
-  constructor(advisor: IDBUser) {
-    this.dbUser = advisor;
+  constructor(dbUser: IDBUser) {
+    super(dbUser);
+    this.dbUser = dbUser;
   }
 
-  public get advisor(): IAdvisor {
-    const { advisor,...rest } = this.dbUser;
-
-    return {...rest,...advisor };
-  }
-
-  public get user(): IUser{
-    const {
-        advisor,
-        rateAvg,
-        language,
-        bankAccount,
-        rateStats,
-        ...rest
-    } = this.dbUser;
+  public get profile(): IUser {
+    const { advisor, rateAvg, language, bankAccount, rateStats, ...rest } = this.dbUser;
 
     return rest;
   }

@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AppConfig } from '@core/classes/app.config';
-import { ERole } from '@core/enums';
-import { EApi } from '@core/enums/api.enum';
 import { Observable } from 'rxjs';
 
 @Injectable({

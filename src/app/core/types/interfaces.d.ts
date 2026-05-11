@@ -10,7 +10,7 @@ interface IBankAccount {
   type: string;
   number: string;
   bank: IBank;
-  user: Pick<IUser, 'name' | 'lastName' | 'avatar'>;
+  user: Pick<IUser, 'name' | 'lastName' | 'avatar' | 'email' >;
 }
 
 interface ICategory {
