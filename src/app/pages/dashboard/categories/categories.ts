@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { Table } from '@core/components';
-import { ITable } from '@core/components/table/interfaces/table';
 
 @Component({
   selector: 'app-categories',

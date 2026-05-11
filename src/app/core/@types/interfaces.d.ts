@@ -10,7 +10,7 @@ interface IBankAccount {
   type: string;
   number: string;
   bank: IBank;
-  user: Pick<IUser, "name" | "lastName" | "avatar">;
+  user: Pick<IUser, 'name' | 'lastName' | 'avatar'>;
 }
 
 interface ICategory {
@@ -19,7 +19,7 @@ interface ICategory {
   name: string;
   image?: string;
   createdAt: Date;
-  updatedAt: Date
+  updatedAt: Date;
 }
 
 interface IMessage {
@@ -46,7 +46,7 @@ interface IPlan {
   updatedAt: Date;
 }
 
-interface IRequestByAsesor{
+interface IRequestByAsesor {
   _id: string;
   totalRequests: number;
   accepted: number;
@@ -60,7 +60,6 @@ interface IRequestUser {
   lastName: string;
   email: string;
 }
-
 
 interface IUserSummary {
   roleSummary: IRoleSummary;
@@ -90,7 +89,6 @@ interface ITransaction {
   createdAt: Date;
 }
 
-
 interface IUser {
   _id: string;
   avatar: string;
@@ -99,7 +97,7 @@ interface IUser {
   email: string;
   role: ERole;
   dob: Date;
-  phone: string,
+  phone: string;
   country: string;
   language?: string[];
   isActive: boolean;
@@ -142,7 +140,7 @@ interface IWallet {
   updatedAt: Date;
 }
 
-interface ITotalUsers{
+interface ITotalUsers {
   totalUsers: number;
   totalAsesors: number;
   totalRegister: number;
@@ -157,4 +155,21 @@ interface IRateStats {
   reviews: number;
   threeStars: number;
   twoStars: number;
+}
+
+interface ITable {
+  headers: string[];
+  rows: Partial<ICell>[][];
+}
+
+interface ICell {
+  label: string;
+  type: 'text' | 'date' | 'number' | 'boolean' | 'currency' | 'badge';
+  action: Partial<IAction>;
+}
+
+interface IAction {
+  isEdit: boolean;
+  isDelete: boolean;
+  isDetail: boolean;
 }
