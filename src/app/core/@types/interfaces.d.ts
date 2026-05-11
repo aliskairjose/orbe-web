@@ -89,6 +89,34 @@ interface ITransaction {
   createdAt: Date;
 }
 
+interface RequestLogs {
+  status: string;
+  createdAt: Date;
+}
+interface IDBUser {
+  _id: string;
+  avatar: string;
+  name: string;
+  lastName: string;
+  email: string;
+  role: ERole;
+  dob: Date;
+  phone: string;
+  country: string;
+  language: string[];
+  isActive: boolean;
+  connectStatus: TConnectStatus;
+  status: EStatus;
+  socketId?: string;
+  lastConnect: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  wallet: IWallet;
+  rateAvg: number; // para el listado de asesores
+  advisor: IAdvisor;
+  bankAccount: IBankAccount;
+  rateStats?: IRateStats; //Para el detalle de asesor
+}
 interface IUser {
   _id: string;
   avatar: string;
@@ -99,26 +127,16 @@ interface IUser {
   dob: Date;
   phone: string;
   country: string;
-  language?: string[];
   isActive: boolean;
   connectStatus: TConnectStatus;
-  status?: EStatus;
+  status: EStatus;
   socketId?: string;
   lastConnect: Date;
   createdAt: Date;
   updatedAt: Date;
   wallet: IWallet;
-  rateAvg?: number; // para el listado de asesores
-  advisor?: IAdvisor;
-  bankAccount?: IBankAccount;
-  rateStats?: IRateStats; //Para el detalle de asesor
 }
-
-interface RequestLogs {
-  status: string;
-  createdAt: Date;
-}
-interface IAdvisor {
+interface IAdvisor extends IUser {
   alias: string;
   chatPrice: number;
   callPrice: number;
@@ -132,8 +150,11 @@ interface IAdvisor {
   dniType: string;
   videoIntro: string;
   videoIntroID: string;
+  bankAccount: IBankAccount;
+  language: string[];
+  rateAvg: number; // para el listado de asesores
+  rateStats?: IRateStats; //Para el detalle de asesor
 }
-
 interface IWallet {
   balance: number;
   createdAt: Date;
