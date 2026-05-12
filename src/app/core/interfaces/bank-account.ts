@@ -1,5 +1,5 @@
-import {  IBank } from "../../banks/interfaces/bank.interface";
-import { IUser } from "../../users/interfaces/user.interface";
+import { IBank } from "./bank";
+import { IUser } from "./user";
 
 export interface IBankAccount {
   _id: string;

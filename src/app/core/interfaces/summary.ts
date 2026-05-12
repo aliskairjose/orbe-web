@@ -1,4 +1,3 @@
-
 export interface IUserSummary {
   roleSummary: IRoleSummary;
   currentMonthRegisteredUsers: number;

@@ -1,5 +1,3 @@
-import { IUser } from "../../users/interfaces/user.interface";
-
 export interface ITransaction {
   _id: string;
   user: Partial<IUser>;
