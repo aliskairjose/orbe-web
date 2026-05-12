@@ -1,3 +1,4 @@
+export type { IDBUser } from './user';
 export type { IBank } from './bank';
 export type { IBankAccount } from './bank-account';
 export type { IUser, IAdvisor, IRateStats } from './user';

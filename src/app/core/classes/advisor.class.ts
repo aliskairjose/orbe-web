@@ -1,3 +1,4 @@
+import { IAdvisor, IDBUser } from '@core/interfaces/user';
 import { DBUser } from './bduser.class';
 
 export class Advisor extends DBUser {
