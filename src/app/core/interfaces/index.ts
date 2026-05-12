@@ -1,0 +1,12 @@
+export type { IDBUser } from './user';
+export type { IBank } from './bank';
+export type { IBankAccount } from './bank-account';
+export type { IUser, IAdvisor, IRateStats } from './user';
+export type { IMessage } from './message';
+export type { ICategory } from './category';
+export type { IPlan } from './plan';
+export type { IRoom } from './room';
+export type { IUserSummary, IRoleSummary } from './summary';
+export type { IWallet } from './wallet';
+export type { ITransaction } from './transaction';
+export type { IRequestByAsesor } from './request';
