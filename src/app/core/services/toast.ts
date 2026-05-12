@@ -13,10 +13,10 @@ export class ToastService {
    * @param {TToastType} [type='success']
    * @memberof Toast
    */
-  show(message: string, type = 'success'): void {
+  show(message: string, type = 'success', duration = 3000): void {
     console.log('Toast');
     this.notyf = new Notyf({
-      duration: 3000,
+      duration,
       ripple: true,
       dismissible: true,
       position: {
