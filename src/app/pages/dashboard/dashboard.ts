@@ -2,6 +2,10 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SIDE_MENU } from '@core/constants';
+import { AuthActions } from '../auth/store/auth.actions';
+import { Store } from '@ngxs/store';
+import { EMessage } from '@core/enums';
+import { ToastService } from '@core/services';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +14,9 @@ import { SIDE_MENU } from '@core/constants';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
+  private readonly toast = inject(ToastService);
   menu = SIDE_MENU;
   
   isSidebarOpen = signal(false);
@@ -41,5 +47,12 @@ export class Dashboard {
   updateRate(): void {
     // Simulate rate update
     this.rate.set(4000 + Math.floor(Math.random() * 1000));
+  }
+
+  logout(): void {
+    this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
+      this.toast.show(EMessage.GoodBye);
+      this.router.navigate([''])
+    });
   }
 }
