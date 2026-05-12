@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -16,7 +20,7 @@ import { httpInterceptor } from '@core/interceptors/http.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient( withInterceptors([httpInterceptor])),
+    provideHttpClient(withInterceptors([httpInterceptor])),
     provideRouter(routes),
     provideStore(
       [AuthStates],
@@ -26,7 +30,7 @@ export const appConfig: ApplicationConfig = {
       withNgxsLoggerPlugin(),
       withNgxsRouterPlugin(),
       withNgxsStoragePlugin({ keys: [AuthStates] }),
-      withNgxsWebSocketPlugin({url: API_SOCKET}),
+      withNgxsWebSocketPlugin({ url: API_SOCKET }),
     ),
   ],
 };

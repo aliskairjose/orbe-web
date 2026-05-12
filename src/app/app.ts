@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ApplicationRef, Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
+import { ApplicationRef, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Notyf } from 'notyf';
@@ -10,6 +10,7 @@ import { first } from 'rxjs';
   imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
   protected readonly title = signal('orbe-web');

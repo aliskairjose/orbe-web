@@ -43,7 +43,7 @@ export const SIDE_MENU: ISideMenu[] = [
     {
         label: 'Legal',
         icon: 'contract_edit',
-        path: 'legal'
+        path: 'legals'
     },
     {
         label: 'Paquetes',

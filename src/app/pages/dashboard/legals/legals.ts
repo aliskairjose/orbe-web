@@ -1,9 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { form, submit } from '@angular/forms/signals';
+import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { Legal } from './service/legal';
 import { ELegal } from '@core/enums';
 import { ILegal } from '@core/interfaces/legal';
-
 interface FormData {
   _id: string;
   content: string;
@@ -33,16 +32,17 @@ const faqModel = signal<FormData>({
 
 @Component({
   selector: 'app-legals',
-  imports: [],
+  imports: [FormRoot, FormField, ],
   templateUrl: './legals.html',
   styleUrl: './legals.css',
+  
 })
 export class Legals implements OnInit {
   legals = signal<ILegal[]>([]);
 
   protected readonly service = inject(Legal);
-
-  protected userpoliciesF = form(userPoliciesModel, {
+  
+  protected userPoliciesF = form(userPoliciesModel, {
     submission: {
       action: async (f) => {
         console.log(f().value());
@@ -58,7 +58,7 @@ export class Legals implements OnInit {
       },
     },
   });
-  protected policies = form(policiesModel, {
+  protected policiesF = form(policiesModel, {
     submission: {
       action: async (f) => {
         console.log(f().value());
