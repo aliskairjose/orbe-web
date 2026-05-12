@@ -3,9 +3,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { AuthActions } from '../store/auth.actions';
-import { ERoutes } from '@core/enums';
+import { EMessage, ERoutes } from '@core/enums';
 import { email, form, FormField, required } from '@angular/forms/signals';
 import { SocketService } from '../../../core/services/socket';
+import { ToastService } from '@core/services';
 
 interface LoginData {
   email: string;
@@ -24,6 +25,7 @@ const loginModel = signal<LoginData>({
 export class Login {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
+  private readonly toast = inject(ToastService);
   private readonly socket = inject (SocketService);
 
   form = form(loginModel, (schemaPath) => {
@@ -37,7 +39,7 @@ export class Login {
     const credentials = loginModel();
     this.store.dispatch(new AuthActions.Login(credentials)).subscribe(() => {
       this.socket.connect();
-      // this.#toastService.show(MessageEnum.Welcome);
+      this.toast.show(EMessage.Welcome);
       this.router.navigate([ERoutes.Dashboard]);
     });
   }
