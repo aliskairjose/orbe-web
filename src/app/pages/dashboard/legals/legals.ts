@@ -3,6 +3,7 @@ import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { Legal } from './service/legal';
 import { ELegal } from '@core/enums';
 import { ILegal } from '@core/interfaces/legal';
+
 interface FormData {
   _id: string;
   content: string;
@@ -32,7 +33,7 @@ const faqModel = signal<FormData>({
 
 @Component({
   selector: 'app-legals',
-  imports: [FormRoot, FormField, ],
+  imports: [FormRoot, FormField  ],
   templateUrl: './legals.html',
   styleUrl: './legals.css',
   
@@ -74,6 +75,7 @@ export class Legals implements OnInit {
       },
     },
   });
+
 
   ngOnInit(): void {
     this.lodaData();
