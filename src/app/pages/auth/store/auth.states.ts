@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs';
 import { AuthActions } from './auth.actions';
-import { Auth } from '../services/auth';
+import { Auth } from '../../../core/services/auth';
 import { AuthStateModel } from './auth.models';
 
 @State<AuthStateModel>({
@@ -39,15 +39,5 @@ export class AuthStates {
       })
     );
   }
-  // @Action(AuthActions.Register)
-  // register(ctx: StateContext<AuthStateModel>, action: AuthActions.Register) {
-  //   return this.#authService.register(action.payload).pipe(
-  //     tap(() => {
-  //       ctx.setState({
-  //         token: null,
-  //         user: null,
-  //       });
-  //     })
-  //   );
-  // }
+  
 }

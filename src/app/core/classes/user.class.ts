@@ -1,3 +1,4 @@
+import { IDBUser, IUser } from '@core/interfaces';
 import { DBUser } from './bduser.class';
 
 export class User extends DBUser {
@@ -10,7 +11,6 @@ export class User extends DBUser {
 
   public get profile(): IUser {
     const { advisor, rateAvg, language, bankAccount, rateStats, ...rest } = this.dbUser;
-
     return rest;
   }
 }

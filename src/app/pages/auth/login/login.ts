@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
 import { Store } from '@ngxs/store';
 import { AuthActions } from '../store/auth.actions';
 import { ERoutes } from '@core/enums';
 import { email, form, FormField, required } from '@angular/forms/signals';
+import { SocketService } from '../../../core/services/socket';
 
 interface LoginData {
   email: string;
@@ -23,9 +22,9 @@ const loginModel = signal<LoginData>({
   styleUrl: './login.css',
 })
 export class Login {
-  private readonly fb = inject(FormBuilder);
   private readonly store = inject(Store);
   private readonly router = inject(Router);
+  private readonly socket = inject (SocketService);
 
   form = form(loginModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
@@ -36,9 +35,8 @@ export class Login {
   onSubmit(event: Event) {
     event.preventDefault();
     const credentials = loginModel();
-    console.log('Logging in with:', credentials);
     this.store.dispatch(new AuthActions.Login(credentials)).subscribe(() => {
-      // this.#socketService.connect();
+      this.socket.connect();
       // this.#toastService.show(MessageEnum.Welcome);
       this.router.navigate([ERoutes.Dashboard]);
     });
