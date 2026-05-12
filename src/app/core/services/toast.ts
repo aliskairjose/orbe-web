@@ -14,6 +14,7 @@ export class ToastService {
    * @memberof Toast
    */
   show(message: string, type = 'success'): void {
+    console.log('Toast');
     this.notyf = new Notyf({
       duration: 3000,
       ripple: true,

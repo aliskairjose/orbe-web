@@ -10,17 +10,19 @@ import { withNgxsWebSocketPlugin } from '@ngxs/websocket-plugin';
 import { provideStore } from '@ngxs/store';
 import { environment } from '@envs/environment.development';
 import { AuthStates } from './pages/auth/store/auth.states';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { httpInterceptor } from '@core/interceptors/http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient( withInterceptors([httpInterceptor])),
     provideRouter(routes),
     provideStore(
       [AuthStates],
       {
         developmentMode: !environment.production,
       },
-      withNgxsFormPlugin(),
       withNgxsLoggerPlugin(),
       withNgxsRouterPlugin(),
       withNgxsStoragePlugin({ keys: [AuthStates] }),

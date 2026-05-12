@@ -14,7 +14,7 @@ import { first } from 'rxjs';
 export class App {
   protected readonly title = signal('orbe-web');
   protected readonly router = inject(Router);
-  protected readonly notyf: Notyf | null = null;
+  protected notyf: Notyf | null = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {

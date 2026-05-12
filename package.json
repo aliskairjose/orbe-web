@@ -20,7 +20,6 @@
     "@angular/core": "^21.2.0",
     "@angular/forms": "^21.2.0",
     "@angular/material": "^21.2.10",
-    "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@ngxs/form-plugin": "21.0.0",
     "@ngxs/logger-plugin": "21.0.0",

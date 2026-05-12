@@ -19,16 +19,14 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "scripts": [
-              "node_modules/flyonui/flyonui.js"
-            ],
+            "scripts": ["node_modules/flyonui/flyonui.js", "./node_modules/notyf/notyf.min.js"],
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": ["src/styles.css", "./node_modules/notyf/notyf.min.css"]
           },
           "configurations": {
             "production": {
@@ -63,7 +61,7 @@
                 }
               ],
               "define": {
-                "API_URL": "'http://localhost:3000'",
+                "API_URL": "'https://api.orbeapp.net'",
                 "API_SOCKET": "'https://wss.orbeapp.net'",
                 "ENV": "'development'",
                 "APP_VERSION": "'1.0.0'"
