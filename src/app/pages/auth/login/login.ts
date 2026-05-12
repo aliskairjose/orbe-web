@@ -1,8 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
 import { Store } from '@ngxs/store';
 import { AuthActions } from '../store/auth.actions';
 import { ERoutes } from '@core/enums';

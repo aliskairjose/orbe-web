@@ -5,7 +5,7 @@
       <h2 class="text-xl font-medium text-gray-800">Consumo de llamadas 2025</h2>
       <p class="text-sm text-gray-500">En minutos</p>
     </div>
-    
+
     <!-- Leyenda -->
     <div class="flex gap-4 text-xs font-medium">
       <div class="flex items-center gap-1.5">
@@ -16,25 +16,22 @@
 
   <!-- Contenedor del Gráfico -->
   <div class="relative h-72 flex items-end justify-between gap-2 px-2 border-b border-gray-200">
-    
+
     <!-- Líneas de referencia de fondo -->
     <div class="absolute inset-0 flex flex-col justify-between z-0 pointer-events-none">
-      <div class="w-full border-t border-gray-100 h-0"></div>
-      <div class="w-full border-t border-gray-100 h-0"></div>
-      <div class="w-full border-t border-gray-100 h-0"></div>
-      <div class="w-full border-t border-gray-100 h-0"></div>
+      <div class="w-full border-t border-gray-200 h-0"></div>
     </div>
 
     <!-- Barras -->
-     @for (item of stats; track $index) {
-      <div class="flex-1 flex flex-col items-center group relative z-10">
-      
+    @for (item of stats; track $index) {
+    <div class="flex-1 flex flex-col items-center group relative z-10">
+
       <div class="flex items-end gap-1 w-full justify-center h-64">
         <!-- Barra Llamadas -->
-        <div 
-          [style.height.%]="item.calls"
+        <div [style.height.%]="item.calls"
           class="w-3 md:w-5 bg-cyan-400 rounded-t-sm transition-all duration-300 hover:bg-cyan-500 relative">
-          <span class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
+          <span
+            class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
             {{item.calls}} minutos
           </span>
         </div>
@@ -45,7 +42,7 @@
         {{ item.month }}
       </span>
     </div>
-     }
-    
+    }
+
   </div>
 </div>

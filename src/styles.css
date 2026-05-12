@@ -3,6 +3,7 @@
 @plugin "flyonui";
 @import "flyonui/variants.css";
 @source "../node_modules/flyonui/flyonui.js"; 
+@import "flyonui/src/vendor/notyf.css";
 
 /* Import Third-party override css */
 /* @import "flyonui/src/vendor/flatpickr.css"; */

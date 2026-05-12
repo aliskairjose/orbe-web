@@ -37,7 +37,7 @@ export const SIDE_MENU: ISideMenu[] = [
     },
     {
         label: 'Cuentas Bancarias',
-        icon: 'account_balance',
+        icon: 'account_balance_wallet',
         path: 'bank-accounts'
     },
     {
