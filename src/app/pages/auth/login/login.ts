@@ -1,10 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { AuthActions } from '../store/auth.actions';
 import { EMessage, ERoutes } from '@core/enums';
-import { email, form, FormField, FormRoot, required, submit } from '@angular/forms/signals';
+import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { SocketService } from '../../../core/services/socket';
 import { ToastService } from '@core/services';
 
