@@ -12,12 +12,12 @@ import { IResponse } from '@core/interfaces/response';
 })
 export class Banks  {
   private readonly url = `${API_URL}/v1/bank`;
+  protected search = model<string>('');
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
   protected limit = signal(5);
   protected page = signal(2);
-  protected search = model<string>('');
 
   resource = httpResource<IResponse<IBank>>(
     () => `${this.url}?limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
