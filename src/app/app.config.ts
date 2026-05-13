@@ -27,8 +27,8 @@ export const appConfig: ApplicationConfig = {
       {
         developmentMode: !environment.production,
       },
-      withNgxsLoggerPlugin(),
-      withNgxsRouterPlugin(),
+      // withNgxsLoggerPlugin(),
+      // withNgxsRouterPlugin(),
       withNgxsStoragePlugin({ keys: [AuthStates] }),
       withNgxsWebSocketPlugin({ url: API_SOCKET }),
     ),

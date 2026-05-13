@@ -1,4 +1,26 @@
-
-<app-table [data]="dataTable()">
-    Categorías
-</app-table>
+<div>
+  <div class="flex gap-4 items-center w-full border-b border-gray-200 mb-6 pb-2">
+    <div class="w-72">
+      <input type="text" placeholder="Buscar..." class="input" id="labelAndHelperText" [(ngModel)]="search"/>
+    </div>
+    <div class="w-20">
+      <select class="select" name="" id="pagination" (change)="onPageChange($event.target)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20" selected>20</option>
+      </select>
+    </div>
+  </div>
+  @if (resource.hasValue()) {
+    <ul>
+      @for (item of resource.value()!.results; track $index) {
+        <li>{{ item.name }}</li>
+      }
+    </ul>
+  } @else if (resource.error()) {
+    <p class="font-semibold">Ha ocurrido un error</p>
+  } @else if (resource.isLoading()) {
+    <p>Loading data...</p>
+  }
+</div>

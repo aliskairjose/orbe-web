@@ -1,35 +1,36 @@
-import { Component, signal } from '@angular/core';
-import { Table } from '@core/components';
-import { ITable } from '@core/components/table/interfaces/table';
+import { httpResource } from '@angular/common/http';
+import { Component, model, signal, effect, computed } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ICategory } from '@core/interfaces';
+import { IResponse } from '@core/interfaces/response.';
 
 @Component({
   selector: 'app-categories',
-  imports: [Table],
+  imports: [FormsModule],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
 export class Categories {
-  dataTable = signal<ITable>({
-    headers: ['Nombre', 'Activo', 'Fecha', ' Ult. Act.'],
-    rows: [
-      [
-        {
-          label: 'Paquete 1',
-          type: 'text',
-        },
-        {
-          label: 'Sí',
-          type: 'badge',
-        },
-        {
-          label: '2024-01-01',
-          type: 'date',
-        },
-        {
-          label: '2024-01-10',
-          type: 'date',
-        },
-      ],
-    ],
-  });
+  private readonly url = `${API_URL}/v1/categories`;
+
+  protected limit = signal(20);
+  protected page = signal(1);
+  protected search = model<string>('');
+
+
+  resource = httpResource<IResponse<ICategory>>(
+    () => `${this.url}?limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
+  );
+
+  onPageChange({ value }: any): void {
+    this.limit.set(value);
+  }
+
+  nextPage(value: any): void {
+    this.page.set(value);
+  }
+
+  prevPage(value: any): void {
+    this.page.set(value);
+  }
 }
