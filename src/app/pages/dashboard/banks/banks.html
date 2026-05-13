@@ -100,22 +100,24 @@
       </div>
     </div>
   </div>
-  <div
+ <div
     class="border-base-content/25 flex items-center justify-between gap-3 border-t p-3 max-md:flex-wrap max-md:justify-center"
   >
     <div class="text-sm text-base-content/80">
       Mostrando
-      <span></span>
-      to
-      <span></span>
+      <span>{{ fromPage() }}</span>
+      a
+      <span>{{ toPage() }}</span>
+
       de
-      <span></span>
-      bancos
+      <span>{{ resource.value()?.metadata?.totalRecords }}</span>
+      registros
     </div>
     <div class="md:flex hidden items-center space-x-1">
       <button
         type="button"
         class="btn btn-text btn-circle btn-sm"
+        [disabled]="page() === 1"
         (click)="goTopage(page() - 1)"
       >
         <span class="icon-[tabler--chevrons-left] size-4.5 rtl:rotate-180"></span>
@@ -125,6 +127,7 @@
       <button
         type="button"
         class="btn btn-text btn-circle btn-sm"
+        [disabled]="page() === resource.value()?.metadata?.totalPages"
         (click)="goTopage(page() + 1)"
       >
         <span class="sr-only">Next</span>

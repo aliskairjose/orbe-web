@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, model, signal, effect, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ITEM_PER_PAGE } from '@core/constants';
 import { ICategory } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 
@@ -17,7 +18,7 @@ export class Categories {
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
 
-  protected limit = signal(5);
+  protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
   protected search = model<string>('');
 
@@ -28,12 +29,11 @@ export class Categories {
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;
   });
-  
+
   toPage = computed(() => {
-    if (this.resource.value()?.metadata) {
-      return this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength;
-    }
-    return 0;
+    return this.resource.value()?.metadata
+      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
+      : 0;
   });
 
   onPageChange({ value }: any): void {
