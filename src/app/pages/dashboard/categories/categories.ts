@@ -39,6 +39,7 @@ export class Categories {
   onPageChange({ value }: any): void {
     this.selected = value;
     this.limit.set(value);
+    this.page.set(1);
   }
 
   goTopage(page: number): void {
