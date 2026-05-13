@@ -33,16 +33,15 @@ const faqModel = signal<FormData>({
 
 @Component({
   selector: 'app-legals',
-  imports: [FormRoot, FormField  ],
+  imports: [FormRoot, FormField],
   templateUrl: './legals.html',
   styleUrl: './legals.css',
-  
 })
 export class Legals implements OnInit {
   legals = signal<ILegal[]>([]);
 
   protected readonly service = inject(Legal);
-  
+
   protected userPoliciesF = form(userPoliciesModel, {
     submission: {
       action: async (f) => {

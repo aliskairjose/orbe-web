@@ -19,14 +19,23 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "scripts": ["node_modules/flyonui/flyonui.js", "./node_modules/notyf/notyf.min.js"],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/notyf/notyf.min.js",
+              "node_modules/datatables.net/js/dataTables.min.js",
+              "node_modules/flyonui/flyonui.js"
+            ],
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css", "./node_modules/notyf/notyf.min.css"]
+            "styles": [
+              "src/styles.css",
+              "node_modules/notyf/notyf.min.css",
+              "node_modules/flyonui/src/vendor/datatables.css"
+            ]
           },
           "configurations": {
             "production": {

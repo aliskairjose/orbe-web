@@ -1,4 +1,5 @@
 import type { IStaticMethods } from "flyonui/flyonui";
+import { Editor } from 'ngx-editor';
 
 declare global {
   interface Window {
@@ -11,6 +12,7 @@ declare global {
 
     // FlyonUI
     HSStaticMethods: IStaticMethods;
+    // Editor: typeof Editor;
   }
 }
 
