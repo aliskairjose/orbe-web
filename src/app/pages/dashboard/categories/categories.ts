@@ -26,11 +26,7 @@ export class Categories {
     this.limit.set(value);
   }
 
-  nextPage(value: any): void {
-    this.page.set(value);
-  }
-
-  prevPage(value: any): void {
-    this.page.set(value);
+  nextPrevPage(page: number):void{
+    this.page.set(page);
   }
 }
