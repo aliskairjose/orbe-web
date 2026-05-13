@@ -7,7 +7,7 @@ export interface IResponse<T> {
 
 export interface IMetadata {
   itemPerPage: number;
-  resultLength: number;
+  resultsLength: number;
   totalRecords: number;
   currentPage: number;
   totalPages: number;

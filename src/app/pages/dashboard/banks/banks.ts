@@ -2,7 +2,7 @@ import { httpResource } from '@angular/common/http';
 import {  Component, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IBank } from '@core/interfaces';
-import { IResponse } from '@core/interfaces/response.';
+import { IResponse } from '@core/interfaces/response';
 
 @Component({
   selector: 'app-banks',

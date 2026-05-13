@@ -106,12 +106,13 @@
   >
     <div class="text-sm text-base-content/80">
       Mostrando
-      <span></span>
-      to
-      <span></span>
+      <span>{{ fromPage() }}</span>
+      a
+      <span>{{ toPage() }}</span>
+
       de
-      <span></span>
-      bancos
+      <span>{{ resource.value()?.metadata?.totalRecords }}</span>
+      registros
     </div>
     <div class="md:flex hidden items-center space-x-1">
       <button
