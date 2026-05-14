@@ -2,12 +2,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { ApplicationRef, Component, CUSTOM_ELEMENTS_SCHEMA, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { Notyf } from 'notyf';
 import { first } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NgxSpinnerModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
