@@ -1,7 +1,7 @@
-import { TConnectStatus } from "@core/types";
-import { IWallet } from "./wallet";
-import { ERole, EStatus } from "@core/enums";
-import { IBankAccount } from "./bank-account";
+import { TConnectStatus } from '@core/types';
+import { IWallet } from './wallet';
+import { ERole, EStatus } from '@core/enums';
+import { IBankAccount } from './bank-account';
 
 export interface IDBUser {
   _id: string;
@@ -27,7 +27,8 @@ export interface IDBUser {
   bankAccount: IBankAccount;
   rateStats?: IRateStats; //Para el detalle de asesor
 }
-export interface IUser {
+
+export interface IUserBase {
   _id: string;
   avatar: string;
   name: string;
@@ -39,14 +40,23 @@ export interface IUser {
   country: string;
   isActive: boolean;
   connectStatus: TConnectStatus;
-  status: EStatus;
-  socketId?: string;
+  termAndCond: boolean;
   lastConnect: Date;
   createdAt: Date;
   updatedAt: Date;
+  deviceToken: string;
   wallet: IWallet;
 }
-export interface IAdvisor extends IUser {
+
+export interface IUser extends IUserBase {}
+export interface IAdvisor extends IUserBase {
+  advisor: IProfile;
+  rateAvg: number; // para el listado de asesores
+  rateStats?: IRateStats; //Para el detalle de asesor
+  bankAccount?: IBankAccount;
+}
+
+interface IProfile {
   alias: string;
   chatPrice: number;
   callPrice: number;
@@ -60,13 +70,9 @@ export interface IAdvisor extends IUser {
   dniType: string;
   videoIntro: string;
   videoIntroID: string;
-  bankAccount: IBankAccount;
-  language: string[];
-  rateAvg: number; // para el listado de asesores
-  rateStats?: IRateStats; //Para el detalle de asesor
 }
 
-export interface ITotalUsers{
+export interface ITotalUsers {
   totalUsers: number;
   totalAsesors: number;
   totalRegister: number;

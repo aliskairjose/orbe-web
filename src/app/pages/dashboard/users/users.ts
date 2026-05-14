@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AdvisorList, UserList } from '@core/components';
 
 export interface User {
   firstName: string;
@@ -10,7 +11,7 @@ export interface User {
 }
 @Component({
   selector: 'app-users',
-  imports: [CommonModule],
+  imports: [CommonModule, UserList, AdvisorList],
   templateUrl: './users.html',
   styleUrl: './users.css',
 })
