@@ -1,15 +1,19 @@
+import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, model, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IDBUser, IResponse, IUser } from '@core/interfaces';
 
 @Component({
   selector: 'app-user-list',
-  imports: [],
+  imports: [DatePipe, FormsModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
 export class UserList {
+  protected headers: string[] = ['Usuario', 'Email', 'Status', 'Usuario desde', 'Última conexión'];
+
   private readonly url = `${API_URL}/v1/users`;
 
   protected readonly itemsPerPage = [5, 10, 15, 20];

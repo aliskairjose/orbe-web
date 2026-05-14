@@ -1,3 +1,4 @@
+export type { IRateExchange } from './rate-exchange';
 export type { IResponse } from './response';
 export type { IDBUser } from './user';
 export type { IBank } from './bank';

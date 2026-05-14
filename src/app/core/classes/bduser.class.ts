@@ -1,4 +1,3 @@
-import { IAdvisor, IUser } from '@core/interfaces';
 import { IUserBase } from '@core/interfaces/user';
 
 export abstract class DBUser<T extends IUserBase> {

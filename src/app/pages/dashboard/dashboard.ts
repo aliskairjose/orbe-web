@@ -6,24 +6,42 @@ import { AuthActions } from '../auth/store/auth.actions';
 import { Store } from '@ngxs/store';
 import { EMessage } from '@core/enums';
 import { ToastService } from '@core/services';
+import { form, FormField, FormRoot } from '@angular/forms/signals';
+import { httpResource } from '@angular/common/http';
+import { IRateExchange } from '@core/interfaces';
 
+interface RateFormData {
+  rate: number;
+}
+const rateFormModel = signal({
+  rate: 0,
+});
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLinkActive, RouterLink, CurrencyPipe],
+  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  private readonly url = `${API_URL}/v1`;
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
-  menu = SIDE_MENU;
   
+  rateResource = httpResource<IRateExchange[]>(()=>`${this.url}/rate-exchange`);
+  
+  protected form = form(rateFormModel, {
+    submission: {
+      action: async (f) => console.log(f().value()),
+    },
+  });
+
+  menu = SIDE_MENU;
+
   isSidebarOpen = signal(false);
   isSubBarOpen = signal(false);
-  
+
   user = signal({ name: 'Admin User', avatar: 'https://i.pravatar.cc/150?u=admin' });
-  rate = signal<number>(3800);
 
   constructor() {
     this.router.events.subscribe((event) => {
@@ -44,15 +62,10 @@ export class Dashboard {
     this.isSubBarOpen.update((isOpen) => !isOpen);
   }
 
-  updateRate(): void {
-    // Simulate rate update
-    this.rate.set(4000 + Math.floor(Math.random() * 1000));
-  }
-
   logout(): void {
     this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
       this.toast.show(EMessage.GoodBye);
-      this.router.navigate([''])
+      this.router.navigate(['']);
     });
   }
 }
