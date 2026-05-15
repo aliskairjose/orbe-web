@@ -33,7 +33,7 @@
   <section class="grid grid-cols-1 gap-6 xl:grid-cols-3">
     <div class="space-y-6">
       <div
-        class="max-w-sm flex flex-col gap-3 p-4 bg-gray-50 rounded-xl h-80 overflow-y-auto shadow-sm"
+        class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
       >
         <h3 class="text-xl font-semibold text-gray-800">Nuevos Registros</h3>
         <!-- Card Loop -->
@@ -44,7 +44,7 @@
         }
       </div>
       <div
-        class="max-w-sm flex flex-col gap-3 p-4 bg-gray-50 rounded-xl h-80 overflow-y-auto shadow-sm"
+        class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
       >
         <h3 class="text-xl font-semibold text-gray-800">Postulados</h3>
         <!-- Card Loop -->
@@ -55,7 +55,7 @@
         }
       </div>
       <div
-        class="max-w-sm flex flex-col gap-3 p-4 bg-gray-50 rounded-xl h-80 overflow-y-auto shadow-sm"
+        class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
       >
         <h3 class="text-xl font-semibold text-gray-800">Top 10</h3>
         <!-- Card Loop -->
@@ -66,27 +66,21 @@
         }
       </div>
     </div>
-    <div class="bg-gray-50 rounded-xl col-span-2 shadow-sm p-6 ">
-      <app-request-month />
+    <div class="bg-white rounded-xl col-span-2 shadow-sm p-6">
       <div class="my-6"></div>
       <app-annual-user-register />
       <div class="my-6"></div>
-    <!-- <app-annual-time-chart /> -->
-
+      <app-annual-request-service-chart />
     </div>
   </section>
 
   <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
     <app-user-status-pie-chart />
     <app-role-distribution />
+    <app-request-month />
   </section>
 
   <section>
     <app-annual-time-chart />
-  </section>
-
-  <!-- Consulta anual -->
-  <section>
-    <app-annual-request-service-chart />
   </section>
 </div>
