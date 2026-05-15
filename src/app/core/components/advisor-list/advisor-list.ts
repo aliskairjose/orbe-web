@@ -2,12 +2,13 @@ import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, IDBUser, IResponse, IUser } from '@core/interfaces';
 
 @Component({
   selector: 'app-advisor-list',
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, FormsModule, RouterLink],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })

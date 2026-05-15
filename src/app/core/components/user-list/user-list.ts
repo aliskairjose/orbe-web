@@ -2,12 +2,13 @@ import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IDBUser, IResponse, IUser } from '@core/interfaces';
 
 @Component({
   selector: 'app-user-list',
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, FormsModule, RouterLink],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })

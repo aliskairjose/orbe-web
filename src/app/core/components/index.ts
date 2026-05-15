@@ -1,6 +1,7 @@
+export { RequestMonth } from "./request-month/request-month";
+export { RoleDistribution } from "./role-distribution/role-distribution";
 export { AdvisorList } from "./advisor-list/advisor-list";
 export { UserList } from "./user-list/user-list";
-
 export { Table } from "./table/table";
 export { MonthlyChart } from "./monthly-chart/monthly-chart";
 export { UsersCircularChart } from "./users-circular-chart/users-circular-chart";
