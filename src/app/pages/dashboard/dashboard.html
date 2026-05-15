@@ -21,7 +21,7 @@
       </button>
     </div>
 
-    <nav aria-label="Main dashboard navigation" class="mt-6 px-4 space-y-2">
+    <nav aria-label="Main dashboard navigation" class="mt-6 px-4 space-y-2 h-screen">
       @for (m of menu; track $index) {
         <a
           [routerLink]="m.path"
@@ -33,7 +33,7 @@
           <span class="text-sm">{{ m.label }}</span>
         </a>
       }
-      <button class="btn btn-error" (click)="logout()">
+      <button class="btn btn-error relative" (click)="logout()">
         <span class="material-symbols-outlined"> logout </span>
         Cerrar sesión
       </button>

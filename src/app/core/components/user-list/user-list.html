@@ -101,17 +101,12 @@
     </div>
   </div>
   <div
-    class="border-base-content/25 flex items-center justify-between gap-3 border-t p-3 max-md:flex-wrap max-md:justify-center"
+    class="border-base-content/25 flex items-center gap-3 border-t p-3 max-md:flex-wrap max-md:justify-center"
   >
     <div class="text-sm text-base-content/80">
-      Mostrando
-      <span>{{ fromPage() }}</span>
-      a
-      <span>{{ toPage() }}</span>
-
-      de
-      <span>{{ resource.value()?.metadata?.totalRecords }}</span>
-      registros
+      <span>Mostrando {{ fromPage() }} </span>
+      <span> a {{ toPage() }} </span>
+      <span> de {{ resource.value()?.metadata?.totalRecords }} registros </span>
     </div>
     <div class="md:flex hidden items-center space-x-1">
       <button
