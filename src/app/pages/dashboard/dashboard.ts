@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SIDE_MENU } from '@core/constants';
 import { AuthActions } from '../auth/store/auth.actions';
@@ -9,12 +9,18 @@ import { ToastService } from '@core/services';
 import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { httpResource } from '@angular/common/http';
 import { IRateExchange } from '@core/interfaces';
+import { HSOverlay } from 'flyonui/flyonui';
+import { DashboardService } from '@core/services/dashboard';
+import { z } from 'zod';
 
 interface RateFormData {
   rate: number;
 }
-const rateFormModel = signal({
+const rateFormModel = signal<RateFormData>({
   rate: 0,
+});
+const RateSchema = z.object({
+  rate: z.number(),
 });
 @Component({
   selector: 'app-dashboard',
@@ -27,21 +33,23 @@ export class Dashboard {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
-  
-  rateResource = httpResource<IRateExchange[]>(()=>`${this.url}/rate-exchange`);
-  
+  private readonly service = inject(DashboardService);
+  private document = inject(DOCUMENT);
+
+  protected rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
+    parse: (raw: any) => raw[0],
+  });
+
   protected form = form(rateFormModel, {
     submission: {
-      action: async (f) => console.log(f().value()),
+      action: async (f) => this.updateRate(f().value()),
     },
   });
 
-  menu = SIDE_MENU;
-
-  isSidebarOpen = signal(false);
-  isSubBarOpen = signal(false);
-
-  user = signal({ name: 'Admin User', avatar: 'https://i.pravatar.cc/150?u=admin' });
+  protected menu = SIDE_MENU;
+  protected isSidebarOpen = signal(false);
+  protected isSubBarOpen = signal(false);
+  protected user = signal({ name: 'Admin User', avatar: 'https://i.pravatar.cc/150?u=admin' });
 
   constructor() {
     this.router.events.subscribe((event) => {
@@ -67,5 +75,22 @@ export class Dashboard {
       this.toast.show(EMessage.GoodBye);
       this.router.navigate(['']);
     });
+  }
+
+  openRateModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
+    modal.open();
+  }
+
+  closeRateModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
+    modal.close();
+  }
+
+  private updateRate(f: RateFormData): void {
+    console.log(`Update Rate: ${f.rate}`);
+    this.service
+      .updateRate(this.rateResource.value()!._id, f.rate)
+      .subscribe((_) => window.location.reload());
   }
 }

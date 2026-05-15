@@ -69,20 +69,15 @@
       </div>
       <div class="hidden md:flex items-center space-x-4 mr-4">
         <div class="flex flex-row items-center gap-x-4">
-          @for (rate of rateResource.value(); track $index) {
-            <span
-              class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:text-gray-700 transition-colors button"
-              aria-haspopup="dialog"
-              aria-expanded="false"
-              aria-controls="rate-modal"
-              data-overlay="#rate-modal"
-            >
-              Tasa: {{ rate?.currentRate | currency }}
-              <span class="material-symbols-outlined" style="font-size: 20px">
-                currency_exchange
-              </span>
+          <span
+            class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:text-gray-700 transition-colors button"
+            (click)="openRateModal()"
+          >
+            Tasa: {{ rateResource.value()?.currentRate | currency }}
+            <span class="material-symbols-outlined" style="font-size: 20px">
+              currency_exchange
             </span>
-          }
+          </span>
 
           <div class="avatar">
             <div class="size-10 rounded-full">
@@ -99,18 +94,13 @@
       [class.hidden]="!isSubBarOpen()"
       class="flex items-center justify-between px-6 h-16 border-b border-gray-200 shadow md:mx-6 md:hidden"
     >
-      @for (rate of rateResource.value(); track $index) {
-        <span
-          class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:text-gray-700 transition-colors button"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-          aria-controls="rate-modal"
-          data-overlay="#rate-modal"
-        >
-          Tasa: {{ rate?.currentRate | currency }}
-          <span class="material-symbols-outlined" style="font-size: 20px"> currency_exchange </span>
-        </span>
-      }
+      <span
+        class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:text-gray-700 transition-colors button"
+        (click)="openRateModal()"
+      >
+        Tasa: {{ rateResource.value()?.currentRate | currency }}
+        <span class="material-symbols-outlined" style="font-size: 20px"> currency_exchange </span>
+      </span>
       <div class="relative shrink-0">
         <img
           [src]="user().avatar"
@@ -143,8 +133,7 @@
           <button
             type="button"
             class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-            aria-label="Close"
-            data-overlay="#rate-modal"
+            (click)="closeRateModal()"
           >
             <span class="icon-[tabler--x] size-4"></span>
           </button>
@@ -167,7 +156,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" data-overlay="#rate-modal">
+          <button type="button" class="btn btn-soft btn-secondary" (click)="closeRateModal()">
             Close
           </button>
           <button type="submit" class="btn btn-primary">Actualizar</button>
