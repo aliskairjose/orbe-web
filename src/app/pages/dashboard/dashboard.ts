@@ -42,7 +42,7 @@ export class Dashboard {
 
   protected form = form(rateFormModel, {
     submission: {
-      action: async (f) => this.updateRate(f().value()),
+      action: async (f) => this.updateRate(this.rateResource.value()!._id, f().value()),
     },
   });
 
@@ -87,10 +87,7 @@ export class Dashboard {
     modal.close();
   }
 
-  private updateRate(f: RateFormData): void {
-    console.log(`Update Rate: ${f.rate}`);
-    this.service
-      .updateRate(this.rateResource.value()!._id, f.rate)
-      .subscribe((_) => window.location.reload());
+  private updateRate(id: string, f: RateFormData): void {
+    this.service.updateRate(id, f.rate).subscribe((_) => window.location.reload());
   }
 }
