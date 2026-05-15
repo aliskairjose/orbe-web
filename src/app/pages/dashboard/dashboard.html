@@ -150,9 +150,15 @@
                 id="rate"
                 [formField]="form.rate"
               />
+
               <label class="sr-only" for="rate">Ingresa tasa</label>
               <span class="label-text my-auto">COP</span>
             </div>
+            @if (form.rate().touched() && form.rate().invalid()) {
+              @for (error of form.rate().errors(); track error) {
+                <span class="text-sm text-red-500">{{ error.message }}</span>
+              }
+            }
           </div>
         </div>
         <div class="modal-footer">

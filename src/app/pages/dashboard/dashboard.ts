@@ -1,12 +1,12 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, DOCUMENT, inject, signal } from '@angular/core';
+import {  Component, DOCUMENT, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SIDE_MENU } from '@core/constants';
 import { AuthActions } from '../auth/store/auth.actions';
 import { Store } from '@ngxs/store';
 import { EMessage } from '@core/enums';
 import { ToastService } from '@core/services';
-import { form, FormField, FormRoot } from '@angular/forms/signals';
+import { form, FormField, FormRoot, min, required } from '@angular/forms/signals';
 import { httpResource } from '@angular/common/http';
 import { IRateExchange } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
@@ -36,15 +36,22 @@ export class Dashboard {
   private readonly service = inject(DashboardService);
   private document = inject(DOCUMENT);
 
-  protected rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
+  protected readonly rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
     parse: (raw: any) => raw[0],
   });
 
-  protected form = form(rateFormModel, {
-    submission: {
-      action: async (f) => this.updateRate(this.rateResource.value()!._id, f().value()),
+  protected form = form(
+    rateFormModel,
+    (validator) => {
+      min(validator.rate, 1, { message: 'El valor no puede ser cero' });
+      required(validator.rate, { message: 'El campo es obligatorio' });
     },
-  });
+    {
+      submission: {
+        action: async (f) => this.updateRate(this.rateResource.value()!._id, f().value()),
+      },
+    },
+  );
 
   protected menu = SIDE_MENU;
   protected isSidebarOpen = signal(false);
