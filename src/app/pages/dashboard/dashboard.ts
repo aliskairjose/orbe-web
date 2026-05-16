@@ -12,6 +12,7 @@ import { IRateExchange } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
 import { DashboardService } from '@core/services/dashboard';
 import { z } from 'zod';
+import { AuthSelectors } from '../auth/store/auth.selectors';
 
 interface RateFormData {
   rate: number;
@@ -56,7 +57,7 @@ export class Dashboard {
   protected menu = SIDE_MENU;
   protected isSidebarOpen = signal(false);
   protected isSubBarOpen = signal(false);
-  protected user = signal({ name: 'Admin User', avatar: 'https://i.pravatar.cc/150?u=admin' });
+  protected userLogged =  this.store.selectSnapshot(AuthSelectors.userLogged)
 
   constructor() {
     this.router.events.subscribe((event) => {
@@ -67,6 +68,7 @@ export class Dashboard {
         this.isSubBarOpen.set(false);
       }
     });
+
   }
 
   toggleSidebar() {
