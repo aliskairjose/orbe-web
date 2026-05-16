@@ -11,7 +11,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { IUser } from '@core/interfaces';
+import { IUser, IUserSummary } from '@core/interfaces';
 interface Metric {
   label: string;
   value: string;
@@ -84,6 +84,8 @@ export class Home {
     },
   ];
 
+
+  summary = httpResource<IUserSummary>(()=>`${this.url}dashboard/users/summary`);
   newReg = httpResource<IUser[]>(()=>`${this.url}dashboard/new-registrations`);
   top = httpResource<IUser[]>(()=>`${this.url}dashboard/top-rated-advisors`);
   postulate = httpResource<IUser[]>(()=>`${this.url}dashboard/nominated-advisors`);

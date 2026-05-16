@@ -1,4 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
+import { IUserSummary } from '@core/interfaces';
 
 interface RoleCount {
   role: 'User' | 'Advisor';
@@ -12,16 +13,17 @@ interface RoleCount {
   styleUrl: './role-distribution.css',
 })
 export class RoleDistribution {
+  summary = input<IUserSummary>();
   math = Math;
 
-  roleCount = signal<RoleCount[]>([
-    { role: 'User', count: 9, color: '#2563eb' },
-    { role: 'Advisor', count: 18, color: '#10b981' },
-  ]);
+  roleCount = computed(() => {
+    return [
+      { role: 'User', count: this.summary()!.roleSummary.User, color: '#2563eb' },
+      { role: 'Advisor', count: this.summary()!.roleSummary.Advisor, color: '#10b981' },
+    ];
+  });
 
-  
-  totalUsers = computed(() => this.roleCount().reduce((sum, item) => sum + item.count, 0));
-
+  totalUsers = computed(() => this.summary()!.totalRegisteredUsers - 1);
 
   userPercent = computed(() => {
     const total = this.totalUsers();
