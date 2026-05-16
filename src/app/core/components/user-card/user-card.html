@@ -1,11 +1,11 @@
 <div
-  class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+  class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer" [routerLink]="'./users/'+user()._id">
   <!-- Avatar con Indicador de Estado Online ficticio -->
   <div class="avatar avatar-online-bottom">
     <div class="size-10 rounded-full">
       <img
       [src]="user().avatar"
-      [alt]="user().firstName"
+      [alt]="user().name"
     />
     </div>
   </div>
@@ -14,7 +14,7 @@
   <div class="flex-1 min-w-0">
     <div class="flex items-center justify-between">
       <h3 class="text-sm font-semibold text-gray-800 truncate">
-        {{ user().firstName }} {{ user().lastName }}
+        {{ user().name }} {{ user().lastName }}
       </h3>
     </div>
 
@@ -22,7 +22,7 @@
     <div class="flex items-center text-[11px] text-gray-400 mt-0.5">
       <span class="material-symbols-outlined" style="font-size: 12px"> calendar_today </span>
 
-      Registrado: {{ user().createdAt }}
+      Registrado: {{ user().createdAt | date }}
     </div>
   </div>
 

@@ -10,6 +10,8 @@ import {
 } from '@core/components';
 
 import { CommonModule } from '@angular/common';
+import { httpResource } from '@angular/common/http';
+import { IUser } from '@core/interfaces';
 interface Metric {
   label: string;
   value: string;
@@ -17,7 +19,7 @@ interface Metric {
 
 
 interface User {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   avatar: string;
@@ -31,6 +33,7 @@ interface User {
   styleUrl: './home.css',
 })
 export class Home {
+  private readonly url = `${API_URL}/v1/`;
   math = Math;
   metrics = signal<Metric[]>([
     { label: 'Total Users', value: '27' },
@@ -40,7 +43,7 @@ export class Home {
 
   users: User[] = [
     {
-      id: 1,
+      id: '1',
       firstName: 'Lucía',
       lastName: 'García',
       role: 'Advisor',
@@ -48,7 +51,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=lucia',
     },
     {
-      id: 2,
+      id: '2',
       firstName: 'Marcos',
       lastName: 'Ruiz',
       role: 'User',
@@ -56,7 +59,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=marcos',
     },
     {
-      id: 3,
+      id: '3',
       firstName: 'Elena',
       lastName: 'Sanz',
       role: 'Advisor',
@@ -64,7 +67,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=elena',
     },
     {
-      id: 4,
+      id: '4',
       firstName: 'Javier',
       lastName: 'López',
       role: 'User',
@@ -72,7 +75,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=javier',
     },
     {
-      id: 5,
+      id: '5',
       firstName: 'Sofía',
       lastName: 'Torres',
       role: 'User',
@@ -81,6 +84,9 @@ export class Home {
     },
   ];
 
+  newReg = httpResource<IUser[]>(()=>`${this.url}dashboard/new-registrations`);
+  top = httpResource<IUser[]>(()=>`${this.url}dashboard/top-rated-advisors`);
+  postulate = httpResource<IUser[]>(()=>`${this.url}dashboard/nominated-advisors`);
 
 
 

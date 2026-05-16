@@ -37,10 +37,8 @@
       >
         <h3 class="text-xl font-semibold text-gray-800">Nuevos Registros</h3>
         <!-- Card Loop -->
-        @for (user of users; track $index) {
-          @if (user.role === 'User') {
+        @for (user of newReg.value(); track $index) {
             <app-user-card [user]="user" />
-          }
         }
       </div>
       <div
@@ -48,10 +46,8 @@
       >
         <h3 class="text-xl font-semibold text-gray-800">Postulados</h3>
         <!-- Card Loop -->
-        @for (user of users; track $index) {
-          @if (user.role === 'Advisor') {
+        @for (user of postulate.value(); track $index) {
             <app-user-card [user]="user" />
-          }
         }
       </div>
       <div
@@ -59,10 +55,8 @@
       >
         <h3 class="text-xl font-semibold text-gray-800">Top 10</h3>
         <!-- Card Loop -->
-        @for (user of users; track $index) {
-          @if (user.role === 'Advisor') {
+        @for (user of top.value(); track $index) {
             <app-user-card [user]="user" />
-          }
         }
       </div>
     </div>

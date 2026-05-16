@@ -3,4 +3,3 @@ declare const ENV: string
 declare const API_URL: string
 declare const API_SOCKET: string
 declare const APP_VERSION: string
-declare const ITEM_PER_PAGE: string;

@@ -4,7 +4,7 @@ import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ITEM_PER_PAGE } from '@core/constants';
-import { IDBUser, IResponse, IUser } from '@core/interfaces';
+import { IResponse, IUser } from '@core/interfaces';
 
 @Component({
   selector: 'app-user-list',
