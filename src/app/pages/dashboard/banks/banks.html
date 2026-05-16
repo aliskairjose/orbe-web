@@ -51,7 +51,13 @@
                   <td>{{ item.name }}</td>
                   <td>{{ item.country }}</td>
                   <td>
-                    <span class="badge badge-soft badge-success badge-sm">{{ item.isActive }}</span>
+                    <span
+                      class="badge badge-soft badge-sm"
+                      [class.badge-success]="item.isActive"
+                      [class.badge-error]="!item.isActive"
+                    >
+                      {{ item.isActive ? 'Activo' : 'Inactivo' }}
+                    </span>
                   </td>
                   <td>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
