@@ -30,6 +30,7 @@ const RateSchema = z.object({
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  
   private readonly url = `${API_URL}/v1`;
   private readonly store = inject(Store);
   private readonly router = inject(Router);
@@ -37,6 +38,7 @@ export class Dashboard {
   private readonly service = inject(DashboardService);
   private document = inject(DOCUMENT);
 
+  protected readonly currentYear = new Date().getFullYear();
   protected readonly rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
     parse: (raw: any) => raw[0],
   });
