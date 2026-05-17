@@ -7,6 +7,12 @@ import { ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, IDBUser, IResponse, IUser } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/dist';
 
+interface IPhoneCodes {
+  name: string;
+  dial_code: string;
+  code: string;
+}
+
 @Component({
   selector: 'app-advisor-list',
   imports: [DatePipe, FormsModule, RouterLink],
@@ -33,6 +39,8 @@ export class AdvisorList {
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
   protected search = model<string>('');
+
+  phoneCodesResource = httpResource<IPhoneCodes[]>(() => 'json/phone-code.json');
 
   resource = httpResource<IResponse<IAdvisor>>(
     () =>
