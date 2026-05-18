@@ -3,8 +3,8 @@
 .login-page {
   @apply min-h-screen grid place-items-center p-8 bg-[#f3f4f6];
   .login-form{
-    width: min(100%, 40vw);
-    @apply p-8 rounded-2xl bg-[#ffffff] shadow-lg;
+    width: min(100%, 35vw);
+    @apply p-8 rounded-xl bg-[#ffffff] shadow-lg;
 
     .form-title {
       @apply ml-6 text-3xl text-black text-center

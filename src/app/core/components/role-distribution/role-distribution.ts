@@ -23,7 +23,12 @@ export class RoleDistribution {
     ];
   });
 
-  totalUsers = computed(() => this.summary()!.totalRegisteredUsers - 1);
+  totalUsers = computed(() => {
+    if(this.summary()?.totalRegisteredUsers){
+      return this.summary()!.totalRegisteredUsers - 1
+    }
+    return 0;
+  });
 
   userPercent = computed(() => {
     const total = this.totalUsers();
