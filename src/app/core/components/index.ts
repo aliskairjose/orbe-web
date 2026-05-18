@@ -1,3 +1,4 @@
+export { FileUpload } from "./file-upload/file-upload";
 export { RequestMonth } from "./request-month/request-month";
 export { RoleDistribution } from "./role-distribution/role-distribution";
 export { AdvisorList } from "./advisor-list/advisor-list";

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, IResponse } from '@core/interfaces';
+import { FileUpload } from '../file-upload/file-upload';
 
 interface ICountry {
   country: string;
@@ -14,7 +15,7 @@ interface ICountry {
 
 @Component({
   selector: 'app-advisor-list',
-  imports: [DatePipe, FormsModule, RouterLink],
+  imports: [DatePipe, FormsModule, RouterLink, FileUpload],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })

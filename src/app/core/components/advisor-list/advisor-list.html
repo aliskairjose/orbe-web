@@ -164,7 +164,7 @@
   role="dialog"
   tabindex="-1"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">User details</h3>
@@ -204,6 +204,17 @@
           aria-selected="false"
         >
           Profile
+        </button>
+        <button
+          type="button"
+          class="tab active-tab:tab-active"
+          id="tabs-basic-item-3"
+          data-tab="#tabs-files"
+          aria-controls="tabs-files"
+          role="tab"
+          aria-selected="false"
+        >
+          Archivos
         </button>
       </nav>
 
@@ -275,21 +286,17 @@
                   <input type="text" placeholder="" class="input" id="experience" />
                 </div>
               </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="favorite-simpson">Categorías</label>
-                  <select class="select" id="favorite-simpson">
-                    <option>The Godfather</option>
-                    <option>The Shawshank Redemption</option>
-                    <option>Pulp Fiction</option>
-                    <option>The Dark Knight</option>
-                    <option>Schindler's List</option>
-                  </select>
-                </div>
-                <div class="w-full">
-                  <label class="label-text" for="dateOfBirth"> DOB </label>
-                  <input type="date" class="input" id="dateOfBirth" />
-                </div>
+            </div>
+          </form>
+        </div>
+        <div id="tabs-files" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-3">
+          <form>
+            <div class="modal-body pt-0 flex justify-center">
+              <div class="grid grid-cols-2 gap-2">
+              <app-file-upload label="Foto perfil"/>
+              <app-file-upload label="DNI"/>
+              <app-file-upload label="Video"/>
+
               </div>
             </div>
             <div class="modal-footer">
