@@ -5,6 +5,7 @@ import { IBankAccount } from '@core/interfaces';
 import { httpResource } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { form } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-bank-accounts',
@@ -13,6 +14,20 @@ import { RouterLink } from '@angular/router';
   styleUrl: './bank-accounts.css',
 })
 export class BankAccounts {
+  //  protected form = form(
+  //   loginModel,
+  //   (validator) => {
+  //     required(validator.email, { message: 'Email is required' });
+  //     email(validator.email, { message: 'Enter a valid email address' });
+  //     required(validator.password, { message: 'Password is required' });
+  //   },
+  //   {
+  //     submission: {
+  //       action: async (f) => await this.onSubmit(f().value()),
+  //     },
+  //   },
+  // );
+  
   protected headers = ['País', 'Banco', 'Tipo de Cuenta', 'Cuenta', 'Asesor'];
 
   protected search = model<string>('');
