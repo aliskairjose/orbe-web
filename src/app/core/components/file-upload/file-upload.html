@@ -1,16 +1,16 @@
 <div
-  id="file-upload-limit"
+  [id]="randomId()"
   data-file-upload='{
-  "url": "/upload",
-  "maxFilesize": 1,
-  "extensions": {
-    "csv": {
-      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"m5 12-3 3 3 3\"/><path d=\"m9 18 3-3-3-3\"/></svg>",
-      "class": "shrink-0 size-5"
+    "url": "/upload",
+    "maxFilesize": 1,
+    "singleton": true,
+    "extensions": {
+        "csv": {
+        "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"m5 12-3 3 3 3\"/><path d=\"m9 18 3-3-3-3\"/></svg>",
+        "class": "shrink-0 size-5"
+        }
     }
-  }
-}'
->
+    }'>
   <template data-file-upload-preview="">
     <div class="rounded-box bg-base-100 shadow-base-300/20 p-3 shadow-lg">
       <div class="mb-1 flex items-center justify-between">

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,4 +8,12 @@ import { Component, input } from '@angular/core';
 })
 export class FileUpload {
   label = input<string>('');
+  acceptedFiles = input<string>('');
+  singleton = input<boolean>(true);
+
+  randomId = computed(() => `${this.label()}-${Math.random()}`);
+
+  upload(event: any): void {
+    console.log(event)
+  }
 }

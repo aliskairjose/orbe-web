@@ -93,9 +93,9 @@
                     </span>
                   </td>
                   <td>
-                    <span class="flex items-center">
+                    <span class="flex items-center justify-end">
                       {{ item.rateAvg }}
-                      <span class="material-symbols-outlined" style="color: burlywood"> star </span>
+                      <span class="icon-[tabler--star-filled] size-4 shrink-0 text-yellow-400 ms-0.5"></span>
                     </span>
                   </td>
                   <td>{{ item.createdAt | date }}</td>
@@ -293,10 +293,9 @@
           <form>
             <div class="modal-body pt-0 flex justify-center">
               <div class="grid grid-cols-2 gap-2">
-              <app-file-upload label="Foto perfil"/>
-              <app-file-upload label="DNI"/>
-              <app-file-upload label="Video"/>
-
+                <app-file-upload label="Foto perfil" />
+                <app-file-upload label="DNI" />
+                <app-file-upload label="Video" />
               </div>
             </div>
             <div class="modal-footer">
