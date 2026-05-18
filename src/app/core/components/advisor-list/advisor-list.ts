@@ -27,8 +27,8 @@ export class AdvisorList {
     'Email',
     'Status',
     'Rate',
-    'Usuario desde',
-    'Última conexión',
+    'Registrado',
+    'Últ. conexión',
   ];
 
   private readonly url = `${API_URL}/v1/users`;
