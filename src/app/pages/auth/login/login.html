@@ -1,5 +1,5 @@
 <div class="login-page">
-  <form (submit)="onSubmit($event)" class="login-form" novalidate>
+  <form [formRoot]="form" class="login-form" novalidate>
     <h1 class="form-title">Login</h1>
 
     <div class="field">

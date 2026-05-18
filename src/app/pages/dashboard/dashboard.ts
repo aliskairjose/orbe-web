@@ -1,23 +1,65 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import {  Component, DOCUMENT, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SIDE_MENU } from '@core/constants';
+import { AuthActions } from '../auth/store/auth.actions';
+import { Store } from '@ngxs/store';
+import { EMessage } from '@core/enums';
+import { ToastService } from '@core/services';
+import { form, FormField, FormRoot, min, required } from '@angular/forms/signals';
+import { httpResource } from '@angular/common/http';
+import { IRateExchange } from '@core/interfaces';
+import { HSOverlay } from 'flyonui/flyonui';
+import { DashboardService } from '@core/services/dashboard';
+import { z } from 'zod';
+import { AuthSelectors } from '../auth/store/auth.selectors';
 
+interface RateFormData {
+  rate: number;
+}
+const rateFormModel = signal<RateFormData>({
+  rate: 0,
+});
+const RateSchema = z.object({
+  rate: z.number(),
+});
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLinkActive, RouterLink, CurrencyPipe],
+  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  
+  private readonly url = `${API_URL}/v1`;
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
-  menu = SIDE_MENU;
-  
-  isSidebarOpen = signal(false);
-  isSubBarOpen = signal(false);
-  
-  user = signal({ name: 'Admin User', avatar: 'https://i.pravatar.cc/150?u=admin' });
-  rate = signal<number>(3800);
+  private readonly toast = inject(ToastService);
+  private readonly service = inject(DashboardService);
+  private document = inject(DOCUMENT);
+
+  protected readonly currentYear = new Date().getFullYear();
+  protected readonly rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
+    parse: (raw: any) => raw[0],
+  });
+
+  protected form = form(
+    rateFormModel,
+    (validator) => {
+      min(validator.rate, 1, { message: 'El valor no puede ser cero' });
+      required(validator.rate, { message: 'El campo es obligatorio' });
+    },
+    {
+      submission: {
+        action: async (f) => this.updateRate(this.rateResource.value()!._id, f().value()),
+      },
+    },
+  );
+
+  protected menu = SIDE_MENU;
+  protected isSidebarOpen = signal(false);
+  protected isSubBarOpen = signal(false);
+  protected userLogged =  this.store.selectSnapshot(AuthSelectors.userLogged)
 
   constructor() {
     this.router.events.subscribe((event) => {
@@ -28,6 +70,7 @@ export class Dashboard {
         this.isSubBarOpen.set(false);
       }
     });
+
   }
 
   toggleSidebar() {
@@ -38,8 +81,24 @@ export class Dashboard {
     this.isSubBarOpen.update((isOpen) => !isOpen);
   }
 
-  updateRate(): void {
-    // Simulate rate update
-    this.rate.set(4000 + Math.floor(Math.random() * 1000));
+  logout(): void {
+    this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
+      this.toast.show(EMessage.GoodBye);
+      this.router.navigate(['']);
+    });
+  }
+
+  openRateModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
+    modal.open();
+  }
+
+  closeRateModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
+    modal.close();
+  }
+
+  private updateRate(id: string, f: RateFormData): void {
+    this.service.updateRate(id, f.rate).subscribe((_) => window.location.reload());
   }
 }

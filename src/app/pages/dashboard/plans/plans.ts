@@ -1,5 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
+import { httpResource } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { IPlan } from '@core/interfaces';
 
 @Component({
   selector: 'app-plans',
@@ -8,9 +10,6 @@ import { Component } from '@angular/core';
   styleUrl: './plans.css',
 })
 export class Plans {
-  plans = [
-    {name: 'Basic', amount: 15, bonus: 2, isActive: true},
-    {name: 'Pro', amount: 30, bonus: 5, isActive: true},
-    {name: 'Enterprise', amount: 50, bonus: 7, isActive: true}
-  ]
+
+  resource = httpResource<IPlan[]>(()=>`${API_URL}/v1/plan`);
 }

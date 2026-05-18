@@ -1,0 +1,1 @@
+export type TLegal = 'userPolicies' | 'advisorPolicies' | 'privacyPolicies' | 'faq';

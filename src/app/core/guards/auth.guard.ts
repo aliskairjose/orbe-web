@@ -1,27 +1,25 @@
-import { Injectable, inject } from '@angular/core';
-import { CanActivate, CanActivateChild, Router, RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { inject, Signal } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { ToastService } from '@core/services';
+import { AuthSelectors } from '../../pages/auth/store/auth.selectors';
+import { EMessage, ERole, ERoutes } from '@core/enums';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthGuard implements CanActivate, CanActivateChild {
-  private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
+export const authGuard: CanActivateFn = () => {
+  const store = inject(Store);
+  const router = inject(Router);
+  const toastService = inject(ToastService);
 
-  canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): boolean | UrlTree {
-    return this.checkAuthentication();
-  }
+  const isAuth: Signal<boolean> = store.selectSignal(
+    AuthSelectors.isAuthenticated
+  );
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-    return this.canActivate(childRoute, state);
-  }
+  const user = store.selectSnapshot(AuthSelectors.userLogged);
 
-  private checkAuthentication(): boolean | UrlTree {
-    if (this.authService.isAuthenticated()) {
-      return true;
-    }
+  if ( isAuth() && user?.role === ERole.Admin ) return true;
 
-    return this.router.parseUrl('/auth/login');
-  }
-}
+  toastService.show(EMessage.UnAuthorized, 'error');
+
+  router.navigate([ERoutes.Landing]);
+  return false;
+};

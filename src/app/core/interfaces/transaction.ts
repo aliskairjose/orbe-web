@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface ITransaction {
   _id: string;
   user: Partial<IUser>;

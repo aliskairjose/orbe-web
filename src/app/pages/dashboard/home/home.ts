@@ -3,30 +3,23 @@ import {
   AnnualRequestServiceChart,
   AnnualTimeChart,
   AnnualUserRegister,
+  RequestMonth,
+  RoleDistribution,
   UserCard,
   UserStatusPieChart,
 } from '@core/components';
 
 import { CommonModule } from '@angular/common';
+import { httpResource } from '@angular/common/http';
+import { IUser, IUserSummary } from '@core/interfaces';
 interface Metric {
   label: string;
   value: string;
 }
 
-interface RequestCount {
-  type: 'Chat' | 'Llamada';
-  count: number;
-  color: string;
-}
-
-interface RoleCount {
-  role: 'User' | 'Advisor';
-  count: number;
-  color: string;
-}
 
 interface User {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   avatar: string;
@@ -35,11 +28,12 @@ interface User {
 }
 @Component({
   selector: 'app-home',
-  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,],
+  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,RoleDistribution, RequestMonth],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
+  private readonly url = `${API_URL}/v1/`;
   math = Math;
   metrics = signal<Metric[]>([
     { label: 'Total Users', value: '27' },
@@ -49,7 +43,7 @@ export class Home {
 
   users: User[] = [
     {
-      id: 1,
+      id: '1',
       firstName: 'Lucía',
       lastName: 'García',
       role: 'Advisor',
@@ -57,7 +51,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=lucia',
     },
     {
-      id: 2,
+      id: '2',
       firstName: 'Marcos',
       lastName: 'Ruiz',
       role: 'User',
@@ -65,7 +59,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=marcos',
     },
     {
-      id: 3,
+      id: '3',
       firstName: 'Elena',
       lastName: 'Sanz',
       role: 'Advisor',
@@ -73,7 +67,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=elena',
     },
     {
-      id: 4,
+      id: '4',
       firstName: 'Javier',
       lastName: 'López',
       role: 'User',
@@ -81,7 +75,7 @@ export class Home {
       avatar: 'https://i.pravatar.cc/150?u=javier',
     },
     {
-      id: 5,
+      id: '5',
       firstName: 'Sofía',
       lastName: 'Torres',
       role: 'User',
@@ -90,40 +84,13 @@ export class Home {
     },
   ];
 
-  requestCount = signal<RequestCount[]>([
-    { type: 'Chat', count: 100, color: '#2563eb' },
-    { type: 'Llamada', count: 35, color: '#10b981' },
-  ]);
 
-  roleCount = signal<RoleCount[]>([
-    { role: 'User', count: 9, color: '#2563eb' },
-    { role: 'Advisor', count: 18, color: '#10b981' },
-  ]);
+  summary = httpResource<IUserSummary>(()=>`${this.url}dashboard/users/summary`);
+  newReg = httpResource<IUser[]>(()=>`${this.url}dashboard/new-registrations`);
+  top = httpResource<IUser[]>(()=>`${this.url}dashboard/top-rated-advisors`);
+  postulate = httpResource<IUser[]>(()=>`${this.url}dashboard/nominated-advisors`);
 
-  totalUsers = computed(() => this.roleCount().reduce((sum, item) => sum + item.count, 0));
 
-  totalRequests = computed(() => this.requestCount().reduce((sum, item) => sum + item.count, 0));
 
-  userPercent = computed(() => {
-    const total = this.totalUsers();
-    if (!total) return 0;
-    return Math.round(
-      ((this.requestCount().find((item) => item.type === 'Chat')?.count ?? 0) / total) * 100,
-    );
-  });
-
-  requestPercent = computed(() => {
-    const total = this.totalUsers();
-    if (!total) return 0;
-    return Math.round(
-      ((this.requestCount().find((item) => item.type === 'Chat')?.count ?? 0) / total) * 100,
-    );
-  });
-
-  advisorPercent = computed(() => 100 - this.userPercent());
-
-  readonly circumference = 2 * Math.PI * 64;
-
-  donutOffset = computed(() => this.circumference * (1 - this.userPercent() / 100));
 }
 

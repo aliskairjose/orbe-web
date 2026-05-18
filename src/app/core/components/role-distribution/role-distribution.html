@@ -1,0 +1,56 @@
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+  <div class="mb-4">
+    <h3 class="text-xl font-semibold text-gray-800">Distribución de roles de usuario</h3>
+    <p class="text-sm text-gray-500">Porcentajes según role.</p>
+  </div>
+
+  <div class="flex flex-col items-center gap-6">
+    <svg
+      class="w-44 h-44"
+      viewBox="0 0 180 180"
+      role="img"
+      aria-labelledby="role-pie-title role-pie-desc"
+    >
+      <title id="role-pie-title">User role percentage distribution</title>
+      <desc id="role-pie-desc">
+        A circular chart showing {{ userPercent() }} percent users and
+        {{ advisorPercent() }} percent advisors.
+      </desc>
+      <circle cx="90" cy="90" r="64" fill="none" stroke="#10b981" stroke-width="40"></circle>
+      <circle
+        cx="90"
+        cy="90"
+        r="64"
+        fill="none"
+        stroke="#2563eb"
+        stroke-width="40"
+        [attr.stroke-dasharray]="circumference"
+        [attr.stroke-dashoffset]="donutOffset()"
+        transform="rotate(-90 90 90)"
+      ></circle>
+    </svg>
+
+    <div class="w-full grid gap-3">
+      @for (role of roleCount(); track role.role) {
+        <div class="flex items-center justify-between gap-3 text-sm text-gray-700">
+          <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full" [style.backgroundColor]="role.color"></span>
+            <span class="font-medium">{{ role.role }}</span>
+          </div>
+          <span class="font-medium"
+            >{{ role.count }} ({{ math.round((role.count / totalUsers()) * 100) }}%)</span
+          >
+        </div>
+      }
+      <div class="flex items-center justify-between gap-3 text-sm text-gray-700">
+          <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full bg-yellow-500" ></span>
+            <span class="font-medium">Total usuarios</span>
+          </div>
+          <span class="font-medium"
+            >{{ totalUsers() }}</span
+          >
+        </div>
+    </div>
+  </div>
+</div>

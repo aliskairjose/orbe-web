@@ -8,3 +8,4 @@ export { ERole } from "./role.enum";
 export { ERoutes } from "./routes.enum";
 export { ESocketEvent } from "./socket.events.enum";
 export { EStatus } from "./status.enum";
+export { ELegal } from "./legal.enum";

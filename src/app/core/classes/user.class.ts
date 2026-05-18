@@ -1,16 +1,16 @@
 import { IDBUser, IUser } from '@core/interfaces';
 import { DBUser } from './bduser.class';
 
-export class User extends DBUser {
-  dbUser: IDBUser;
+export class User extends DBUser<IUser> {
+  user: IUser;
 
-  constructor(dbUser: IDBUser) {
-    super(dbUser);
-    this.dbUser = dbUser;
+  constructor(user: IUser) {
+    super(user);
+    this.user = user;
   }
 
   public get profile(): IUser {
-    const { advisor, rateAvg, language, bankAccount, rateStats, ...rest } = this.dbUser;
-    return rest;
+    return this.user;
   }
+
 }

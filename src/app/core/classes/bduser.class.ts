@@ -1,11 +1,15 @@
-import { IAdvisor, IUser, IDBUser } from "@core/interfaces";
+import { IUserBase } from '@core/interfaces/user';
 
-export abstract class DBUser{
-    constructor(protected readonly dbuser: IDBUser){}
+export abstract class DBUser<T extends IUserBase> {
+  protected bdUser: T;
 
-    abstract get profile(): IUser | IAdvisor
+  constructor(user: T) {
+    this.bdUser = user;
+  }
 
-    fullName(): string {
-        return `${this.dbuser.name} ${this.dbuser.lastName}`;
-    }
+  abstract get profile(): T;
+
+  fullName(): string {
+    return `${this.bdUser.name} ${this.bdUser.lastName}`;
+  }
 }

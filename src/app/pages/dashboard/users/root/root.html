@@ -1,0 +1,37 @@
+<div class=" flex flex-col px-6 py-4">
+  <nav class="tabs tabs-bordered" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+    <button
+      type="button"
+      class="tab active-tab:tab-active active"
+      id="tabs-basic-item-1"
+      data-tab="#tabs-basic-1"
+      aria-controls="tabs-basic-1"
+      role="tab"
+      aria-selected="true"
+    >
+      Usuarios
+    </button>
+    <button
+      type="button"
+      class="tab active-tab:tab-active"
+      id="tabs-basic-item-2"
+      data-tab="#tabs-basic-2"
+      aria-controls="tabs-basic-2"
+      role="tab"
+      aria-selected="false"
+    >
+      Asesores
+    </button>
+   
+  </nav>
+
+  <div class="mt-3">
+    <div id="tabs-basic-1" role="tabpanel" aria-labelledby="tabs-basic-item-1">
+     <app-user-list />
+    </div>
+    <div id="tabs-basic-2" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-2">
+      <app-advisor-list />
+    </div>
+ 
+  </div>
+</div>
