@@ -1,16 +1,15 @@
-import { DatePipe, DOCUMENT } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed, inject, model, signal } from '@angular/core';
+import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ITEM_PER_PAGE } from '@core/constants';
-import { IAdvisor, IDBUser, IResponse, IUser } from '@core/interfaces';
-import { HSOverlay } from 'flyonui/dist';
+import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
+import { IAdvisor, IResponse } from '@core/interfaces';
 
-interface IPhoneCodes {
-  name: string;
-  dial_code: string;
+interface ICountry {
+  country: string;
   code: string;
+  iso: string;
 }
 
 @Component({
@@ -20,7 +19,7 @@ interface IPhoneCodes {
   styleUrl: './advisor-list.css',
 })
 export class AdvisorList {
-  private document = inject(DOCUMENT);
+  protected countriesPhoneCodes: ICountry[] = COUNTRIES;
 
   protected headers: string[] = [
     'Usuario',
@@ -39,8 +38,6 @@ export class AdvisorList {
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
   protected search = model<string>('');
-
-  phoneCodesResource = httpResource<IPhoneCodes[]>(() => 'json/phone-code.json');
 
   resource = httpResource<IResponse<IAdvisor>>(
     () =>
