@@ -4,7 +4,7 @@ import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
-import { IAdvisor, IResponse } from '@core/interfaces';
+import { IAdvisor, ICategory, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
 
 interface ICountry {
@@ -31,7 +31,7 @@ export class AdvisorList {
     'Últ. conexión',
   ];
 
-  private readonly url = `${API_URL}/v1/users`;
+  private readonly url = `${API_URL}/v1`;
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
@@ -42,8 +42,10 @@ export class AdvisorList {
 
   resource = httpResource<IResponse<IAdvisor>>(
     () =>
-      `${this.url}?role=Advisor&limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
+      `${this.url}/users?role=Advisor&limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
   );
+
+  catResource = httpResource<IResponse<ICategory>>(() => `${this.url}/categories?limit=0`);
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;
