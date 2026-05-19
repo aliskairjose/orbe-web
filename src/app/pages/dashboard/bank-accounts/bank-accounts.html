@@ -57,11 +57,11 @@
             <tbody>
               @for (item of resource.value()!.results; track $index) {
                 <tr class="hover:bg-gray-50">
-                  <td>  {{item.bank.country}} </td>
-                  <td>  {{ item.bank.name }} </td>
-                  <td>  {{ item.type }} </td>
-                  <td>  {{ item.number }} </td>
-                  <td>  {{ item.user.name }} {{ item.user.lastName }} </td>
+                  <td>{{ item.bank.country }}</td>
+                  <td>{{ item.bank.name }}</td>
+                  <td>{{ item.type }}</td>
+                  <td>{{ item.number }}</td>
+                  <td>{{ item.user.name }} {{ item.user.lastName }}</td>
                   <td>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
                       <span class="icon-[tabler--edit] size-5" [routerLink]="item._id"></span>
@@ -134,13 +134,76 @@
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
-      <div class="modal-body">
-        Body
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" data-overlay="#form-modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
+      <form [formRoot]="form" novalidate>
+        <div class="modal-body">
+          <div class="w-full">
+            <label class="label-text" for="banks">Seleccione banco</label>
+            <select class="select" id="banks" [formField]="form.bank">
+              @for (bank of banksResource.value()?.results; track $index) {
+                <option [value]="bank._id">{{ bank.name }}</option>
+              }
+            </select>
+             @if (form.bank().touched() && form.bank().invalid()) {
+              <ul class="text-red-500 text-sm">
+                @for (error of form.bank().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <div class="w-full">
+            <label class="label-text" for="banks_account">Seleccione tipo de cuenta</label>
+            <select class="select" id="banks_account" [formField]="form.type">
+              <option value="Ahorro">Ahorro</option>
+              <option value="Corriente">Corriente</option>
+            </select>
+             @if (form.type().touched() && form.type().invalid()) {
+              <ul class="text-red-500 text-sm">
+                @for (error of form.type().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <div class="w-full">
+            <label class="label-text" for="number">Número de cuenta</label>
+            <input
+              id="number"
+              type="text"
+              class="input"
+              [formField]="form.number"
+            />
+            @if (form.number().touched() && form.number().invalid()) {
+              <ul class="text-red-500 text-sm">
+                @for (error of form.number().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <div class="w-full">
+            <label class="label-text" for="advisor">Seleccione asesor</label>
+            <select class="select" id="advisor" [formField]="form.user">
+              @for (user of advisorResource.value()?.results; track $index) {
+                <option [value]="user._id">{{ user.name }} {{ user.lastName }}</option>
+              }
+            </select>
+             @if (form.user().touched() && form.user().invalid()) {
+              <ul class="text-red-500 text-sm">
+                @for (error of form.user().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" data-overlay="#form-modal">
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

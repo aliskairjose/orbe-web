@@ -22,9 +22,14 @@ export class Categories {
   protected page = signal(1);
   protected search = model<string>('');
 
-  resource = httpResource<IResponse<ICategory>>(
-    () => `${this.url}?limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
-  );
+  protected resource = httpResource<IResponse<ICategory>>(() => ({
+    url: `${this.url}`,
+    params:{
+      limit: this.limit(),
+      page: this.page(),
+      search: this.search()
+    }
+  }));
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;
