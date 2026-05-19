@@ -39,7 +39,7 @@ export class BankAccounts {
     },
     {
       submission: {
-        action: async (f) => console.log(f().value()),
+        action: async (f) => await this.onSubmit(f().value()),
       },
     },
   );
@@ -99,5 +99,9 @@ export class BankAccounts {
 
   goTopage(page: number): void {
     this.page.set(page);
+  }
+
+  private async onSubmit(f: BankAccountData) {
+    console.log(f);
   }
 }
