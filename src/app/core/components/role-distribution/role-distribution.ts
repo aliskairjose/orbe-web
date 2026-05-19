@@ -18,17 +18,12 @@ export class RoleDistribution {
 
   roleCount = computed(() => {
     return [
-      { role: 'User', count: this.summary()!.roleSummary.User, color: '#2563eb' },
-      { role: 'Advisor', count: this.summary()!.roleSummary.Advisor, color: '#10b981' },
+      { role: 'User', count: this.summary()?.roleSummary.User!, color: '#2563eb' },
+      { role: 'Advisor', count: this.summary()?.roleSummary.Advisor!, color: '#10b981' },
     ];
   });
 
-  totalUsers = computed(() => {
-    if(this.summary()?.totalRegisteredUsers){
-      return this.summary()!.totalRegisteredUsers - 1
-    }
-    return 0;
-  });
+  totalUsers = computed(() => this.summary()?.totalRegisteredUsers! - 1 || 0);
 
   userPercent = computed(() => {
     const total = this.totalUsers();
