@@ -51,6 +51,7 @@ export interface IUserBase {
 export interface IUser extends IUserBase {}
 export interface IAdvisor extends IUserBase {
   advisor: IProfile;
+  averageRating?: number;
   rateAvg: number; // para el listado de asesores
   rateStats?: IRateStats; //Para el detalle de asesor
   bankAccount?: IBankAccount;

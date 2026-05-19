@@ -14,14 +14,14 @@
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats  bg-linear-to-r from-indig-100 to-violet-200">
+    <div class="stats  bg-linear-to-r from-indigo-100 to-violet-200">
       <div class="stat">
         <div class="stat-title">Total Asesores</div>
         <div class="stat-value">{{summary.value()?.roleSummary?.Advisor || 0}}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats  bg-linear-to-r from-pink-100 to-rose-200">
+    <div class="stats  bg-linear-to-r from-amber-100 to-yellow-200">
       <div class="stat">
         <div class="stat-title">Total Emails Sent</div>
         <div class="stat-value">76,250</div>
@@ -47,7 +47,7 @@
         <h3 class="text-xl font-semibold text-gray-800">Postulados</h3>
         <!-- Card Loop -->
         @for (user of postulate.value(); track $index) {
-            <app-user-card [user]="user" />
+            <app-top-advisor-card [user]="user" />
         }
       </div>
       <div
@@ -56,7 +56,7 @@
         <h3 class="text-xl font-semibold text-gray-800">Top 10</h3>
         <!-- Card Loop -->
         @for (user of top.value(); track $index) {
-            <app-user-card [user]="user" />
+            <app-top-advisor-card [user]="user" />
         }
       </div>
     </div>

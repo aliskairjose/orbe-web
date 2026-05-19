@@ -5,6 +5,7 @@ import {
   AnnualUserRegister,
   RequestMonth,
   RoleDistribution,
+  TopAdvisorCard,
   UserCard,
   UserStatusPieChart,
 } from '@core/components';
@@ -28,7 +29,7 @@ interface User {
 }
 @Component({
   selector: 'app-home',
-  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,RoleDistribution, RequestMonth],
+  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,RoleDistribution, RequestMonth, TopAdvisorCard],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

@@ -1,12 +1,11 @@
 <div
-  class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer" [routerLink]="'./users/'+user()._id">
+  class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+  [routerLink]="'./users/' + user()._id"
+>
   <!-- Avatar con Indicador de Estado Online ficticio -->
   <div class="avatar avatar-online-bottom">
     <div class="size-10 rounded-full">
-      <img
-      [src]="user().avatar"
-      [alt]="user().name"
-    />
+      <img [src]="user().avatar" [alt]="user().name" />
     </div>
   </div>
 
@@ -21,16 +20,16 @@
     <!-- Metadata -->
     <div class="flex items-center text-[11px] text-gray-400 mt-0.5">
       <span class="material-symbols-outlined" style="font-size: 12px"> calendar_today </span>
-
       Registrado: {{ user().createdAt | date }}
     </div>
   </div>
 
   <!-- Role Badge -->
-  <span [ngClass]="{
-      'bg-indigo-100 text-indigo-700': user().role === 'User',
-      'bg-green-100 text-green-600': user().role === 'Advisor',
-    }" class="text-[10px] px-2 py-0.5 rounded-full font-medium">
+  <span
+    class="badge badge-sm badge-soft"
+    [class.badge-success]="user().role === 'User'"
+    [class.badge-accent]="user().role === 'Advisor'"
+  >
     {{ user().role }}
   </span>
 </div>
