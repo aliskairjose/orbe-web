@@ -13,7 +13,7 @@ interface RoleCount {
   styleUrl: './role-distribution.css',
 })
 export class RoleDistribution {
-  summary = input<IUserSummary>();
+  summary = input.required<IUserSummary>();
   math = Math;
 
   roleCount = computed(() => {
@@ -23,7 +23,7 @@ export class RoleDistribution {
     ];
   });
 
-  totalUsers = computed(() => this.summary()?.totalRegisteredUsers! - 1 || 0);
+  totalUsers = computed(() => this.summary().totalRegisteredUsers! - 1 || 0);
 
   userPercent = computed(() => {
     const total = this.totalUsers();

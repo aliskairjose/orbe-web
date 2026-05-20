@@ -3,25 +3,25 @@
     <div class="stats bg-linear-to-r from-cyan-100 to-sky-200">
       <div class="stat">
         <div class="stat-title">Total Usuarios</div>
-        <div class="stat-value">{{(summary.value()?.totalRegisteredUsers! - 1 ) || 0}}</div>
+        <div class="stat-value">{{ summary.value()?.totalRegisteredUsers! - 1 || 0 }}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
     <div class="stats bg-linear-to-r from-green-100 to-emerald-200">
       <div class="stat">
         <div class="stat-title">Total Clientes</div>
-        <div class="stat-value">{{summary.value()?.roleSummary?.User || 0}}</div>
+        <div class="stat-value">{{ summary.value()?.roleSummary?.User || 0 }}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats  bg-linear-to-r from-indigo-100 to-violet-200">
+    <div class="stats bg-linear-to-r from-indigo-100 to-violet-200">
       <div class="stat">
         <div class="stat-title">Total Asesores</div>
-        <div class="stat-value">{{summary.value()?.roleSummary?.Advisor || 0}}</div>
+        <div class="stat-value">{{ summary.value()?.roleSummary?.Advisor || 0 }}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats  bg-linear-to-r from-amber-100 to-yellow-200">
+    <div class="stats bg-linear-to-r from-amber-100 to-yellow-200">
       <div class="stat">
         <div class="stat-title">Total Emails Sent</div>
         <div class="stat-value">76,250</div>
@@ -38,7 +38,7 @@
         <h3 class="text-xl font-semibold text-gray-800">Nuevos Registros</h3>
         <!-- Card Loop -->
         @for (user of newReg.value(); track $index) {
-            <app-user-card [user]="user" />
+          <app-user-card [user]="user" />
         }
       </div>
       <div
@@ -47,7 +47,7 @@
         <h3 class="text-xl font-semibold text-gray-800">Postulados</h3>
         <!-- Card Loop -->
         @for (user of postulate.value(); track $index) {
-            <app-top-advisor-card [user]="user" />
+          <app-top-advisor-card [user]="user" />
         }
       </div>
       <div
@@ -56,7 +56,7 @@
         <h3 class="text-xl font-semibold text-gray-800">Top 10</h3>
         <!-- Card Loop -->
         @for (user of top.value(); track $index) {
-            <app-top-advisor-card [user]="user" />
+          <app-top-advisor-card [user]="user" />
         }
       </div>
     </div>
@@ -70,7 +70,9 @@
 
   <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
     <app-user-status-pie-chart />
-    <app-role-distribution [summary]="summary.value()!"/>
+    @if (summary.hasValue()) {
+      <app-role-distribution [summary]="summary.value()" />
+    }
     <app-request-month />
     <app-request-status-hor-bar />
   </section>
