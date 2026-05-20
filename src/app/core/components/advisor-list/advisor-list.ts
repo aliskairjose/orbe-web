@@ -23,6 +23,7 @@ export class AdvisorList {
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
 
   protected headers: string[] = [
+    '#',
     'Usuario',
     'Email',
     'Status',
