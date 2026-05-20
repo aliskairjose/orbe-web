@@ -34,7 +34,7 @@
               <tr>
                 <th>#</th>
                 <th scope="col" class="group">
-                  <div class="flex items-center justify-between">Banco</div>
+                  <div class="flex items-center justify-between">Categoría</div>
                 </th>
                 <th scope="col" class="group">
                   <div class="flex items-center justify-between">Status</div>
@@ -48,8 +48,8 @@
             <tbody>
               @for (item of resource.value()!.results; track $index) {
                 <tr>
-                  <td>{{ $index + 1 }}</td>
-                  <td>{{ item.name }}</td>
+                  <td><span class="font-semibold">{{ $index + 1 }}</span></td>
+                  <td><span class="font-semibold">{{ item.name }}</span></td>
                   <td>
                     <span class="badge badge-soft badge-sm" [class.badge-success]="item.isActive" [class.badge-error]="!item.isActive">
                       {{ item.isActive ? 'Activo' : 'Inactivo' }}
