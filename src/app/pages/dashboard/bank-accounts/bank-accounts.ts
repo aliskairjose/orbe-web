@@ -45,7 +45,7 @@ export class BankAccounts {
     },
   );
 
-  protected headers = ['País', 'Banco', 'Tipo de Cuenta', 'Cuenta', 'Asesor'];
+  protected headers = ['País', 'Banco', 'Tipo de Cuenta', 'Cuenta', 'Asesor', ''];
   protected search = model<string>('');
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
