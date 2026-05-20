@@ -61,7 +61,14 @@
                   <td>{{ item.bank.name }}</td>
                   <td>{{ item.type }}</td>
                   <td>{{ item.number }}</td>
-                  <td>{{ item.user.name }} {{ item.user.lastName }}</td>
+                  <td>
+                    <span
+                      class="cursor-pointer badge badge-soft badge-success"
+                      [routerLink]="['..', 'users', item.user._id]"
+                    >
+                      {{ item.user.name }} {{ item.user.lastName }}
+                    </span>
+                  </td>
                   <td>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
                       <span class="icon-[tabler--edit] size-5" [routerLink]="item._id"></span>
@@ -115,6 +122,7 @@
   </div>
 </div>
 
+<!-- MODAL -->
 <div
   id="form-modal"
   class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
@@ -143,7 +151,7 @@
                 <option [value]="bank._id">{{ bank.name }}</option>
               }
             </select>
-             @if (form.bank().touched() && form.bank().invalid()) {
+            @if (form.bank().touched() && form.bank().invalid()) {
               <ul class="text-red-500 text-sm">
                 @for (error of form.bank().errors(); track error) {
                   <li>{{ error.message }}</li>
@@ -157,7 +165,7 @@
               <option value="Ahorro">Ahorro</option>
               <option value="Corriente">Corriente</option>
             </select>
-             @if (form.type().touched() && form.type().invalid()) {
+            @if (form.type().touched() && form.type().invalid()) {
               <ul class="text-red-500 text-sm">
                 @for (error of form.type().errors(); track error) {
                   <li>{{ error.message }}</li>
@@ -167,12 +175,7 @@
           </div>
           <div class="w-full">
             <label class="label-text" for="number">Número de cuenta</label>
-            <input
-              id="number"
-              type="text"
-              class="input"
-              [formField]="form.number"
-            />
+            <input id="number" type="text" class="input" [formField]="form.number" />
             @if (form.number().touched() && form.number().invalid()) {
               <ul class="text-red-500 text-sm">
                 @for (error of form.number().errors(); track error) {
@@ -188,7 +191,7 @@
                 <option [value]="user._id">{{ user.name }} {{ user.lastName }}</option>
               }
             </select>
-             @if (form.user().touched() && form.user().invalid()) {
+            @if (form.user().touched() && form.user().invalid()) {
               <ul class="text-red-500 text-sm">
                 @for (error of form.user().errors(); track error) {
                   <li>{{ error.message }}</li>

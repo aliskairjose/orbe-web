@@ -6,5 +6,5 @@ export interface IBankAccount {
   type: string;
   number: string;
   bank: IBank;
-  user: Pick<IUser, "name" | "lastName" | "avatar">;
+  user: Pick<IUser, "name" | "lastName" | "avatar" | "_id">;
 }
