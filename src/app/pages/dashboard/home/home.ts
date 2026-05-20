@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   AnnualRequestServiceChart,
   AnnualTimeChart,
   AnnualUserRegister,
   RequestMonth,
+  RequestStatusHorBar,
   RoleDistribution,
   TopAdvisorCard,
   UserCard,
@@ -29,7 +30,7 @@ interface User {
 }
 @Component({
   selector: 'app-home',
-  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,RoleDistribution, RequestMonth, TopAdvisorCard],
+  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,RoleDistribution, RequestMonth, TopAdvisorCard, RequestStatusHorBar],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
