@@ -20,10 +20,10 @@ export class UserStatusPieChart {
     const s = this.stats;
     return {
       background: `conic-gradient(
-        #10b981 0% ${s.activos}%, 
-        #f59e0b ${s.activos}% ${s.activos + s.inactivos}%, 
-        #ef4444 ${s.activos + s.inactivos}% ${s.activos + s.inactivos + s.suspendidos}%, 
-        #6b7280 ${s.activos + s.inactivos + s.suspendidos}% 100%
+        oklch(92.5% 0.084 155.995) 0% ${s.activos}%, 
+        oklch(78.5% 0.115 274.713) ${s.activos}% ${s.activos + s.inactivos}%, 
+        oklch(82.8% 0.111 230.318) ${s.activos + s.inactivos}% ${s.activos + s.inactivos + s.suspendidos}%, 
+        oklch(87.2% 0.01 258.338) ${s.activos + s.inactivos + s.suspendidos}% 100%
       )`
     };
   }

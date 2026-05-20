@@ -16,13 +16,13 @@
         A circular chart showing {{ userPercent() }} percent users and
         {{ advisorPercent() }} percent advisors.
       </desc>
-      <circle cx="90" cy="90" r="64" fill="none" stroke="#10b981" stroke-width="40"></circle>
+      <circle cx="90" cy="90" r="64" fill="none" stroke="oklch(78.5% 0.115 274.713)" stroke-width="40"></circle>
       <circle
         cx="90"
         cy="90"
         r="64"
         fill="none"
-        stroke="#2563eb"
+        stroke="oklch(82.8% 0.111 230.318)"
         stroke-width="40"
         [attr.stroke-dasharray]="circumference"
         [attr.stroke-dashoffset]="donutOffset()"
@@ -44,7 +44,7 @@
       }
       <div class="flex items-center justify-between gap-3 text-sm text-gray-700">
           <div class="flex items-center gap-2">
-            <span class="h-2.5 w-2.5 rounded-full bg-yellow-500" ></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-green-300" ></span>
             <span class="font-medium">Total usuarios</span>
           </div>
           <span class="font-medium"

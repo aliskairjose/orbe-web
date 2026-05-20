@@ -18,8 +18,8 @@ export class RoleDistribution {
 
   roleCount = computed(() => {
     return [
-      { role: 'User', count: this.summary()?.roleSummary.User!, color: '#2563eb' },
-      { role: 'Advisor', count: this.summary()?.roleSummary.Advisor!, color: '#10b981' },
+      { role: 'User', count: this.summary()?.roleSummary.User!, color: 'oklch(82.8% 0.111 230.318)' },
+      { role: 'Advisor', count: this.summary()?.roleSummary.Advisor!, color: 'oklch(78.5% 0.115 274.713)' },
     ];
   });
 

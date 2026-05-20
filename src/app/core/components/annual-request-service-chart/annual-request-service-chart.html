@@ -9,10 +9,10 @@
     <!-- Leyenda -->
     <div class="flex gap-4 text-xs font-medium">
       <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 bg-indigo-500 rounded-sm"></span> Chat
+        <span class="w-3 h-3 bg-sky-300 rounded-sm"></span> Chat
       </div>
       <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 bg-cyan-400 rounded-sm"></span> Llamadas
+        <span class="w-3 h-3 bg-indigo-300 rounded-sm"></span> Llamadas
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
       <div class="flex items-end gap-1 w-full justify-center h-64">
         <!-- Barra Chat -->
         <div [style.height.%]="item.chat"
-          class="w-3 md:w-5 bg-indigo-500 rounded-t-sm transition-all duration-300 hover:bg-indigo-600 relative">
+          class="w-3 md:w-5 bg-sky-300 rounded-t-sm transition-all duration-300 hover:bg-sky-300 relative">
           <!-- Tooltip al hacer hover -->
           <span
             class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
@@ -44,7 +44,7 @@
 
         <!-- Barra Llamadas -->
         <div [style.height.%]="item.calls"
-          class="w-3 md:w-5 bg-cyan-400 rounded-t-sm transition-all duration-300 hover:bg-cyan-500 relative">
+          class="w-3 md:w-5 bg-indigo-300 rounded-t-sm transition-all duration-300 hover:bg-indigo-300 relative">
           <span
             class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
             Llamadas: {{item.calls}}%
