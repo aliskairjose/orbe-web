@@ -1,27 +1,27 @@
 <div class="space-y-6">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-    <div class="stats bg-linear-to-r from-cyan-100 to-sky-200">
+    <div class="stats bg-linear-to-r from-sky-100 to-sky-200">
       <div class="stat">
         <div class="stat-title">Total Usuarios</div>
         <div class="stat-value">{{ summary.value()?.totalRegisteredUsers! - 1 || 0 }}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-green-100 to-emerald-200">
+    <div class="stats bg-linear-to-r from-green-100 to-green-200">
       <div class="stat">
         <div class="stat-title">Total Clientes</div>
         <div class="stat-value">{{ summary.value()?.roleSummary?.User || 0 }}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-indigo-100 to-violet-200">
+    <div class="stats bg-linear-to-r from-indigo-100 to-indigo-200">
       <div class="stat">
         <div class="stat-title">Total Asesores</div>
         <div class="stat-value">{{ summary.value()?.roleSummary?.Advisor || 0 }}</div>
         <div class="stat-desc">18% more than last month</div>
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-amber-100 to-yellow-200">
+    <div class="stats bg-linear-to-r from-pink-100 to-pink-200">
       <div class="stat">
         <div class="stat-title">Total Emails Sent</div>
         <div class="stat-value">76,250</div>
