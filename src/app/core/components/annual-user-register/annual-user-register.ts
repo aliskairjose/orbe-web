@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 interface MonthlyStats {
   month: string;
   chat: number; // Porcentaje

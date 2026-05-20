@@ -61,7 +61,6 @@
       </div>
     </div>
     <div class="bg-white rounded-xl col-span-2 shadow-sm p-6">
-      <div class="my-6"></div>
       <app-annual-user-register />
       <div class="my-6"></div>
       <app-annual-request-service-chart />
@@ -74,7 +73,10 @@
       <app-role-distribution [summary]="summary.value()" />
     }
     <app-request-month />
+  </section>
+  <section class="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-2 md:gap-6">
     <app-request-status-hor-bar />
+    <app-request-status-annual />
   </section>
 
   <section>
