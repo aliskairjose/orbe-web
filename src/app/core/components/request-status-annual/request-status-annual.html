@@ -8,10 +8,10 @@
     <!-- Leyenda -->
     <div class="flex gap-4 text-xs font-medium">
       <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 bg-indigo-500 rounded-sm"></span> Aceptados
+        <span class="w-3 h-3 bg-sky-500 rounded-sm"></span> Aceptados
       </div>
       <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 bg-cyan-400 rounded-sm"></span> Rechazos
+        <span class="w-3 h-3 bg-red-500 rounded-sm"></span> Rechazos
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
             <span
               class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap"
             >
-              Aceptados: {{ item.aceptado }}
+              Aceptados: {{ item.aceptado | number: '1.2-2' }}%
             </span>
           </div>
 
@@ -51,7 +51,7 @@
             <span
               class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap"
             >
-              Rechazados: {{ item.rechazado }}
+              Rechazados: {{ item.rechazado | number: '1.2-2' }}%
             </span>
           </div>
         </div>

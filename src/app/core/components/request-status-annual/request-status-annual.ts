@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed } from '@angular/core';
 import { MONTHS } from '@core/constants';
@@ -14,7 +15,7 @@ interface Response {
 
 @Component({
   selector: 'app-request-status-annual',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './request-status-annual.html',
   styleUrl: './request-status-annual.css',
 })
@@ -30,11 +31,15 @@ export class RequestStatusAnnual {
       const aceptados = this.resource.value().find((item) => item.name === 'Aceptado')!.data;
       const rechazados = this.resource.value().find((item) => item.name === 'Rechazado')!.data;
 
-      return this.months.map((mes, index) => ({
-        month: mes,
-        aceptado: aceptados[index],
-        rechazado: rechazados[index],
-      }));
+      return this.months.map((mes, index) => {
+        const accum = aceptados[index] + rechazados[index];
+        const aceptado = aceptados[index] / accum * 100;
+        return {
+          month: mes,
+          aceptado,
+          rechazado: 100 - aceptado,
+        };
+      });
     }
     return null;
   });

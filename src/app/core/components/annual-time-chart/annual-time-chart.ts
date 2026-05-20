@@ -1,9 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { httpResource } from '@angular/common/http';
+import { Component, computed } from '@angular/core';
+import { MONTHS } from '@core/constants';
 
 interface MonthlyStats {
   month: string;
-  calls: number; // Porcentaje
+  texto: number; // Porcentaje
+  llamada: number; // Porcentaje
+  video: number; // Porcentaje
+}
+interface Response {
+  name: string;
+  data: number[];
 }
 
 @Component({
@@ -13,18 +21,24 @@ interface MonthlyStats {
   styleUrl: './annual-time-chart.css',
 })
 export class AnnualTimeChart {
-  stats: MonthlyStats[] = [
-    { month: 'Ene', calls: 30 },
-    { month: 'Feb', calls: 25 },
-    { month: 'Mar', calls: 45 },
-    { month: 'Abr', calls: 20 },
-    { month: 'May', calls: 50 },
-    { month: 'Jun', calls: 35 },
-    { month: 'Jul', calls: 42 },
-    { month: 'Ago', calls: 60 },
-    { month: 'Sep', calls: 15 },
-    { month: 'Oct', calls: 40 },
-    { month: 'Nov', calls: 55 },
-    { month: 'Dic', calls: 38 },
-  ];
+  private readonly months = MONTHS;
+  protected currentYear = new Date().getFullYear();
+  private readonly url = `${API_URL}/v1/time-register/accumulated-time`;
+
+  protected readonly resource = httpResource<Response[]>(() => this.url);
+
+  stats = computed(() => {
+    if (this.resource.hasValue()) {
+      const texts = this.resource.value().find((item) => item.name === 'Texto')!.data;
+      const voice = this.resource.value().find((item) => item.name === 'Voz')!.data;
+
+      return this.months.map((mes, index) => ({
+        month: mes,
+        texto: texts[index],
+        llamada: voice[index],
+        video: voice[index],
+      }));
+    }
+    return null;
+  });
 }
