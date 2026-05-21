@@ -31,13 +31,14 @@ export class AnnualTimeChart {
     if (this.resource.hasValue()) {
       const texts = this.resource.value().find((item) => item.name === 'Texto')!.data;
       const voice = this.resource.value().find((item) => item.name === 'Voz')!.data;
+      const video = this.resource.value().find((item) => item.name === 'Video')!.data;
 
       return this.months.map((mes, index) => {
         return {
           month: mes,
           texto: texts[index],
           llamada: voice[index],
-          video: voice[index],
+          video: video[index],
         };
       });
     }
