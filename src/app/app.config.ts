@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { withNgxsFormPlugin } from '@ngxs/form-plugin';
@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })),
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([httpInterceptor])),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideStore(
       [AuthStates],
       {
