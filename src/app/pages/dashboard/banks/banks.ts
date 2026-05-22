@@ -20,9 +20,14 @@ export class Banks {
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
 
-  resource = httpResource<IResponse<IBank>>(
-    () => `${this.url}?limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
-  );
+  protected resource = httpResource<IResponse<IBank>>(() => ({
+    url: this.url,
+    params: {
+      limit: this.limit(),
+      page: this.page(),
+      search: this.search() ?? '',
+    },
+  }));
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;

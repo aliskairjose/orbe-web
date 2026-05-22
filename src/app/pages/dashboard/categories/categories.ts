@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, model, signal, effect, computed } from '@angular/core';
+import { Component, model, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { ICategory } from '@core/interfaces';
@@ -23,17 +23,15 @@ export class Categories {
   protected search = model<string>('');
 
   protected resource = httpResource<IResponse<ICategory>>(() => ({
-    url: `${this.url}`,
-    params:{
+    url: this.url,
+    params: {
       limit: this.limit(),
       page: this.page(),
-      search: this.search()
-    }
+      search: this.search() ?? '',
+    },
   }));
 
-  fromPage = computed(() => {
-    return this.limit() * (this.page() - 1) + 1;
-  });
+  fromPage = computed(() => this.limit() * (this.page() - 1) + 1);
 
   toPage = computed(() => {
     return this.resource.value()?.metadata

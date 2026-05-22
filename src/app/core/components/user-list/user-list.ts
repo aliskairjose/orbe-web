@@ -13,9 +13,9 @@ import { IResponse, IUser } from '@core/interfaces';
   styleUrl: './user-list.css',
 })
 export class UserList {
-  protected headers: string[] = ['#', 'Usuario', 'Email', 'Status', 'Registrado', 'Últ. conexión'];
-
   private readonly url = `${API_URL}/v1/users`;
+
+  protected headers: string[] = ['#', 'Usuario', 'Email', 'Status', 'Registrado', 'Últ. conexión'];
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
@@ -24,13 +24,16 @@ export class UserList {
   protected page = signal(1);
   protected search = model<string>('');
 
-  resource = httpResource<IResponse<IUser>>(
-    () => `${this.url}?role=User&limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
-  );
+  protected resource = httpResource<IResponse<IUser>>(() => ({
+    url: this.url,
+    params: {
+      limit: this.limit(),
+      page: this.page(),
+      search: this.search(),
+    },
+  }));
 
-  fromPage = computed(() => {
-    return this.limit() * (this.page() - 1) + 1;
-  });
+  fromPage = computed(() => this.limit() * (this.page() - 1) + 1);
 
   toPage = computed(() => {
     return this.resource.value()?.metadata

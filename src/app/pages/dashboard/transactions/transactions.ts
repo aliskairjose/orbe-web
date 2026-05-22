@@ -23,9 +23,14 @@ export class Transactions {
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
 
-  resource = httpResource<IResponse<ITransaction>>(
-    () => `${this.url}?limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
-  );
+  protected resource = httpResource<IResponse<ITransaction>>(() => ({
+    url: this.url,
+    params: {
+      limit: this.limit(),
+      page: this.page(),
+      search: this.search() ?? '',
+    },
+  }));
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;
@@ -46,5 +51,4 @@ export class Transactions {
   goTopage(page: number): void {
     this.page.set(page);
   }
-
 }
