@@ -4,6 +4,7 @@ import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ITEM_PER_PAGE } from '@core/constants';
+import { ERole } from '@core/enums';
 import { IResponse, IUser } from '@core/interfaces';
 
 @Component({
@@ -26,6 +27,7 @@ export class UserList {
   protected resource = httpResource<IResponse<IUser>>(() => ({
     url: this.url,
     params: {
+      role: ERole.User,
       limit: this.limit(),
       page: this.page(),
       search: this.search(),

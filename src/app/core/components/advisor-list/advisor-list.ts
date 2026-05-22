@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, ICategory, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
+import { ERole } from '@core/enums';
 
 interface ICountry {
   country: string;
@@ -41,12 +42,23 @@ export class AdvisorList {
   protected page = signal(1);
   protected search = model<string>('');
 
-  resource = httpResource<IResponse<IAdvisor>>(
-    () =>
-      `${this.url}/users?role=Advisor&limit=${this.limit()}&page=${this.page()}&search=${this.search()}`,
-  );
+  protected resource = httpResource<IResponse<IAdvisor>>(() => ({
+    url: `${this.url}/users`,
+    params: {
+      role: ERole.Advisor,
+      limit: this.limit(),
+      page: this.page(),
+      search: this.search(),
+    },
+  }));
 
-  catResource = httpResource<IResponse<ICategory>>(() => `${this.url}/categories?limit=0`);
+    protected catResource = httpResource<IResponse<IAdvisor>>(() => ({
+    url: `${this.url}/categories`,
+    params: {
+      limit: this.limit(),
+    },
+  }));
+
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;

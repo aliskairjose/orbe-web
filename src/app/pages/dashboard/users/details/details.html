@@ -3,8 +3,10 @@
 >
   <h3 class="text-xl font-medium text-gray-800">Datos Personales</h3>
   @if (user.hasValue()) {
-    <div class="flex flex-col w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8 gap-y-4.5">
-      <div class="flex w-full flex-col items-center gap-6 xl:flex-row">
+    <div
+      class="flex flex-col w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8 gap-y-4.5"
+    >
+      <div class="flex w-full flex-col items-center gap-4.5 xl:flex-row">
         <div class="avatar">
           <div class="size-16 rounded-full">
             <img [src]="user.value().avatar" alt="avatar" />
@@ -14,7 +16,17 @@
           <p class="text-lg font-semibold tracking-wide">
             {{ user.value().name }} {{ user.value().lastName }}
           </p>
-          <p class="text-gray-500 text-sm">{{ user.value().role }} | {{user.value().country}}</p>
+          <p class="text-gray-500 text-sm">
+            {{ user.value().role }} | {{ user.value().country }}
+            @if (user.value().role === 'Advisor') {
+              <span class="inline-flex items-center">
+                | {{ user.value()?.rateStats.average }}
+                <span
+                  class="icon-[tabler--star-filled] size-4 shrink-0 text-yellow-400 ms-0.5"
+                ></span>
+              </span>
+            }
+          </p>
         </div>
       </div>
 
@@ -39,15 +51,61 @@
           <div>
             <small class="text-gray-400">Teléfono</small>
             <p class="font-medium">{{ user.value().phone }}</p>
-          </div> 
+          </div>
           <div>
             <small class="text-gray-400">País</small>
             <p class="font-medium">{{ user.value().country }}</p>
           </div>
+          @if(user.value().role==='Advisor'){
+             <div>
+            <small class="text-gray-400">Idiomas</small>
+            <p class="font-medium">{{ user.value().language }}</p>
+          </div>
+          }
         </div>
       </div>
     </div>
 
-    <div class="w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8"></div>
+    @if (user.value().role == 'Advisor') {
+      <h3 class="text-xl font-medium text-gray-800">Datos de Perfil</h3>
+      <div class="w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 col-span-2 gap-6">
+            <div>
+              <small class="text-gray-400">Alias</small>
+              <p class="font-medium">{{ user.value().advisor.alias }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400 text-xs">{{ user.value().advisor.dniType | titlecase}}</small>
+              <p class="font-medium">{{ user.value().advisor.dni }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400 text-xs">Descripción</small>
+              <p class="font-medium">{{ user.value().advisor.description }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400">Experiencia</small>
+              <p class="font-medium">{{ user.value().advisor.experience }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400">Categoría</small>
+              <p class="font-medium">{{ user.value().advisor.category }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400">País</small>
+              <p class="font-medium">{{ user.value().country }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400">Chat/min</small>
+              <p class="font-medium">{{ user.value().advisor.chatPrice |currency }}</p>
+            </div>
+            <div>
+              <small class="text-gray-400">Llamada/min</small>
+              <p class="font-medium">{{ user.value().advisor.callPrice | currency }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
   }
 </div>
