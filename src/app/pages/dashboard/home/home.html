@@ -30,49 +30,47 @@
     </div>
   </div>
 
-  <section class="grid grid-cols-1 gap-6 xl:grid-cols-[0.7fr_1.5fr]">
-    <div class="space-y-6">
-      <div
-        class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
-      >
-        <h3 class="text-xl font-semibold text-gray-800">Nuevos Registros</h3>
-        <!-- Card Loop -->
-        @for (user of newReg.value(); track $index) {
-          <app-user-card [user]="user" />
-        }
-      </div>
-      <div
-        class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
-      >
-        <h3 class="text-xl font-semibold text-gray-800">Postulados</h3>
-        <!-- Card Loop -->
-        @for (user of postulate.value(); track $index) {
-          <app-top-advisor-card [user]="user" />
-        }
-      </div>
-      <div
-        class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
-      >
-        <h3 class="text-xl font-semibold text-gray-800">Top 10</h3>
-        <!-- Card Loop -->
-        @for (user of top.value(); track $index) {
-          <app-top-advisor-card [user]="user" />
-        }
-      </div>
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
+      <h3 class="text-xl font-medium text-gray-800">Nuevos Registros</h3>
+      <!-- Card Loop -->
+      @for (user of newReg.value(); track $index) {
+      <app-user-card [user]="user" />
+      }
     </div>
+    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
+      <h3 class="text-xl font-medium text-gray-800">Postulados</h3>
+      <!-- Card Loop -->
+      @for (user of postulate.value(); track $index) {
+      <app-top-advisor-card [user]="user" />
+      }
+    </div>
+    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
+      <h3 class="text-xl font-medium text-gray-800">Top 10</h3>
+      <!-- Card Loop -->
+      @for (user of top.value(); track $index) {
+      <app-top-advisor-card [user]="user" />
+      }
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 gap-6 xl:grid-cols-[0.7fr_1.5fr]">
     <div class="bg-white rounded-xl shadow-sm p-6">
       <app-annual-user-register />
-      <div class="my-6"></div>
-      <app-annual-request-service-chart />
     </div>
+  </section>
+
+  <section class="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-2 md:gap-6">
+    <app-annual-request-service-chart />
+    <app-request-month />
+
   </section>
 
   <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
     <app-user-status-pie-chart />
     @if (summary.hasValue()) {
-      <app-role-distribution [summary]="summary.value()" />
+    <app-role-distribution [summary]="summary.value()" />
     }
-    <app-request-month />
   </section>
 
   <section class="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-2 md:gap-6">
@@ -83,5 +81,5 @@
   <section>
     <app-annual-time-chart />
   </section>
-  
+
 </div>

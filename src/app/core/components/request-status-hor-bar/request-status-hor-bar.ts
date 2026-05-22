@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, signal } from '@angular/core';
 import { map } from 'rxjs';
@@ -13,13 +14,13 @@ interface IStatusRequest {
 
 @Component({
   selector: 'app-request-status-hor-bar',
-  imports: [],
+  imports: [TitleCasePipe],
   templateUrl: './request-status-hor-bar.html',
   styleUrl: './request-status-hor-bar.css',
 })
 export class RequestStatusHorBar {
   private readonly url = `${API_URL}/v1/request-logs/summary/status`;
-
+  protected readonly currentMonth = new Date().toLocaleString('default', { month: 'long' });
   protected readonly resource = httpResource<IStatusRequest[]>(() => this.url);
 
   requestCount = computed(() => {

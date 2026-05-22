@@ -2,7 +2,7 @@
 
   <div class="mb-8 flex justify-between items-end">
     <div>
-      <h2 class="text-xl font-medium text-gray-800">Consultas {{currentYear}}</h2>
+      <h3 class="text-xl font-medium text-gray-800">Consultas {{currentYear}}</h3>
       <p class="text-gray-500 text-sm">Distribución mensual de consultas</p>
     </div>
 
@@ -38,7 +38,7 @@
           <!-- Tooltip al hacer hover -->
           <span
             class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
-            Chat: {{item.chat}}%
+            {{item.chat}}
           </span>
         </div>
 
@@ -47,7 +47,7 @@
           class="w-3 md:w-5 bg-indigo-300 rounded-t-sm transition-all duration-300 hover:bg-indigo-300 relative">
           <span
             class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
-            Llamadas: {{item.calls}}%
+            {{item.calls}}
           </span>
         </div>
 
