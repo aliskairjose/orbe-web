@@ -33,14 +33,12 @@ export class AnnualTimeChart {
       const voice = this.resource.value().find((item) => item.name === 'Voz')!.data;
       const video = this.resource.value().find((item) => item.name === 'Video')!.data;
 
-      return this.months.map((mes, index) => {
-        return {
-          month: mes,
-          texto: texts[index],
-          llamada: voice[index],
-          video: video[index],
-        };
-      });
+      return this.months.map((mes, index) => ({
+        month: mes,
+        texto: texts[index],
+        llamada: voice[index],
+        video: video[index],
+      }));
     }
     return null;
   });

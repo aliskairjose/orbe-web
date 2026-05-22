@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
-
+import { httpResource } from '@angular/common/http';
+import { Component, computed } from '@angular/core';
+import { required } from '@angular/forms/signals';
+import { MONTHS } from '@core/constants';
 interface MonthlyStats {
   month: string;
   chat: number; // Porcentaje
   calls: number; // Porcentaje
+}
+
+interface Response {
+  name: string;
+  data: number[];
 }
 
 @Component({
@@ -13,18 +20,23 @@ interface MonthlyStats {
   styleUrl: './annual-user-register.css',
 })
 export class AnnualUserRegister {
-  stats: MonthlyStats[] = [
-    { month: 'Ene', chat: 45, calls: 30 },
-    { month: 'Feb', chat: 52, calls: 25 },
-    { month: 'Mar', chat: 38, calls: 45 },
-    { month: 'Abr', chat: 60, calls: 20 },
-    { month: 'May', chat: 40, calls: 50 },
-    { month: 'Jun', chat: 55, calls: 35 },
-    { month: 'Jul', chat: 48, calls: 42 },
-    { month: 'Ago', chat: 30, calls: 60 },
-    { month: 'Sep', chat: 65, calls: 15 },
-    { month: 'Oct', chat: 50, calls: 40 },
-    { month: 'Nov', chat: 42, calls: 55 },
-    { month: 'Dic', chat: 58, calls: 38 },
-  ];
+  private readonly months = MONTHS;
+ 
+  protected resource = httpResource<Response[]>(
+    () => `${API_URL}/v1/users/summary/monthly-register/2026`,
+  );
+
+  stats = computed(() => {
+    if (this.resource.hasValue()) {
+      const user = this.resource.value().find(({ name }) => name === 'User')?.data || [];
+      const advisor = this.resource.value().find(({ name }) => name === 'Advisor')?.data || [];
+
+      return this.months.map((m, i) => ({
+        month: m,
+        user: user[i],
+        advisor: advisor[i],
+      }));
+    }
+    return null;
+  });
 }
