@@ -1,72 +1,75 @@
-<div class="p-8 bg-white rounded-xl border border-gray-300">
+<div class="bg-white rounded-xl shadow-sm p-6">
 
-  <div class="mb-8 flex justify-between items-end">
-    <div>
-      <h3 class="text-xl font-medium text-gray-800">Consultas {{currentYear}}</h3>
-      <p class="text-gray-500 text-sm">Distribución mensual de consultas</p>
-    </div>
+  <div class="p-8 bg-white rounded-xl border border-gray-300">
 
-    <!-- Leyenda -->
-    <div class="flex gap-4 text-xs font-medium">
-      <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 bg-sky-300 rounded-sm"></span> Chat
+    <div class="mb-8 flex justify-between items-end">
+      <div>
+        <h3 class="text-xl font-medium text-gray-800">Consultas {{currentYear}}</h3>
+        <p class="text-gray-500 text-sm">Distribución mensual de consultas</p>
       </div>
-      <div class="flex items-center gap-1.5">
-        <span class="w-3 h-3 bg-indigo-300 rounded-sm"></span> Llamadas
+
+      <!-- Leyenda -->
+      <div class="flex gap-4 text-xs font-medium">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-3 bg-sky-300 rounded-sm"></span> Chat
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-3 bg-indigo-300 rounded-sm"></span> Llamadas
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Contenedor del Gráfico -->
-  <div class="relative h-72 flex items-end justify-between gap-2 px-2 border-b border-gray-200">
+    <!-- Contenedor del Gráfico -->
+    <div class="relative h-72 flex items-end justify-between gap-2 px-2 border-b border-gray-200">
 
-    <!-- Líneas de referencia de fondo -->
-    <div class="absolute inset-0 flex flex-col justify-between z-0 pointer-events-none">
-      <div class="w-full border-t border-gray-200 h-0"></div>
-      <div class="w-full border-t border-gray-200 h-0"></div>
-      <div class="w-full border-t border-gray-200 h-0"></div>
-      <div class="w-full border-t border-gray-200 h-0"></div>
-    </div>
+      <!-- Líneas de referencia de fondo -->
+      <div class="absolute inset-0 flex flex-col justify-between z-0 pointer-events-none">
+        <div class="w-full border-t border-gray-200 h-0"></div>
+        <div class="w-full border-t border-gray-200 h-0"></div>
+        <div class="w-full border-t border-gray-200 h-0"></div>
+        <div class="w-full border-t border-gray-200 h-0"></div>
+      </div>
 
-    <!-- Barras -->
-    @for (item of stats(); track $index) {
-    <div class="flex-1 flex flex-col items-center group relative z-10">
-      <div class="flex items-end gap-1 w-full justify-center h-64">
-        <!-- Barra Chat -->
-        <div [style.height.%]="item.chat"
-          class="w-3 md:w-5 bg-sky-300 rounded-t-sm transition-all duration-300 hover:bg-sky-300 relative">
-          <!-- Tooltip al hacer hover -->
-          <span
-            class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
-            {{item.chat}}
-          </span>
-        </div>
+      <!-- Barras -->
+      @for (item of stats(); track $index) {
+      <div class="flex-1 flex flex-col items-center group relative z-10">
+        <div class="flex items-end gap-1 w-full justify-center h-64">
+          <!-- Barra Chat -->
+          <div [style.height.%]="item.chat"
+            class="w-3 md:w-5 bg-sky-300 rounded-t-sm transition-all duration-300 hover:bg-sky-300 relative">
+            <!-- Tooltip al hacer hover -->
+            <span
+              class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
+              {{item.chat}}
+            </span>
+          </div>
 
-        <!-- Barra Llamadas -->
-        <div [style.height.%]="item.calls"
-          class="w-3 md:w-5 bg-indigo-300 rounded-t-sm transition-all duration-300 hover:bg-indigo-300 relative">
-          <span
-            class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
-            {{item.calls}}
-          </span>
-        </div>
+          <!-- Barra Llamadas -->
+          <div [style.height.%]="item.calls"
+            class="w-3 md:w-5 bg-indigo-300 rounded-t-sm transition-all duration-300 hover:bg-indigo-300 relative">
+            <span
+              class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
+              {{item.calls}}
+            </span>
+          </div>
 
-        <!-- Barra Video  -->
-        <!-- <div [style.height.%]="item.video"
+          <!-- Barra Video  -->
+          <!-- <div [style.height.%]="item.video"
           class="w-3 md:w-5 bg-indigo-300 rounded-t-sm transition-all duration-300 hover:bg-indigo-300 relative">
           <span
             class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] py-1 px-2 rounded shadow-lg transition-opacity whitespace-nowrap">
             Llamadas: {{item.video}}%
           </span>
         </div> -->
+        </div>
+
+        <!-- Etiqueta Mes -->
+        <span class="mt-3 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">
+          {{ item.month }}
+        </span>
       </div>
+      }
 
-      <!-- Etiqueta Mes -->
-      <span class="mt-3 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">
-        {{ item.month }}
-      </span>
     </div>
-    }
-
   </div>
 </div>
