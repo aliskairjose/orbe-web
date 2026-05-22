@@ -1,1 +1,53 @@
-<p>details works!</p>
+<div
+  class="flex flex-col w-full bg-white rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:pt-12 md:pb-6 space-y-6"
+>
+  <h3 class="text-xl font-medium text-gray-800">Datos Personales</h3>
+  @if (user.hasValue()) {
+    <div class="flex flex-col w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8 gap-y-4.5">
+      <div class="flex w-full flex-col items-center gap-6 xl:flex-row">
+        <div class="avatar">
+          <div class="size-16 rounded-full">
+            <img [src]="user.value().avatar" alt="avatar" />
+          </div>
+        </div>
+        <div class="flex flex-col gap-x-8 gap-y-1">
+          <p class="text-lg font-semibold tracking-wide">
+            {{ user.value().name }} {{ user.value().lastName }}
+          </p>
+          <p class="text-gray-500 text-sm">{{ user.value().role }} | {{user.value().country}}</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 col-span-2 gap-6">
+          <div>
+            <small class="text-gray-400">Nombre</small>
+            <p class="font-medium">{{ user.value().name }}</p>
+          </div>
+          <div>
+            <small class="text-gray-400 text-xs">Apellido</small>
+            <p class="font-medium">{{ user.value().lastName }}</p>
+          </div>
+          <div>
+            <small class="text-gray-400 text-xs">Fecha de nacimiento</small>
+            <p class="font-medium">{{ user.value().dob | date }}</p>
+          </div>
+          <div>
+            <small class="text-gray-400">Correo electrónico</small>
+            <p class="font-medium">{{ user.value().email }}</p>
+          </div>
+          <div>
+            <small class="text-gray-400">Teléfono</small>
+            <p class="font-medium">{{ user.value().phone }}</p>
+          </div> 
+          <div>
+            <small class="text-gray-400">País</small>
+            <p class="font-medium">{{ user.value().country }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8"></div>
+  }
+</div>

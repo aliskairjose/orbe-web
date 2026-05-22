@@ -1,13 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, inject, Input } from '@angular/core';
+import { Component, computed, Input } from '@angular/core';
+import { IAdvisor, IUser } from '@core/interfaces';
 @Component({
   selector: 'app-details',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
 export class Details {
   @Input() id!: string;
+  @Input() role!: string;
 
-  protected resource = httpResource(() => `${API_URL}/v1/users/${this.id}`);
+  protected  readonly user = httpResource<IUser | IAdvisor>(
+    () => `${API_URL}/v1/users/${this.id}`,
+  );
+
+
 }

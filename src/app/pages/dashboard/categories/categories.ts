@@ -14,7 +14,6 @@ import { IResponse } from '@core/interfaces/response';
 })
 export class Categories {
   private readonly url = `${API_URL}/v1/categories`;
-
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
 
