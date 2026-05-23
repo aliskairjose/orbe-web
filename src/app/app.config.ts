@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 import { withNgxsFormPlugin } from '@ngxs/form-plugin';
@@ -26,7 +26,14 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })),
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([httpInterceptor])),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(
+      routes,
+      withComponentInputBinding(),
+      withInMemoryScrolling({
+        anchorScrolling: 'enabled', // Habilita el salto automático al ancla
+        scrollPositionRestoration: 'enabled', // Restaura la posición si el usuario regresa
+      }),
+    ),
     provideStore(
       [AuthStates],
       {
