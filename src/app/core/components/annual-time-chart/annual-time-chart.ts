@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, Input, input, signal } from '@angular/core';
 import { MONTHS } from '@core/constants';
 
 interface MonthlyStats {
@@ -21,11 +21,12 @@ interface Response {
   styleUrl: './annual-time-chart.css',
 })
 export class AnnualTimeChart {
-  readonly id = input<string>('');
+  @Input() id: string = '';
 
   private readonly months = MONTHS;
   protected currentYear = new Date().getFullYear();
-  private readonly url = `${API_URL}/v1/time-register/accumulated-time/${this.id()}`;
+
+  private readonly url = `${API_URL}/v1/time-register/accumulated-time/${this.id}`;
 
   protected readonly resource = httpResource<Response[]>(() => this.url);
 
@@ -37,9 +38,9 @@ export class AnnualTimeChart {
 
       return this.months.map((mes, index) => {
         const total = texts[index] + voice[index] + video[index];
-        const textPercent = texts[index] / total * 100;
-        const voicePercent = voice[index] / total * 100;
-        const videoPercent = video[index] / total * 100;
+        const textPercent = (texts[index] / total) * 100;
+        const voicePercent = (voice[index] / total) * 100;
+        const videoPercent = (video[index] / total) * 100;
         return {
           month: mes,
           texto: textPercent,
