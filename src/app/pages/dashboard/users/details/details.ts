@@ -12,7 +12,7 @@ export class Details {
   @Input() id!: string;
   @Input() role!: string;
 
-  protected  readonly user = httpResource<any>(
+  protected  user = httpResource<any>(
     () => `${API_URL}/v1/users/${this.id}`,
   );
 

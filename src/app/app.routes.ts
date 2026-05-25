@@ -7,6 +7,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/auth/login/login').then((m) => m.Login),
   },
   {
+    path: 'auth/verify-email/:id',
+    loadComponent: () => import('./pages/auth/verify-account/verify-account').then((m) => m.VerifyAccount),
+  },
+  {
     path: '',
     loadComponent: () => import('./pages/landing/landing').then((m) => m.Landing),
   },

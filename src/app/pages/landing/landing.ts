@@ -5,7 +5,7 @@ import { AuthSelectors } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-landing',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterLink],
   templateUrl: './landing.html',
   styleUrl: './landing.css',
 })

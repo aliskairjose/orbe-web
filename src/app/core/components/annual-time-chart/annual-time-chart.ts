@@ -21,14 +21,14 @@ interface Response {
   styleUrl: './annual-time-chart.css',
 })
 export class AnnualTimeChart {
-  @Input() id: string = '';
+  @Input() id!: string;
 
   private readonly months = MONTHS;
   protected currentYear = new Date().getFullYear();
 
   private readonly url = `${API_URL}/v1/time-register/accumulated-time/${this.id}`;
 
-  protected readonly resource = httpResource<Response[]>(() => this.url);
+  protected resource = httpResource<Response[]>(() => this.url);
 
   stats = computed(() => {
     if (this.resource.hasValue()) {
