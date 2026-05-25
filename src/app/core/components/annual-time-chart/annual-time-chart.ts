@@ -29,16 +29,22 @@ export class AnnualTimeChart {
 
   stats = computed(() => {
     if (this.resource.hasValue()) {
-      const texts = this.resource.value().find((item) => item.name === 'Texto')!.data;
-      const voice = this.resource.value().find((item) => item.name === 'Voz')!.data;
+      const texts = this.resource.value().find((item) => item.name === 'Chat')!.data;
+      const voice = this.resource.value().find((item) => item.name === 'Voice')!.data;
       const video = this.resource.value().find((item) => item.name === 'Video')!.data;
 
-      return this.months.map((mes, index) => ({
-        month: mes,
-        texto: texts[index],
-        llamada: voice[index],
-        video: video[index],
-      }));
+      return this.months.map((mes, index) => {
+        const total = texts[index] + voice[index] + video[index];
+        const textPercent = texts[index] / total * 100;
+        const voicePercent = voice[index] / total * 100;
+        const videoPercent = video[index] / total * 100;
+        return {
+          month: mes,
+          texto: textPercent,
+          llamada: voicePercent,
+          video: videoPercent,
+        };
+      });
     }
     return null;
   });
