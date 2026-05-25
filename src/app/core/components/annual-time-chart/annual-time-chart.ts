@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { MONTHS } from '@core/constants';
 
 interface MonthlyStats {
@@ -21,9 +21,11 @@ interface Response {
   styleUrl: './annual-time-chart.css',
 })
 export class AnnualTimeChart {
+  readonly id = input<string>('');
+
   private readonly months = MONTHS;
   protected currentYear = new Date().getFullYear();
-  private readonly url = `${API_URL}/v1/time-register/accumulated-time`;
+  private readonly url = `${API_URL}/v1/time-register/accumulated-time/${this.id()}`;
 
   protected readonly resource = httpResource<Response[]>(() => this.url);
 

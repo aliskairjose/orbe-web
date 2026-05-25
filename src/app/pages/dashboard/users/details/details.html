@@ -56,11 +56,11 @@
             <small class="text-gray-400">País</small>
             <p class="font-medium">{{ user.value().country }}</p>
           </div>
-          @if(user.value().role==='Advisor'){
-             <div>
-            <small class="text-gray-400">Idiomas</small>
-            <p class="font-medium">{{ user.value().language }}</p>
-          </div>
+          @if (user.value().role === 'Advisor') {
+            <div>
+              <small class="text-gray-400">Idiomas</small>
+              <p class="font-medium">{{ user.value().language }}</p>
+            </div>
           }
         </div>
       </div>
@@ -76,7 +76,9 @@
               <p class="font-medium">{{ user.value().advisor.alias }}</p>
             </div>
             <div>
-              <small class="text-gray-400 text-xs">{{ user.value().advisor.dniType | titlecase}}</small>
+              <small class="text-gray-400 text-xs">{{
+                user.value().advisor.dniType | titlecase
+              }}</small>
               <p class="font-medium">{{ user.value().advisor.dni }}</p>
             </div>
             <div>
@@ -97,7 +99,7 @@
             </div>
             <div>
               <small class="text-gray-400">Chat/min</small>
-              <p class="font-medium">{{ user.value().advisor.chatPrice |currency }}</p>
+              <p class="font-medium">{{ user.value().advisor.chatPrice | currency }}</p>
             </div>
             <div>
               <small class="text-gray-400">Llamada/min</small>
@@ -105,6 +107,12 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <h3 class="text-xl font-medium text-gray-800">Estadísticas</h3>
+      <div class="w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8">
+            <app-annual-time-chart [id]="user.value()._id" />
+        
       </div>
     }
   }
