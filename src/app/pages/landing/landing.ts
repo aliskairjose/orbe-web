@@ -20,7 +20,11 @@ export class Landing implements AfterViewInit, OnDestroy {
 
   protected readonly accessButtonTitle = this.store.selectSnapshot(AuthSelectors.isAuthenticated)
     ? 'Dashboard'
-    : 'Iniciar sesión';
+    : 'Iniciar sesión';  
+    
+  protected goTo = this.store.selectSnapshot(AuthSelectors.isAuthenticated)
+    ? ['dashboard']
+    : ['auth', 'login'];
 
     ngAfterViewInit(): void {
     this.route.fragment.pipe(takeUntil(this.destroy$)).subscribe(fragment => {

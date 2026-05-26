@@ -1,8 +1,8 @@
 <div class="bg-slate-50 text-slate-800 font-sans antialiased h-screen overflow-auto">
   <!-- Header / Navbar -->
-  <header class="top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-sm z-50">
+  <header class="top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-2xs z-50">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <img src="images/logos/orbe/logotipo.png" alt="logo" srcset="" class="w-32" />
+      <img src="images/logos/orbe/logotipo.png" alt="logo" srcset="" class="w-32 cursor-pointer" [routerLink]="['.']"/>
       <nav class="hidden md:flex items-center gap-8 font-medium text-slate-600">
         <a href="#caracteristicas" class="hover:text-green-800 transition-colors">Home</a>
         <a [routerLink]="['faq']" class="hover:text-green-800 transition-colors"
@@ -14,7 +14,7 @@
       </nav>
       <div class="flex items-center gap-4">
         <a
-          [routerLink]="['auth', 'login']"
+          [routerLink]="goTo"
           class="hidden sm:inline-block font-medium text-slate-600 hover:text-green-800 transition-colors"
           >{{ accessButtonTitle }}</a
         >
@@ -25,7 +25,7 @@
   <router-outlet />
 
   <!-- Footer -->
-  <footer class="bg-[#1d4747] text-slate-500 text-sm border-t border-slate-900 py-20">
+  <footer class="bg-[#1d4747] text-slate-500 text-sm border-t border-slate-900 py-10">
     <div class="grid grid-cols-1 md:grid-cols-5 max-w-7xl mx-auto px-6 gap-6">
       <div class="flex flex-col space-y-6">
         <img src="images/logos/orbe/isotipo.png" alt="" class="w-20" />
