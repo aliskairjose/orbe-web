@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@core/guards/auth.guard';
+import { landingRoutes } from './pages/landing/landing.routes';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/landing/landing').then((m) => m.Landing),
+    loadChildren: () => import('./pages/landing/landing.routes').then((m) => m.landingRoutes),
   },
   {
     path: 'dashboard',
