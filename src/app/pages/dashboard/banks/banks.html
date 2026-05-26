@@ -49,8 +49,8 @@
             <tbody>
               @for (item of resource.value()!.results; track $index) {
                 <tr>
-                  <td><span class="font-semibold">{{ $index + 1 }}</span></td>
-                  <td><span class="font-semibold">{{ item.name }}</span></td>
+                  <td><span class="font-medium">{{ $index + 1 }}</span></td>
+                  <td><span class="font-medium">{{ item.name }}</span></td>
                   <td>{{ item.country }}</td>
                   <td>
                     <span

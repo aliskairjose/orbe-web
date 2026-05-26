@@ -56,7 +56,7 @@
             <tbody>
               @for (item of resource.value()!.results; track $index) {
                 <tr class="hover:bg-gray-50">
-                  <td><span class="font-semibold">{{ $index + 1 }}</span></td>
+                  <td><span class="font-medium">{{ $index + 1 }}</span></td>
                   <td>{{ item.bank.country }}</td>
                   <td>{{ item.bank.name }}</td>
                   <td>{{ item.type }}</td>

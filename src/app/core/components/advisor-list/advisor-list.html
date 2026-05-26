@@ -59,7 +59,7 @@
               @for (item of resource.value()!.results; track $index) {
                 <tr class="hover:bg-gray-50">
                   <td>
-                    <span class="font-semibold">{{ $index + 1 }}</span>
+                    <span class="font-medium">{{ $index + 1 }}</span>
                   </td>
                   <td>
                     <div
@@ -78,7 +78,7 @@
                       <!-- Info del Usuario -->
                       <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between">
-                          <h3 class="text-sm font-semibold text-gray-800 truncate">
+                          <h3 class="text-sm font-medium text-gray-800 truncate">
                             {{ item.name }} {{ item.lastName }}
                           </h3>
                         </div>

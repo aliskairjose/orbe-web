@@ -48,8 +48,8 @@
             <tbody>
               @for (item of resource.value()!.results; track $index) {
                 <tr>
-                  <td><span class="font-semibold">{{ $index + 1 }}</span></td>
-                  <td><span class="font-semibold">{{ item.name }}</span></td>
+                  <td><span class="font-medium">{{ $index + 1 }}</span></td>
+                  <td><span class="font-medium">{{ item.name }}</span></td>
                   <td>
                     <span class="badge badge-soft badge-sm" [class.badge-success]="item.isActive" [class.badge-error]="!item.isActive">
                       {{ item.isActive ? 'Activo' : 'Inactivo' }}

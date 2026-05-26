@@ -44,50 +44,6 @@ export class Home {
     { label: 'Acumulado Mayo', value: '$9.000,00' },
   ]);
 
-  users: User[] = [
-    {
-      id: '1',
-      firstName: 'Lucía',
-      lastName: 'García',
-      role: 'Advisor',
-      createdAt: '12 May 2025',
-      avatar: 'https://i.pravatar.cc/150?u=lucia',
-    },
-    {
-      id: '2',
-      firstName: 'Marcos',
-      lastName: 'Ruiz',
-      role: 'User',
-      createdAt: '05 Jun 2025',
-      avatar: 'https://i.pravatar.cc/150?u=marcos',
-    },
-    {
-      id: '3',
-      firstName: 'Elena',
-      lastName: 'Sanz',
-      role: 'Advisor',
-      createdAt: '22 Jul 2025',
-      avatar: 'https://i.pravatar.cc/150?u=elena',
-    },
-    {
-      id: '4',
-      firstName: 'Javier',
-      lastName: 'López',
-      role: 'User',
-      createdAt: '10 Aug 2025',
-      avatar: 'https://i.pravatar.cc/150?u=javier',
-    },
-    {
-      id: '5',
-      firstName: 'Sofía',
-      lastName: 'Torres',
-      role: 'User',
-      createdAt: '18 Sep 2025',
-      avatar: 'https://i.pravatar.cc/150?u=sofia',
-    },
-  ];
-
-
   summary = httpResource<IUserSummary>(()=>`${this.url}dashboard/users/summary`);
   newReg = httpResource<IUser[]>(()=>`${this.url}dashboard/new-registrations`);
   top = httpResource<IUser[]>(()=>`${this.url}dashboard/top-rated-advisors`);

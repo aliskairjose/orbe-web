@@ -34,7 +34,7 @@
           aria-label="Abrir menú">
           <span class="material-symbols-outlined"> menu </span>
         </button>
-        <h1 class="md:ml-4 text-xl font-semibold text-gray-800">Resumen General</h1>
+        <h1 class="md:ml-4 text-xl font-medium text-gray-800">Resumen General</h1>
         <button (click)="toggleSubBar()"
           class="lg:hidden md:p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
           aria-label="Abrir menú">
@@ -73,7 +73,7 @@
                   </div>
                 </div>
                 <div>
-                  <p class="text-base-content text-sm font-semibold">
+                  <p class="text-base-content text-sm font-medium">
                     {{userLogged.name}} {{userLogged.lastName}}
                   </p>
                   <small class="text-base-content/50 text-xs font-normal">
@@ -86,7 +86,7 @@
               <li><a class="dropdown-item" href="#">Billing</a></li>
               <li><a class="dropdown-item" href="#">FAQs</a></li>
               <li class="dropdown-footer gap-2">
-                <a class="dropdown-item hover:bg-red-100 text-red-500 font-semibold" href="#" (click)="logout()">
+                <a class="dropdown-item hover:bg-red-100 text-red-500 font-medium" href="#" (click)="logout()">
                   Logout
                 </a>
               </li>

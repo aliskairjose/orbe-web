@@ -13,7 +13,7 @@
     .field {
       @apply grid gap-2 mb-4;
       label {
-        @apply font-semibold text-black;
+        @apply font-medium text-black;
       }
       
       input{
@@ -29,7 +29,7 @@
     }
 
     button {
-      @apply w-full min-h-12 mt-3 rounded-xl bg-blue-500 text-white font-semibold cursor-pointer
+      @apply w-full min-h-12 mt-3 rounded-xl bg-blue-500 text-white font-medium cursor-pointer
     }
   }
 }

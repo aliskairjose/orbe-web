@@ -26,7 +26,7 @@ export class AnnualTimeChart {
   private readonly months = MONTHS;
   protected currentYear = new Date().getFullYear();
 
-  private readonly url = `${API_URL}/v1/time-register/accumulated-time/${this.id}`;
+  private readonly url = `${API_URL}/v1/time-register/accumulated-time`;
 
   protected resource = httpResource<Response[]>(() => this.url);
 

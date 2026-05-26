@@ -3,6 +3,8 @@ import { RouterOutlet, RouterLink, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { AuthSelectors } from '../auth/store/auth.selectors';
 import { Subject, takeUntil } from 'rxjs';
+import { IAdvisor, IUser } from '@core/interfaces';
+import { httpResource } from '@angular/common/http';
 
 @Component({
   selector: 'app-landing',
@@ -11,9 +13,14 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './landing.css',
 })
 export class Landing implements AfterViewInit, OnDestroy {
+  protected readonly year = new Date().getFullYear();
   private destroy$ = new Subject<void>();
+
+  private readonly url = `${API_URL}/v1/`;
   private readonly store = inject(Store);
   private readonly route = inject(ActivatedRoute);
+
+  protected readonly top = httpResource<IAdvisor[]>(()=>`${this.url}dashboard/top-rated-advisors`);
 
   protected readonly accessButtonTitle = this.store.selectSnapshot(AuthSelectors.isAuthenticated)
     ? 'Dashboard'
