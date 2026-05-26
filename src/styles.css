@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @plugin "flyonui";
@@ -14,7 +15,7 @@
 /* @import "flyonui/src/vendor/raty.css"; */
 /* @import "flyonui/src/vendor/waves.css"; */
 /* @import "flyonui/src/vendor/apexcharts.css"; */        
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
 
 html, body{
     @apply scroll-smooth;
