@@ -1,6 +1,6 @@
 <section id="home" class="mt-12">
   <div class="grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto gap-6">
-    <img src="images/landing/global-team.svg" alt="globateam" />
+    <img src="images/landing/global-team.svg" alt="globateam"/>
     <div class="my-auto">
       <p
         class="text-5xl font-medium tracking-tight text-[#1d4747] leading-tight text-center md:text-left"
@@ -13,27 +13,15 @@
 
 <section id="steps" class="bg-gray-100">
   <div class="grid grid-cols-1 md:grid-cols-3 max-w-7xl mx-auto px-6 py-20 gap-8 mt-10">
-    <div class="text-center space-y-2">
-      <span class="material-symbols-outlined" style="font-size: 3.5rem"> verified </span>
-      <p class="text-xl font-medium text-gray-600">Regístrate</p>
-      <p class="text-gray-600 text-lg">
-        Descarga la app y registrate con nosotros de forma fácil y rápido.
-      </p>
-    </div>
-    <div class="text-center space-y-2">
-      <span class="material-symbols-outlined" style="font-size: 3.5rem"> globe_book </span>
-      <p class="text-xl font-medium text-gray-600">Búsca</p>
-      <p class="text-gray-600 text-lg">
-        Busca entre nuestros asesores quien más se acerque a tus necesidades.
-      </p>
-    </div>
-    <div class="text-center space-y-2">
-      <span class="material-symbols-outlined" style="font-size: 3.5rem"> conversation </span>
-      <p class="text-xl font-medium text-gray-600">Consulta</p>
-      <p class="text-gray-600 text-lg">
-        Solicita tus consultas por chat o por llamada, lo que más prefieras.
-      </p>
-    </div>
+    @for (step of steps; track $index) {
+      <div class="text-center space-y-2">
+        <span class="material-symbols-outlined text-[#CFAA61]" style="font-size: 4rem"> {{ step.icon }} </span>
+        <p class="text-xl font-medium text-gray-600 tracking-wider">{{ step.title }}</p>
+        <p class="text-gray-600 text-lg">
+          {{ step.description }}
+        </p>
+      </div>
+    }
   </div>
 </section>
 
@@ -102,9 +90,9 @@
 <section id="advisors" class="bg-gray-100">
   <div class="grid grid-cols-1 md:grid-cols-[1fr_1.7fr] gap-6 mx-auto px-6 py-20 max-w-7xl">
     <div>
-      <h2 class="text-3xl font-medium tracking-tight text-gray-600 sm:text-4xl mb-6">
+      <p class="text-3xl font-medium tracking-tight text-gray-600 sm:text-4xl mb-6">
         Asesores Destacados
-      </h2>
+      </p>
       <p class="text-lg text-slate-600 mb-8 mr-2">
         Comienza a interactuar con nuestros mejores aseores, te guiarán a través de sus consultas y
         conseguiras aquello que mas quieres.

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, inject, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy } from '@angular/core';
 import { RouterOutlet, RouterLink, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { AuthSelectors } from '../auth/store/auth.selectors';
