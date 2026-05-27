@@ -1,0 +1,16 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { IAdvisor, IUser } from '@core/interfaces';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class User {
+  private readonly url = `${API_URL}/v1/users`;
+  private readonly http = inject(HttpClient);
+
+  update(id: string, payload: Partial<IUser | IAdvisor>): Observable<IUser | IAdvisor> {
+    return this.http.patch<IUser | IAdvisor>(`${this.url}/${id}`, payload);
+  }
+}

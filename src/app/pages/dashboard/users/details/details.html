@@ -6,6 +6,7 @@
     <div
       class="flex flex-col w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8 gap-y-4.5"
     >
+      <!-- Avatar -->
       <div class="flex w-full flex-col items-center gap-4.5 xl:flex-row">
         <div class="avatar">
           <div class="size-16 rounded-full">
@@ -17,15 +18,7 @@
             {{ user.value().name }} {{ user.value().lastName }}
           </p>
           <p class="text-gray-500 text-sm">
-            {{ user.value().role }} | {{ user.value().country }}
-            @if (user.value().role === 'Advisor') {
-              <span class="inline-flex items-center">
-                | {{ user.value()?.rateStats.average }}
-                <span
-                  class="icon-[tabler--star-filled] size-4 shrink-0 text-yellow-400 ms-0.5"
-                ></span>
-              </span>
-            }
+            {{ user.value().email }}
           </p>
         </div>
       </div>
@@ -45,24 +38,34 @@
             <p class="font-medium">{{ user.value().dob | date }}</p>
           </div>
           <div>
-            <small class="text-gray-400">Correo electrónico</small>
-            <p class="font-medium">{{ user.value().email }}</p>
-          </div>
-          <div>
             <small class="text-gray-400">Teléfono</small>
             <p class="font-medium">{{ user.value().phone }}</p>
+          </div>
+          <div>
+            <small class="text-gray-400">Fecha de registro</small>
+            <p class="font-medium">{{ user.value().createdAt | date }}</p>
           </div>
           <div>
             <small class="text-gray-400">País</small>
             <p class="font-medium">{{ user.value().country }}</p>
           </div>
-          @if (user.value().role === 'Advisor') {
+          <div>
+            <small class="text-gray-400">Wallet</small>
+            <p class="font-medium">{{ user.value().wallet.balance | currency }}</p>
+          </div>
+          @if (user.value().role == 'Advisor') {
             <div>
-              <small class="text-gray-400">Idiomas</small>
-              <p class="font-medium">{{ user.value().language }}</p>
+              <small class="text-gray-400">Disponible</small>
+              <p class="font-medium">{{ user.value().wallet.balance * 0.4 | currency }}</p>
             </div>
           }
         </div>
+        @if (user.value().role === 'Advisor') {
+          <div>
+            <small class="text-gray-400">Calificaciones</small>
+            <app-rate-stats [stats]="user.value().rateStats!" />
+          </div>
+        }
       </div>
     </div>
 
@@ -82,7 +85,7 @@
               <p class="font-medium">{{ user.value().advisor.dni }}</p>
             </div>
             <div>
-              <small class="text-gray-400 text-xs">Descripción</small>
+              <small class="text-gray-400 text-xs">Acerca de mi</small>
               <p class="font-medium">{{ user.value().advisor.description }}</p>
             </div>
             <div>
@@ -98,6 +101,10 @@
               <p class="font-medium">{{ user.value().country }}</p>
             </div>
             <div>
+              <small class="text-gray-400">Idiomas</small>
+              <p class="font-medium">{{ user.value().language }}</p>
+            </div>
+            <div>
               <small class="text-gray-400">Chat/min</small>
               <p class="font-medium">{{ user.value().advisor.chatPrice | currency }}</p>
             </div>
@@ -111,8 +118,7 @@
 
       <h3 class="text-xl font-medium text-gray-800">Estadísticas</h3>
       <div class="w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8">
-            <app-annual-time-chart [id]="user.value()._id" />
-        
+        <app-annual-time-chart [id]="user.value()._id" />
       </div>
     }
   }

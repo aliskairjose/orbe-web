@@ -1,12 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed, model, signal } from '@angular/core';
+import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, ICategory, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
-import { ERole } from '@core/enums';
+import { ERole, EStatus } from '@core/enums';
+import { HSOverlay } from 'flyonui/flyonui';
+import { User } from '@core/services';
 
 interface ICountry {
   country: string;
@@ -22,18 +24,33 @@ interface ICountry {
 })
 export class AdvisorList {
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
+  protected statusEnum = EStatus;
+  protected roleEnum = ERole;
+  protected readonly status = [
+    { val: EStatus.APPROVED, title: 'Aprobado' },
+    { val: EStatus.PENDING, title: 'Pendiente de aprobación' },
+    { val: EStatus.REJECT, title: 'Rechazado' },
+    { val: EStatus.UNDER_REVIEW, title: 'En revisión' },
+    { val: EStatus.SUSPENDED, title: 'Suspendida' },
+    { val: EStatus.BANNED, title: 'Bloqueado' },
+  ];
+
+  protected user = signal<IAdvisor | null>(null);
 
   protected headers: string[] = [
     '#',
     'Usuario',
     'Email',
     'Status',
+    'Estado',
     'Rate',
     'Registrado',
     'Últ. conexión',
   ];
 
   private readonly url = `${API_URL}/v1`;
+  private readonly document = inject(DOCUMENT);
+  private readonly service = inject(User);
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
@@ -52,13 +69,12 @@ export class AdvisorList {
     },
   }));
 
-    protected catResource = httpResource<IResponse<IAdvisor>>(() => ({
+  protected catResource = httpResource<IResponse<IAdvisor>>(() => ({
     url: `${this.url}/categories`,
     params: {
       limit: this.limit(),
     },
   }));
-
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;
@@ -78,5 +94,23 @@ export class AdvisorList {
 
   goTopage(page: number): void {
     this.page.set(page);
+  }
+
+  openModal(user: IAdvisor): void {
+    this.user.set(user);
+    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+    modal.open();
+  }
+
+  closeModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+    modal.close();
+  }
+
+  onChangeStatus(event: Event, id: string): void {
+    const { value } = event.target as HTMLSelectElement;
+    const isActive = value === EStatus.APPROVED;
+    const body = { status: value as EStatus, isActive };
+    this.service.update(id, body).subscribe((_) => window.location.reload());
   }
 }

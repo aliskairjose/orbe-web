@@ -65,8 +65,7 @@
                     <div
                       class="flex items-center gap-3 cursor-pointer"
                       [routerLink]="item._id"
-                      [queryParams]="{role:'advisor'}"
-
+                      [queryParams]="{ role: 'advisor' }"
                     >
                       <!-- Avatar con Indicador de Estado Online ficticio -->
                       <div class="avatar avatar-online-bottom">
@@ -92,6 +91,20 @@
                   </td>
                   <td>{{ item.email }}</td>
                   <td>
+                    <select
+                      class="select select-sm w-fit"
+                      aria-label="select"
+                      [disabled]="item.status === statusEnum.APPROVED"
+                      (change)="onChangeStatus($event, item._id)"
+                    >
+                      @for (s of status; track $index) {
+                        <option [selected]="s.val === item.status" [value]="s.val">
+                          {{ s.title }}
+                        </option>
+                      }
+                    </select>
+                  </td>
+                  <td>
                     <span
                       class="badge badge-soft badge-sm"
                       [class.badge-success]="item.isActive"
@@ -116,10 +129,14 @@
                       aria-label="Action button"
                       [routerLink]="item._id"
                     >
-                      <span class="icon-[tabler--edit] size-5"></span>
+                      <span class="icon-[tabler--eye] size-5"></span>
                     </button>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--trash] size-5"></span>
+                    <button
+                      class="btn btn-circle btn-text btn-sm"
+                      aria-label="Action button"
+                      (click)="openModal(item)"
+                    >
+                      <span class="icon-[tabler--edit] size-5"></span>
                     </button>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
                       <span class="icon-[tabler--dots-vertical] size-5"></span>
@@ -168,6 +185,7 @@
   </div>
 </div>
 
+<!-- New Advisor Modal -->
 <div
   id="form-modal"
   class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
@@ -322,6 +340,51 @@
             </form>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Advisor Modal -->
+
+<div
+  id="update-form-modal"
+  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Cambio de estado</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          (click)="closeModal()"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <div class="modal-body pt-0">
+        <!-- Similar content to the New Advisor Modal but with pre-filled data for updating -->
+        <p class="mb-4 text-gray-600">
+          Seleccione un nuevo estado para el asesor <br />
+          <span class="font-medium">{{ user()?.name }} {{ user()?.lastName }}</span> <br />
+          <small> ({{ user()?.email }})</small>
+        </p>
+        <select class="select w-full" aria-label="select" (change)="onChangeStatus($event, user()!._id)">
+          @for (s of status; track $index) {
+            <option [selected]="s.val === user()?.status" [value]="s.val">
+              {{ s.title }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
+          Close
+        </button>
       </div>
     </div>
   </div>
