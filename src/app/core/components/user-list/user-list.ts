@@ -4,7 +4,7 @@ import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ITEM_PER_PAGE } from '@core/constants';
-import { ERole } from '@core/enums';
+import { EConnectStatus, ERole } from '@core/enums';
 import { IResponse, IUser } from '@core/interfaces';
 
 @Component({
@@ -15,7 +15,8 @@ import { IResponse, IUser } from '@core/interfaces';
 })
 export class UserList {
   protected headers: string[] = ['#', 'Usuario', 'Email', 'Status', 'Registrado', 'Últ. conexión'];
-  
+  protected readonly connectStatus = EConnectStatus;
+
   private readonly url = `${API_URL}/v1/users`;
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;

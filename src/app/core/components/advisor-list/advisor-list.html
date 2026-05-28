@@ -68,7 +68,14 @@
                       [queryParams]="{ role: 'advisor' }"
                     >
                       <!-- Avatar con Indicador de Estado Online ficticio -->
-                      <div class="avatar avatar-online-bottom">
+                      <div
+                        class="avatar"
+                        class="avatar"
+                        [class.avatar-online-top]="item.connectStatus === connectStatus.Online"
+                        [class.avatar-offline-top]="item.connectStatus === connectStatus.Offline"
+                        [class.avatar-bussy-top]="item.connectStatus === connectStatus.Busy"
+                        [class.avatar-away-top]="item.connectStatus === connectStatus.Away"
+                      >
                         <div class="size-8 rounded-full">
                           <img [src]="item.avatar" [alt]="item.name" />
                         </div>
@@ -373,7 +380,11 @@
           <span class="font-medium">{{ user()?.name }} {{ user()?.lastName }}</span> <br />
           <small> ({{ user()?.email }})</small>
         </p>
-        <select class="select w-full" aria-label="select" (change)="onChangeStatus($event, user()!._id)">
+        <select
+          class="select w-full"
+          aria-label="select"
+          (change)="onChangeStatus($event, user()!._id)"
+        >
           @for (s of status; track $index) {
             <option [selected]="s.val === user()?.status" [value]="s.val">
               {{ s.title }}

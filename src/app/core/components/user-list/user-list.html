@@ -53,7 +53,14 @@
                       [queryParams]="{role:'user'}"
                     >
                       <!-- Avatar con Indicador de Estado Online ficticio -->
-                      <div class="avatar avatar-online-bottom">
+                      <div
+                        class="avatar"
+                        class="avatar"
+                        [class.avatar-online-top]="item.connectStatus === connectStatus.Online"
+                        [class.avatar-offline-top]="item.connectStatus === connectStatus.Offline"
+                        [class.avatar-bussy-top]="item.connectStatus === connectStatus.Busy"
+                        [class.avatar-away-top]="item.connectStatus === connectStatus.Away"
+                      >
                         <div class="size-8 rounded-full">
                           <img [src]="item.avatar" [alt]="item.name" />
                         </div>

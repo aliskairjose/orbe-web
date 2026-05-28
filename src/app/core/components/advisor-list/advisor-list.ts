@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, ICategory, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
-import { ERole, EStatus } from '@core/enums';
+import { EConnectStatus, ERole, EStatus } from '@core/enums';
 import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
 
@@ -23,6 +23,7 @@ interface ICountry {
   styleUrl: './advisor-list.css',
 })
 export class AdvisorList {
+   protected readonly connectStatus = EConnectStatus;
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
   protected statusEnum = EStatus;
   protected roleEnum = ERole;
