@@ -70,6 +70,10 @@
               <small class="text-gray-400">Disponible</small>
               <p class="font-medium">{{ user.value().wallet.balance * 0.4 | currency }}</p>
             </div>
+            <div>
+              <small class="text-gray-400">Status</small>
+              <p class="font-medium">{{ user.value().status }}</p>
+            </div>
           }
         </div>
         @if (user.value().role === 'Advisor') {
