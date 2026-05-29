@@ -31,6 +31,7 @@
     "@ngxs/storage-plugin": "21.0.0",
     "@ngxs/store": "^21.0.0",
     "@ngxs/websocket-plugin": "21.0.0",
+    "@tinymce/tinymce-angular": "^9.1.1",
     "datatables.net": "^2.3.8",
     "dropzone": "^6.0.0-beta.2",
     "flyonui": "^2.4.1",
@@ -41,6 +42,7 @@
     "notyf": "^3.10.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.1",
+    "tinymce": "^8.4.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

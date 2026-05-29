@@ -31,13 +31,18 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/tinymce",
+                "output": "/tinymce"
               }
             ],
             "styles": [
-              "src/styles.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "node_modules/notyf/notyf.min.css",
-              "node_modules/flyonui/src/vendor/datatables.css"
+              "node_modules/flyonui/src/vendor/datatables.css",
+              "src/styles.css"
             ]
           },
           "configurations": {

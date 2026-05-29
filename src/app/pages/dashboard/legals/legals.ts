@@ -3,6 +3,7 @@ import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { Legal } from './service/legal';
 import { ELegal } from '@core/enums';
 import { ILegal } from '@core/interfaces/legal';
+import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 interface FormData {
   _id: string;
@@ -33,13 +34,23 @@ const faqModel = signal<FormData>({
 
 @Component({
   selector: 'app-legals',
-  imports: [FormRoot, FormField],
+  imports: [FormRoot, FormField, EditorComponent],
+  providers: [{ provide: TINYMCE_SCRIPT_SRC, useValue: '/tinymce/tinymce.min.js' }],
   templateUrl: './legals.html',
   styleUrl: './legals.css',
 })
 export class Legals implements OnInit {
   legals = signal<ILegal[]>([]);
 
+  init: EditorComponent['init'] = {
+    menubar: false,
+    plugins: 'advlist autolink lists link image table code help wordcount',
+    base_url: '/tinymce', // Root for resources
+    suffix: '.min',
+    toolbar:
+      'undo redo | blocks | bold italic underline | alignleft aligncenter alignright | bullist numlist | outdent indent | help',
+  };
+  
   protected readonly service = inject(Legal);
 
   protected userPoliciesF = form(userPoliciesModel, {
@@ -74,7 +85,6 @@ export class Legals implements OnInit {
       },
     },
   });
-
 
   ngOnInit(): void {
     this.lodaData();
