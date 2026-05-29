@@ -14,11 +14,11 @@ import { AuthStateModel } from './auth.models';
 })
 @Injectable()
 export class AuthStates {
-  #authService = inject(Auth);
+  private readonly service = inject(Auth);
 
   @Action(AuthActions.Login)
   login(ctx: StateContext<AuthStateModel>, action: AuthActions.Login) {
-    return this.#authService.login(action.payload).pipe(
+    return this.service.login(action.payload).pipe(
       tap((result: any) => {
         ctx.patchState({
           token: result.token,
@@ -30,7 +30,7 @@ export class AuthStates {
 
   @Action(AuthActions.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    return this.#authService.logout().pipe(
+    return this.service.logout().pipe(
       tap(() => {
         ctx.setState({
           token: null,
