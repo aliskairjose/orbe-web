@@ -45,14 +45,18 @@
               @for (item of resource.value().results; track $index) {
                 <tr>
                   <td>
-                    <span class="badge badge-outline border-dashed badge-primary badge-lg">
+                    <span class="badge badge-outline border-dashed badge-primary badge-lg cursor-pointer" 
+                    [routerLink]="['..', 'users', item.members[0]._id]"
+                    >
                       <img [src]="item.members[0].avatar" alt="John" class="size-5 rounded-full" />
                       {{ item.members[0].name }}
                       {{ item.members[0].lastName }}
                     </span>
                   </td>
                   <td>
-                    <span class="badge badge-outline border-dashed badge-info badge-lg">
+                    <span class="badge badge-outline border-dashed badge-info badge-lg cursor-pointer" 
+                    [routerLink]="['..', 'users', item.members[1]._id]"
+                    >
                       <img [src]="item.members[1].avatar" alt="John" class="size-5 rounded-full" />
                       {{ item.members[1].name }}
                       {{ item.members[1].lastName }}
