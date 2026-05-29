@@ -1,6 +1,7 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
-  <div class="border-base-content/25 flex justify-end-safe items-center border-b px-5 py-3 gap-3 h-14">
-  </div>
+  <div
+    class="border-base-content/25 flex justify-end-safe items-center border-b px-5 py-3 gap-3 h-14"
+  ></div>
   <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
       <div class="overflow-hidden">
@@ -26,7 +27,9 @@
             <tbody>
               @for (item of resource.value(); track $index) {
                 <tr>
-                  <td><span class="font-medium">{{ $index + 1 }}</span></td>
+                  <td>
+                    <span class="font-medium">{{ $index + 1 }}</span>
+                  </td>
                   <td>{{ item.amount | currency }}</td>
                   <td>{{ item.bonus | currency }}</td>
                   <td>
@@ -39,14 +42,12 @@
                     </span>
                   </td>
                   <td>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
+                    <button
+                      class="btn btn-circle btn-text btn-sm"
+                      aria-label="Action button"
+                      (click)="openModal()"
+                    >
                       <span class="icon-[tabler--edit] size-5"></span>
-                    </button>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--trash] size-5"></span>
-                    </button>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--dots-vertical] size-5"></span>
                     </button>
                   </td>
                 </tr>
@@ -56,6 +57,36 @@
         } @else if (resource.error()) {
           <p>Ha ocurrido un error</p>
         }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div
+  id="update-form-modal"
+  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Actualizar Plan</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          (click)="closeModal()"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <div class="modal-body pt-0"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary">Actualizar</button>
       </div>
     </div>
   </div>
