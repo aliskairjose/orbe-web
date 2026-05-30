@@ -7,6 +7,7 @@ import { ITEM_PER_PAGE } from '@core/constants';
 import { ICategory } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/flyonui';
+import { Category } from './services/category';
 
 interface Data {
   name: string;
@@ -24,10 +25,18 @@ const Model = signal<Data>({
 })
 export class Categories {
   private readonly document = inject(DOCUMENT);
-
-  protected form = form(Model, (validator) => {
-    required(validator.name, { message: 'El nombre es requerido' });
-  });
+  private readonly service = inject(Category);
+  protected form = form(
+    Model,
+    (validator) => {
+      required(validator.name, { message: 'El nombre es requerido' });
+    },
+    {
+      submission: {
+        action: async (f) => await this.onSubmit(f().value()),
+      },
+    },
+  );
 
   private readonly url = `${API_URL}/v1/categories`;
   protected readonly itemsPerPage = [5, 10, 15, 20];
@@ -68,7 +77,9 @@ export class Categories {
 
   async onSubmit(planData: Data): Promise<void> {
     if (!this.selectedCategory) return;
-    // this.service.update(this.selectedCategory._id, planData).subscribe((_) => window.location.reload());
+    this.service
+      .update(this.selectedCategory._id, planData)
+      .subscribe((_) => window.location.reload());
   }
 
   openModal(category: ICategory): void {
