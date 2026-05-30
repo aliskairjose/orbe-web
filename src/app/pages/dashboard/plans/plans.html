@@ -70,19 +70,19 @@
   tabindex="-1"
 >
   <div class="modal-dialog modal-dialog-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Actualizar Plan</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          (click)="closeModal()"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <div class="modal-body pt-0">
-        <form [formRoot]="form" novaidate class="login-form space-y-1">
+    <form [formRoot]="form" novaidate class="login-form space-y-1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Actualizar Plan</h3>
+          <button
+            type="button"
+            class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+            (click)="closeModal()"
+          >
+            <span class="icon-[tabler--x] size-4"></span>
+          </button>
+        </div>
+        <div class="modal-body pt-0">
           <div class="field">
             <label class="label-text" for="amount">Monto</label>
             <input
@@ -140,14 +140,14 @@
               <label class="label-text text-base" for="isActive"> Default </label>
             </div>
           </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
-          Cerrar
-        </button>
-        <button type="button" class="btn btn-primary">Actualizar</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
