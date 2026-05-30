@@ -31,8 +31,6 @@ export class Plans {
     },
   });
 
-
-
   private readonly document = inject(DOCUMENT);
   protected selectedPlan: IPlan | null = null;
 
