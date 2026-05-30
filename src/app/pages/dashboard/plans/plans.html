@@ -45,7 +45,7 @@
                     <button
                       class="btn btn-circle btn-text btn-sm"
                       aria-label="Action button"
-                      (click)="openModal()"
+                      (click)="openModal(item)"
                     >
                       <span class="icon-[tabler--edit] size-5"></span>
                     </button>
@@ -81,7 +81,67 @@
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
-      <div class="modal-body pt-0"></div>
+      <div class="modal-body pt-0">
+        <form [formRoot]="form" novaidate class="login-form space-y-1">
+          <div class="field">
+            <label class="label-text" for="amount">Monto</label>
+            <input
+              id="amount"
+              type="number"
+              class="input max-w-sm"
+              formControlName="amount"
+              autocomplete="amount"
+              aria-describedby="amount-error"
+              [formField]="form.amount"
+              [class.invalid]="form.amount().invalid() && form.amount().touched()"
+            />
+
+            @if (form.amount().touched() && form.amount().invalid()) {
+              <ul class="field-error">
+                @for (error of form.amount().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <div class="field">
+            <label class="label-text" for="bonus">Bono</label>
+            <input
+              id="bonus"
+              type="number"
+              class="input max-w-sm"
+              formControlName="bonus"
+              autocomplete="bonus"
+              aria-describedby="bonus-error"
+              [formField]="form.bonus"
+              [class.invalid]="form.bonus().invalid() && form.bonus().touched()"
+            />
+
+            @if (form.bonus().touched() && form.bonus().invalid()) {
+              <ul class="field-error">
+                @for (error of form.bonus().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <div class="field">
+            <label class="label-text" for="amount">Activo</label>
+            <div class="flex items-center gap-1">
+              <input
+                type="checkbox"
+                class="switch switch-primary"
+                id="isActive"
+                formControlName="isActive"
+                autocomplete="isActive"
+                aria-describedby="isActive-error"
+                [formField]="form.isActive"
+              />
+              <label class="label-text text-base" for="isActive"> Default </label>
+            </div>
+          </div>
+        </form>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
           Cerrar
