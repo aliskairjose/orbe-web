@@ -97,7 +97,7 @@
             />
 
             @if (form.amount().touched() && form.amount().invalid()) {
-              <ul class="field-error">
+              <ul class="text-sm text-error mt-1" id="amount-error">
                 @for (error of form.amount().errors(); track error) {
                   <li>{{ error.message }}</li>
                 }
@@ -118,7 +118,7 @@
             />
 
             @if (form.bonus().touched() && form.bonus().invalid()) {
-              <ul class="field-error">
+              <ul class="text-sm text-error mt-1" id="bonus-error">
                 @for (error of form.bonus().errors(); track error) {
                   <li>{{ error.message }}</li>
                 }
