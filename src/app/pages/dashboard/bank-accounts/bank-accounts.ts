@@ -13,15 +13,15 @@ import { HSOverlay } from 'flyonui/flyonui';
 interface BankAccountData {
   type: string;
   number: string;
-  bank: IBank | string;
-  user: Partial<IAdvisor> | string;
+  bank: IBank | null;
+  user: Partial<IAdvisor> | null;
 }
 
 const accountModel = signal<BankAccountData>({
   type: '',
   number: '',
-  bank: '',
-  user: '',
+  bank: null,
+  user: null,
 });
 
 @Component({
