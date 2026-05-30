@@ -3,6 +3,8 @@ import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { Legal } from './service/legal';
 import { ELegal } from '@core/enums';
 import { ILegal } from '@core/interfaces/legal';
+import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { httpResource } from '@angular/common/http';
 
 interface FormData {
   _id: string;
@@ -33,19 +35,28 @@ const faqModel = signal<FormData>({
 
 @Component({
   selector: 'app-legals',
-  imports: [FormRoot, FormField],
+  imports: [FormRoot, FormField, EditorComponent],
+  providers: [{ provide: TINYMCE_SCRIPT_SRC, useValue: '/tinymce/tinymce.min.js' }],
   templateUrl: './legals.html',
   styleUrl: './legals.css',
 })
 export class Legals implements OnInit {
   legals = signal<ILegal[]>([]);
 
+  protected readonly init: EditorComponent['init'] = {
+    menubar: false,
+    plugins: 'advlist autolink lists link image table code help wordcount',
+    base_url: '/tinymce', // Root for resources
+    suffix: '.min',
+    toolbar:
+      'undo redo | blocks | bold italic underline | alignleft aligncenter alignright | bullist numlist | outdent indent | help',
+  };
+
   protected readonly service = inject(Legal);
 
   protected userPoliciesF = form(userPoliciesModel, {
     submission: {
       action: async (f) => {
-        console.log(f().value());
         f().value()._id ? this.update(f().value()) : this.create(f().value());
       },
     },
@@ -53,7 +64,6 @@ export class Legals implements OnInit {
   protected advisorPoliciesF = form(advisorPoliciesModel, {
     submission: {
       action: async (f) => {
-        console.log(f().value());
         f().value()._id ? this.update(f().value()) : this.create(f().value());
       },
     },
@@ -61,7 +71,6 @@ export class Legals implements OnInit {
   protected policiesF = form(policiesModel, {
     submission: {
       action: async (f) => {
-        console.log(f().value());
         f().value()._id ? this.update(f().value()) : this.create(f().value());
       },
     },
@@ -69,12 +78,10 @@ export class Legals implements OnInit {
   protected faqF = form(faqModel, {
     submission: {
       action: async (f) => {
-        console.log(f().value());
         f().value()._id ? this.update(f().value()) : this.create(f().value());
       },
     },
   });
-
 
   ngOnInit(): void {
     this.lodaData();
@@ -85,7 +92,7 @@ export class Legals implements OnInit {
   }
 
   private update(form: any): void {
-    this.service.update(form).subscribe(this.lodaData);
+    this.service.update(form._id, form.content).subscribe(this.lodaData);
   }
 
   private lodaData(): void {
@@ -98,14 +105,23 @@ export class Legals implements OnInit {
       const faq = res.find(({ type }) => type === ELegal.FAQ);
 
       Boolean(userPoliciesModel);
-      userPoliciesModel.update((m) => ({ ...m, content: userPolicies!.content }));
+      userPoliciesModel.update((m) => ({
+        ...m,
+        _id: userPolicies!._id,
+        content: userPolicies!.content,
+      }));
 
       Boolean(advisorPoliciesModel) &&
-        advisorPoliciesModel.update((m) => ({ ...m, content: advisorPolicies!.content }));
+        advisorPoliciesModel.update((m) => ({
+          ...m,
+          _id: advisorPolicies!._id,
+          content: advisorPolicies!.content,
+        }));
 
-      Boolean(policiesModel) && policiesModel.update((m) => ({ ...m, content: policies!.content }));
+      Boolean(policiesModel) &&
+        policiesModel.update((m) => ({ ...m, _id: policies!._id, content: policies!.content }));
 
-      Boolean(faqModel) && faqModel.update((m) => ({ ...m, content: faq!.content }));
+      Boolean(faqModel) && faqModel.update((m) => ({ ...m, _id: faq!._id, content: faq!.content }));
     });
   }
 }

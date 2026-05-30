@@ -15,9 +15,8 @@ export class Legal {
     return this.http.get<ILegal[]>(AppConfig.baseUrl(EApi.Legal));
   }
 
-  update(legal: ILegal): Observable<ILegal> {
-    const { _id, content } = legal;
-    return this.http.patch<ILegal>(AppConfig.baseUrl(`${EApi.Legal}/${_id}`), { content });
+  update(id: string, content: string): Observable<ILegal> {
+    return this.http.patch<ILegal>(AppConfig.baseUrl(`${EApi.Legal}/${id}`), { content });
   }
 
   create(legal: Partial<ILegal>): Observable<ILegal> {
