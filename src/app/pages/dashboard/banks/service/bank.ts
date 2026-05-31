@@ -12,7 +12,8 @@ export class BankService {
   private readonly http = inject(HttpClient);
 
   update(data: any): Observable<IBank> {
-    return this.http.patch<IBank>(`${this.url}/${data._id}`, data);
+    const { _id, ...rest } = data;
+    return this.http.patch<IBank>(`${this.url}/${data._id}`, rest);
   }
 
   create(data: any): Observable<IBank> {

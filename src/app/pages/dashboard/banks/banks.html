@@ -146,7 +146,7 @@
             <span class="icon-[tabler--x] size-4"></span>
           </button>
         </div>
-        <div class="modal-body pt-0">
+        <div class="modal-body pt-0 mb-2">
           <div class="field">
             <label class="label-text" for="name">Nombre</label>
             <input
@@ -168,11 +168,11 @@
               </ul>
             }
           </div>
-          <!-- <div class="w-full">
+          <div class="w-full">
             <label class="label-text" for="country">Seleccione país</label>
             <select class="select" id="country" [formField]="form.country">
-              @for (country of countryResource.value()?.results; track $index) {
-              <option [value]="country._id">{{ country.name }}</option>
+              @for (country of countries; track $index) {
+              <option [value]="country">{{ country }}</option>
               }
             </select>
             @if (form.country().touched() && form.country().invalid()) {
@@ -182,7 +182,7 @@
               }
             </ul>
             }
-          </div> -->
+          </div>
           <div class="field">
             <label class="label-text" for="isActive">Activo</label>
             <div class="flex items-center gap-1">
