@@ -5,7 +5,7 @@ import { IAdvisor, IBank, IBankAccount } from '@core/interfaces';
 import { httpResource } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { form, FormField, FormRoot, required } from '@angular/forms/signals';
+import { disabled, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { ERole } from '@core/enums';
 import { Service } from './service';
 import { HSOverlay } from 'flyonui/flyonui';
@@ -32,6 +32,7 @@ const accountModel = signal<BankAccountData>({
 })
 export class BankAccounts {
   private readonly document = inject(DOCUMENT);
+  protected hasBankAccount =  signal(true);
 
   protected form = form(
     accountModel,
@@ -40,6 +41,7 @@ export class BankAccounts {
       required(validator.number, { message: 'La cuenta bancaria es obligatoria' });
       required(validator.bank, { message: 'Seleccione banco' });
       required(validator.user, { message: 'Seleccione asesor' });
+      disabled(validator.user, () => this.hasBankAccount());
     },
     {
       submission: {
@@ -51,7 +53,7 @@ export class BankAccounts {
   protected headers = ['#', 'País', 'Banco', 'Tipo de Cuenta', 'Cuenta', 'Asesor', ''];
   protected search = model<string>('');
   protected selectedBankAccount: IBankAccount | null = null;
-
+  
   protected readonly itemsPerPage = [5, 10, 15, 20];
   private readonly url = `${API_URL}/v1`;
   protected page = signal(1);
@@ -81,7 +83,7 @@ export class BankAccounts {
       limit: 0,
       role: ERole.Advisor,
       isActive: true,
-      // bankAccount: false,
+      bankAccount: this.hasBankAccount(),
     },
   }));
 
@@ -108,10 +110,13 @@ export class BankAccounts {
   }
 
   openModal(isEdit: boolean, plan: IBankAccount | null): void {
+    this.hasBankAccount.set(isEdit);
     if (isEdit && plan) {
+      this.form.user().disabled();
       this.selectedBankAccount = plan;
       accountModel.set({ type: plan.type, number: plan.number, bank: plan.bank._id, user: plan.user._id });
   } else {
+      // this.form.user.enabled();
     this.form().reset({
       type: '',
       number: '',

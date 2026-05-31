@@ -182,7 +182,7 @@
           </div>
           <div class="w-full">
             <label class="label-text" for="advisor">Seleccione asesor</label>
-            <select class="select" id="advisor" [formField]="form.user">
+          <select class="select" id="advisor" [formField]="form.user" >
               @for (user of advisorResource.value()?.results; track $index) {
                 <option [value]="user._id">{{ user.name }} {{ user.lastName }}</option>
               }
