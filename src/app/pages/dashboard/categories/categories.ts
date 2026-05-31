@@ -20,6 +20,7 @@ interface Data {
   isActive: boolean;
 }
 const Model = signal<Data>(INITIAL_FORM_VALUE);
+
 @Component({
   selector: 'app-categories',
   imports: [FormsModule, DatePipe, FormField, FormRoot],
@@ -91,7 +92,7 @@ export class Categories {
 
   openModal(isEdit: boolean, category: ICategory | null): void {
     this.selectedCategory = category;
-    console.log(category);
+
     const body: Data ={
       name: category?.name ?? '',
       isActive: category?.isActive ?? true,
