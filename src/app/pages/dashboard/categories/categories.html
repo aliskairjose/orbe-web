@@ -4,10 +4,7 @@
       <button
         type="button"
         class="btn btn-soft btn-primary btn-sm"
-        aria-haspopup="dialog"
-        aria-expanded="false"
-        aria-controls="form-modal"
-        data-overlay="#form-modal"
+        (click)="openModal(false, null)"
       >
         <span class="material-symbols-outlined" style="font-size: 20px"> category </span>
         Agregar categoría
@@ -78,7 +75,7 @@
                   </td>
                   <td>{{ item.createdAt | date }}</td>
                   <td>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button" (click)="openModal(item)">
+                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button" (click)="openModal(true, item)">
                       <span class="icon-[tabler--edit] size-5"></span>
                     </button>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">

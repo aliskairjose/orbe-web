@@ -15,7 +15,7 @@ interface Data {
 }
 const Model = signal<Data>({
   name: '',
-  isActive: false,
+  isActive: true,
 });
 @Component({
   selector: 'app-categories',
@@ -82,9 +82,9 @@ export class Categories {
       .subscribe((_) => window.location.reload());
   }
 
-  openModal(category: ICategory): void {
+  openModal(isEdit: boolean, category: ICategory | null): void {
     this.selectedCategory = category;
-    Model.set({ name: category.name, isActive: category.isActive });
+    Model.set({ name: category?.name || '', isActive: category?.isActive || true });
     const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
     modal.open();
   }
