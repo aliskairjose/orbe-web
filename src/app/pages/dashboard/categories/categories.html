@@ -23,6 +23,7 @@
     <div class="flex items-center justify-end gap-3">
       <!-- Select -->
       <select
+        title="Items per page"
         class="select w-fit max-sm:w-16 select select-sm max-w-sm"
         name=""
         id="pagination"
@@ -75,14 +76,12 @@
                   </td>
                   <td>{{ item.createdAt | date }}</td>
                   <td>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button" (click)="openModal(true, item)">
+                    <button
+                      class="btn btn-circle btn-text btn-sm"
+                      aria-label="Action button"
+                      (click)="openModal(true, item)"
+                    >
                       <span class="icon-[tabler--edit] size-5"></span>
-                    </button>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--trash] size-5"></span>
-                    </button>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--dots-vertical] size-5"></span>
                     </button>
                   </td>
                 </tr>
@@ -127,7 +126,6 @@
   </div>
 </div>
 
-
 <!-- MODAL -->
 <div
   id="update-form-modal"
@@ -141,6 +139,7 @@
         <div class="modal-header">
           <h3 class="modal-title">Actualizar Plan</h3>
           <button
+            aria-label="Close"
             type="button"
             class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
             (click)="closeModal()"
@@ -178,7 +177,6 @@
                 class="switch switch-primary"
                 id="isActive"
                 formControlName="isActive"
-                autocomplete="isActive"
                 aria-describedby="isActive-error"
                 [formField]="form.isActive"
               />
