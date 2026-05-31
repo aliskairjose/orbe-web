@@ -13,15 +13,15 @@ import { HSOverlay } from 'flyonui/flyonui';
 interface BankAccountData {
   type: string;
   number: string;
-  bank: IBank | null;
-  user: Partial<IAdvisor> | null;
+  bank: string;
+  user: string;
 }
 
 const accountModel = signal<BankAccountData>({
   type: '',
   number: '',
-  bank: null,
-  user: null,
+  bank: '',
+  user: '',
 });
 
 @Component({
@@ -110,7 +110,7 @@ export class BankAccounts {
   openModal(isEdit: boolean, plan: IBankAccount | null): void {
     if (isEdit && plan) {
       this.selectedBankAccount = plan;
-      accountModel.set({ type: plan.type, number: plan.number, bank: plan.bank, user: plan.user });
+      accountModel.set({ type: plan.type, number: plan.number, bank: plan.bank._id, user: plan.user._id });
     }
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.open();
