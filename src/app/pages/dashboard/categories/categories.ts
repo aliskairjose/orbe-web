@@ -9,14 +9,17 @@ import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/flyonui';
 import { Category } from './services/category';
 
+const INITIAL_FORM_VALUE: Data = {
+  name: '',
+  isActive: true,
+};
+
 interface Data {
+  _id?: string;
   name: string;
   isActive: boolean;
 }
-const Model = signal<Data>({
-  name: '',
-  isActive: true,
-});
+const Model = signal<Data>(INITIAL_FORM_VALUE);
 @Component({
   selector: 'app-categories',
   imports: [FormsModule, DatePipe, FormField, FormRoot],
@@ -33,7 +36,8 @@ export class Categories {
     },
     {
       submission: {
-        action: async (f) => await this.onSubmit(f().value()),
+        action: async (f) => 
+          f().value()._id ? this.update(f().value()) : this.create(f().value()),
       },
     },
   );
@@ -75,21 +79,34 @@ export class Categories {
     this.page.set(page);
   }
 
-  async onSubmit(planData: Data): Promise<void> {
-    if (!this.selectedCategory) return;
-    this.service
-      .update(this.selectedCategory._id, planData)
-      .subscribe((_) => window.location.reload());
+  private async update(f: Data): Promise<void> {
+    console.log(' update');
+    this.service.update(f).subscribe(() => window.location.reload());
+  }
+
+  private async create(f: Data): Promise<void> {
+    console.log(' create');
+    this.service.create(f).subscribe(() => window.location.reload());
   }
 
   openModal(isEdit: boolean, category: ICategory | null): void {
     this.selectedCategory = category;
-    Model.set({ name: category?.name || '', isActive: category?.isActive || true });
+    console.log(category);
+    const body: Data ={
+      name: category?.name ?? '',
+      isActive: category?.isActive ?? true,
+    }
+    if(isEdit) {
+      body._id = category!._id;
+    }
+    Model.set(body);
     const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
     modal.open();
   }
 
   closeModal(): void {
+    this.form().reset(INITIAL_FORM_VALUE);
+
     const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
     modal.close();
   }

@@ -10,7 +10,12 @@ export class Category {
   private readonly url = `${API_URL}/v1/categories`;
   private readonly http = inject(HttpClient);
 
-  update(id: string, data: Partial<ICategory>): Observable<any> {
-    return this.http.patch(`${this.url}/${id}`, data);
+  update(payload: any): Observable<ICategory> {
+    const { _id, ...data } = payload;
+    return this.http.patch<ICategory>(`${this.url}/${_id}`, data);
+  }
+
+  create(payload: any): Observable<ICategory> {
+    return this.http.post<ICategory>(this.url, payload);
   }
 }

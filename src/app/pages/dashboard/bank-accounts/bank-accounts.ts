@@ -10,6 +10,13 @@ import { ERole } from '@core/enums';
 import { Service } from './service';
 import { HSOverlay } from 'flyonui/flyonui';
 
+const INITIAL_FORM_VALUE: BankAccountData = {
+  type: '',
+  number: '',
+  bank: '',
+  user: '',
+};
+
 interface BankAccountData {
   _id?: string;
   type: string;
@@ -18,12 +25,7 @@ interface BankAccountData {
   user: string;
 }
 
-const accountModel = signal<BankAccountData>({
-  type: '',
-  number: '',
-  bank: '',
-  user: '',
-});
+const accountModel = signal<BankAccountData>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-bank-accounts',
@@ -129,6 +131,7 @@ export class BankAccounts {
   }
 
   closeModal(): void {
+    this.form().reset(INITIAL_FORM_VALUE);
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.close();
   }
