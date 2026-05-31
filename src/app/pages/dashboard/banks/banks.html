@@ -72,7 +72,7 @@
                     </span>
                   </td>
                   <td>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
+                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button" (click)="openModal(true, item)">
                       <span class="icon-[tabler--edit] size-5"></span>
                     </button>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
@@ -121,5 +121,91 @@
         <span class="icon-[tabler--chevrons-right] size-4.5 rtl:rotate-180"></span>
       </button>
     </div>
+  </div>
+</div>
+
+
+
+<!-- MODAL -->
+<div
+  id="update-form-modal"
+  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-sm">
+    <form [formRoot]="form" novaidate class="login-form space-y-1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Actualizar Plan</h3>
+          <button
+            type="button"
+            class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+            (click)="closeModal()"
+          >
+            <span class="icon-[tabler--x] size-4"></span>
+          </button>
+        </div>
+        <div class="modal-body pt-0">
+          <div class="field">
+            <label class="label-text" for="name">Nombre</label>
+            <input
+              id="name"
+              type="text"
+              class="input max-w-sm"
+              formControlName="name"
+              autocomplete="name"
+              aria-describedby="name-error"
+              [formField]="form.name"
+              [class.invalid]="form.name().invalid() && form.name().touched()"
+            />
+
+            @if (form.name().touched() && form.name().invalid()) {
+              <ul class="text-sm text-error mt-1" id="name-error">
+                @for (error of form.name().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <!-- <div class="w-full">
+            <label class="label-text" for="country">Seleccione país</label>
+            <select class="select" id="country" [formField]="form.country">
+              @for (country of countryResource.value()?.results; track $index) {
+              <option [value]="country._id">{{ country.name }}</option>
+              }
+            </select>
+            @if (form.country().touched() && form.country().invalid()) {
+            <ul class="text-red-500 text-sm">
+              @for (error of form.country().errors(); track error) {
+              <li>{{ error.message }}</li>
+              }
+            </ul>
+            }
+          </div> -->
+          <div class="field">
+            <label class="label-text" for="isActive">Activo</label>
+            <div class="flex items-center gap-1">
+              <input
+                type="checkbox"
+                class="switch switch-primary"
+                id="isActive"
+                formControlName="isActive"
+                autocomplete="isActive"
+                aria-describedby="isActive-error"
+                [formField]="form.isActive"
+              />
+              <label class="label-text text-base" for="isActive"> Default </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

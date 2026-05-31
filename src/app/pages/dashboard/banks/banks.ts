@@ -1,12 +1,13 @@
 import { httpResource } from '@angular/common/http';
 import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { form, required } from '@angular/forms/signals';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IBank } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/dist';
 import { BankService } from './service/bank';
+import { MatFormFieldHarness } from '@angular/material/form-field/testing';
 
 const INITIAL_FORM_VALUE: Data = {
   name: '',
@@ -25,7 +26,7 @@ const Model = signal<Data>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-banks',
-  imports: [FormsModule],
+  imports: [FormField, FormRoot, FormsModule],
   templateUrl: './banks.html',
   styleUrl: './banks.css',
 })
@@ -65,6 +66,8 @@ export class Banks {
       search: this.search() ?? '',
     },
   }));
+
+  // protected countriesResource = httpResource<IResponse<ICountry>>(() => {});
 
   fromPage = computed(() => {
     return this.limit() * (this.page() - 1) + 1;
