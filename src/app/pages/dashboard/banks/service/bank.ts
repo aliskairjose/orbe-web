@@ -11,12 +11,12 @@ export class BankService {
 
   private readonly http = inject(HttpClient);
 
-  update(data: any): Observable<IBank> {
+  update(data: Partial<IBank>): Observable<IBank> {
     const { _id, ...rest } = data;
     return this.http.patch<IBank>(`${this.url}/${data._id}`, rest);
   }
 
-  create(data: any): Observable<IBank> {
+  create(data: Partial<IBank>): Observable<IBank> {
     return this.http.post<IBank>(this.url, data);
   }
 }

@@ -1,61 +1,59 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
-  <div
-    class="border-base-content/25 flex justify-end-safe items-center border-b px-5 py-3 gap-3 h-14"
-  ></div>
+  <div class="border-base-content/25 flex justify-end-safe items-center border-b px-5 py-3 gap-3 h-14">
+    <div class="flex-1">
+      <button type="button" class="btn btn-soft btn-primary btn-sm" (click)="openModal(false, null)">
+        <span class="material-symbols-outlined" style="font-size: 20px"> view_object_track </span>
+        Agregar paquete
+      </button>
+    </div>
+  </div>
   <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
       <div class="overflow-hidden">
         @if (resource.hasValue()) {
-          <table class="table min-w-full" id="myTable">
-            <thead>
-              <tr>
-                <th scope="col" class="group">
-                  <div class="flex items-center justify-between">#</div>
-                </th>
-                <th scope="col" class="group">
-                  <div class="flex items-center justify-between">Monto</div>
-                </th>
-                <th scope="col" class="group">
-                  <div class="flex items-center justify-between">Bono</div>
-                </th>
-                <th scope="col" class="group">
-                  <div class="flex items-center justify-between">Status</div>
-                </th>
-                <th scope="col" class="--exclude-from-ordering"></th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of resource.value(); track $index) {
-                <tr>
-                  <td>
-                    <span class="font-medium">{{ $index + 1 }}</span>
-                  </td>
-                  <td>{{ item.amount | currency }}</td>
-                  <td>{{ item.bonus | currency }}</td>
-                  <td>
-                    <span
-                      class="badge badge-soft badge-sm"
-                      [class.badge-success]="item.isActive"
-                      [class.badge-error]="!item.isActive"
-                    >
-                      {{ item.isActive ? 'Activo' : 'Inactivo' }}
-                    </span>
-                  </td>
-                  <td>
-                    <button
-                      class="btn btn-circle btn-text btn-sm"
-                      aria-label="Action button"
-                      (click)="openModal(item)"
-                    >
-                      <span class="icon-[tabler--edit] size-5"></span>
-                    </button>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
+        <table class="table min-w-full" id="myTable">
+          <thead>
+            <tr>
+              <th scope="col" class="group">
+                <div class="flex items-center justify-between">#</div>
+              </th>
+              <th scope="col" class="group">
+                <div class="flex items-center justify-between">Monto</div>
+              </th>
+              <th scope="col" class="group">
+                <div class="flex items-center justify-between">Bono</div>
+              </th>
+              <th scope="col" class="group">
+                <div class="flex items-center justify-between">Status</div>
+              </th>
+              <th scope="col" class="--exclude-from-ordering"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of resource.value(); track $index) {
+            <tr>
+              <td>
+                <span class="font-medium">{{ $index + 1 }}</span>
+              </td>
+              <td>{{ item.amount | currency }}</td>
+              <td>{{ item.bonus | currency }}</td>
+              <td>
+                <span class="badge badge-soft badge-sm" [class.badge-success]="item.isActive"
+                  [class.badge-error]="!item.isActive">
+                  {{ item.isActive ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-circle btn-text btn-sm" aria-label="Action button" (click)="openModal(true, item)">
+                  <span class="icon-[tabler--edit] size-5"></span>
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
         } @else if (resource.error()) {
-          <p>Ha ocurrido un error</p>
+        <p>Ha ocurrido un error</p>
         }
       </div>
     </div>
@@ -63,80 +61,51 @@
 </div>
 
 <!-- MODAL -->
-<div
-  id="update-form-modal"
-  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
-  role="dialog"
-  tabindex="-1"
->
+<div id="update-form-modal" class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
+  role="dialog" tabindex="-1">
   <div class="modal-dialog modal-dialog-sm">
     <form [formRoot]="form" novaidate class="login-form space-y-1">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Actualizar Plan</h3>
-          <button
-            type="button"
-            class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-            (click)="closeModal()"
-          >
+          <button type="button" class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3" (click)="closeModal()">
             <span class="icon-[tabler--x] size-4"></span>
           </button>
         </div>
         <div class="modal-body pt-0">
           <div class="field">
             <label class="label-text" for="amount">Monto</label>
-            <input
-              id="amount"
-              type="number"
-              class="input max-w-sm"
-              formControlName="amount"
-              autocomplete="amount"
-              aria-describedby="amount-error"
-              [formField]="form.amount"
-              [class.invalid]="form.amount().invalid() && form.amount().touched()"
-            />
+            <input id="amount" type="number" class="input max-w-sm" formControlName="amount" autocomplete="amount"
+              aria-describedby="amount-error" [formField]="form.amount"
+              [class.invalid]="form.amount().invalid() && form.amount().touched()" />
 
             @if (form.amount().touched() && form.amount().invalid()) {
-              <ul class="text-sm text-error mt-1" id="amount-error">
-                @for (error of form.amount().errors(); track error) {
-                  <li>{{ error.message }}</li>
-                }
-              </ul>
+            <ul class="text-sm text-error mt-1" id="amount-error">
+              @for (error of form.amount().errors(); track error) {
+              <li>{{ error.message }}</li>
+              }
+            </ul>
             }
           </div>
           <div class="field">
             <label class="label-text" for="bonus">Bono</label>
-            <input
-              id="bonus"
-              type="number"
-              class="input max-w-sm"
-              formControlName="bonus"
-              autocomplete="bonus"
-              aria-describedby="bonus-error"
-              [formField]="form.bonus"
-              [class.invalid]="form.bonus().invalid() && form.bonus().touched()"
-            />
+            <input id="bonus" type="number" class="input max-w-sm" formControlName="bonus" autocomplete="bonus"
+              aria-describedby="bonus-error" [formField]="form.bonus"
+              [class.invalid]="form.bonus().invalid() && form.bonus().touched()" />
 
             @if (form.bonus().touched() && form.bonus().invalid()) {
-              <ul class="text-sm text-error mt-1" id="bonus-error">
-                @for (error of form.bonus().errors(); track error) {
-                  <li>{{ error.message }}</li>
-                }
-              </ul>
+            <ul class="text-sm text-error mt-1" id="bonus-error">
+              @for (error of form.bonus().errors(); track error) {
+              <li>{{ error.message }}</li>
+              }
+            </ul>
             }
           </div>
           <div class="field">
             <label class="label-text" for="isActive">Activo</label>
             <div class="flex items-center gap-1">
-              <input
-                type="checkbox"
-                class="switch switch-primary"
-                id="isActive"
-                formControlName="isActive"
-                autocomplete="isActive"
-                aria-describedby="isActive-error"
-                [formField]="form.isActive"
-              />
+              <input type="checkbox" class="switch switch-primary" id="isActive" formControlName="isActive"
+                autocomplete="isActive" aria-describedby="isActive-error" [formField]="form.isActive" />
               <label class="label-text text-base" for="isActive"> Default </label>
             </div>
           </div>

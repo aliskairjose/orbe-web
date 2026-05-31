@@ -9,8 +9,13 @@ import { Observable } from 'rxjs';
 export class PlanService {
   private readonly http = inject(HttpClient);
 
-  update(id:string, body: Partial<IPlan>): Observable<any>{
-    return this.http.patch(`${API_URL}/v1/plan/${id}`, body);
+  update(payload: Partial<IPlan>): Observable<any>{
+    const { _id, ...body } = payload;
+    return this.http.patch(`${API_URL}/v1/plan/${_id}`, body);
+  }
+
+  create(payload: Partial<IPlan>): Observable<IPlan> {
+    return this.http.post<IPlan>(`${API_URL}/v1/plan`, payload);
   }
 
 }

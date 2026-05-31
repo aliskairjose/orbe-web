@@ -1,21 +1,24 @@
 import { CurrencyPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, DOCUMENT, inject, signal } from '@angular/core';
-import { form,min, FormField, FormRoot, required } from '@angular/forms/signals';
+import { form, min, FormField, FormRoot, required } from '@angular/forms/signals';
 import { IPlan } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
 import { PlanService } from './services/plans';
 
+const INITIAL_FORM_VALUE: PlanData = {
+  amount: 0,
+  bonus: 0,
+  isActive: true,
+};
+
 interface PlanData {
+  _id?: string;
   amount: number;
   bonus: number;
   isActive: boolean;
 }
-const planModel = signal<PlanData>({
-  amount: 0,
-  bonus: 0,
-  isActive: false,
-});
+const planModel = signal<PlanData>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-plans',
@@ -37,7 +40,8 @@ export class Plans {
     },
     {
       submission: {
-        action: async (f) => await this.onSubmit(f().value()),
+        action: async (f) =>
+          f().value()._id ? await this.update(f().value()) : await this.create(f().value()),
       },
     },
   );
@@ -45,20 +49,33 @@ export class Plans {
   private readonly document = inject(DOCUMENT);
   protected selectedPlan: IPlan | null = null;
 
-  async onSubmit(planData: PlanData): Promise<void> {
-    if (!this.selectedPlan) return;
-    this.service.update(this.selectedPlan._id, planData).subscribe((_) => window.location.reload());
-  }
+  openModal(isEdit: boolean, category: IPlan | null): void {
+    this.selectedPlan = category;
 
-  openModal(plan: IPlan): void {
-    this.selectedPlan = plan;
-    planModel.set({ amount: plan.amount, bonus: plan.bonus, isActive: plan.isActive });
+    const body: PlanData = {
+      amount: category?.amount ?? 0,
+      bonus: category?.bonus ?? 0,
+      isActive: category?.isActive ?? true,
+    };
+
+    if (isEdit) {
+      body._id = category!._id;
+    }
+    planModel.set(body);
     const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
     modal.open();
   }
-
   closeModal(): void {
+    this.form().reset(INITIAL_FORM_VALUE);
     const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
     modal.close();
+  }
+
+  async update(f: PlanData): Promise<void> {
+    this.service.update(f).subscribe(() => window.location.reload());
+  }
+
+  async create(f: PlanData): Promise<void> {
+    this.service.create(f).subscribe(() => window.location.reload());
   }
 }
