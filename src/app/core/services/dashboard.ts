@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class DashboardService {
   private readonly http = inject(HttpClient);
 
-  updateRate(id: string, currentRate: number): Observable<IRateExchange[]>{
-    return this.http.patch<IRateExchange[]>(`${AppConfig.baseUrl(`rate-exchange`)}/${id}`, {currentRate});
+  updateRate(id: string, currentRate: number): Observable<IRateExchange> {
+    return this.http.patch<IRateExchange>(`${AppConfig.baseUrl(`rate-exchange`)}/${id}`, { currentRate });
   }
 }

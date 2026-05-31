@@ -20,9 +20,7 @@ interface RateFormData {
 const rateFormModel = signal<RateFormData>({
   rate: 0,
 });
-const RateSchema = z.object({
-  rate: z.number(),
-});
+
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
@@ -37,9 +35,17 @@ export class Dashboard {
   private readonly service = inject(DashboardService);
   private document = inject(DOCUMENT);
 
+  protected rate = signal<number>(0);
+
   protected readonly currentYear = new Date().getFullYear();
   protected readonly rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
-    parse: (raw: any) => raw[0],
+    parse: (raw: any) => {
+      this.rate.set(raw[0].currentRate);
+      rateFormModel.set({
+        rate: this.rate(),
+      })
+      return raw[0];
+    },
   });
 
   protected form = form(
@@ -97,11 +103,11 @@ export class Dashboard {
     const modal = new HSOverlay(this.document.querySelector('#auth-modal')!);
     modal.open();
   }
-  closeAuthModal(logout: boolean): void {
+  closeAuthModal(isLogout: boolean): void {
     const modal = new HSOverlay(this.document.querySelector('#auth-modal')!);
     modal.close();
 
-    if (logout) {
+    if (isLogout) {
       this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
         this.toast.show(EMessage.GoodBye);
         this.router.navigate(['']);
@@ -110,6 +116,12 @@ export class Dashboard {
   }
 
   private updateRate(id: string, f: RateFormData): void {
-    this.service.updateRate(id, f.rate).subscribe((_) => window.location.reload());
+    this.closeRateModal();
+    this.service.updateRate(id, f.rate).subscribe((res) => {
+      this.rate.set(res.currentRate);
+      rateFormModel.set({
+        rate: this.rate(),
+      });
+    });
   }
 }
