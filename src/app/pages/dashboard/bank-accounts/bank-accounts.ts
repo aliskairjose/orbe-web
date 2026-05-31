@@ -81,7 +81,7 @@ export class BankAccounts {
       limit: 0,
       role: ERole.Advisor,
       isActive: true,
-      bankAccount: false,
+      // bankAccount: false,
     },
   }));
 
@@ -111,7 +111,14 @@ export class BankAccounts {
     if (isEdit && plan) {
       this.selectedBankAccount = plan;
       accountModel.set({ type: plan.type, number: plan.number, bank: plan.bank._id, user: plan.user._id });
-    }
+  } else {
+    this.form().reset({
+      type: '',
+      number: '',
+      bank: '',
+      user: '',
+    });
+  }
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.open();
   }
