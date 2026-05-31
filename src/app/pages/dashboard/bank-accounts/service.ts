@@ -12,4 +12,9 @@ export class Service {
   create(body: any): Observable<IBankAccount>{
     return this.http.post<IBankAccount>(`${API_URL}/v1/bank-account`, body );
   }
+
+  update(payload: any): Observable<IBankAccount>{
+    const { _id, ...body } = payload;
+    return this.http.patch<IBankAccount>(`${API_URL}/v1/bank-account/${_id}`, body );
+  }
 }

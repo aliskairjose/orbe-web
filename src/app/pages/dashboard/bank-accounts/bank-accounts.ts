@@ -11,6 +11,7 @@ import { Service } from './service';
 import { HSOverlay } from 'flyonui/flyonui';
 
 interface BankAccountData {
+  _id?: string;
   type: string;
   number: string;
   bank: string;
@@ -45,7 +46,8 @@ export class BankAccounts {
     },
     {
       submission: {
-        action: async (f) => await this.onSubmit(f().value()),
+        action: async (f) =>
+          f().value()._id ? this.update(f().value()) : this.create(f().value()),
       },
     },
   );
@@ -112,12 +114,16 @@ export class BankAccounts {
   openModal(isEdit: boolean, plan: IBankAccount | null): void {
     this.hasBankAccount.set(isEdit);
     this.selectedBankAccount = plan;
-    accountModel.set({
+    const body: BankAccountData = {
       type: plan?.type ?? '',
       number: plan?.number ?? '',
       bank: plan?.bank._id ?? '',
       user: plan?.user._id ?? '',
-    });
+    }
+    if (isEdit) {
+      body._id = plan!._id;
+    }
+    accountModel.set(body);
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.open();
   }
@@ -127,8 +133,15 @@ export class BankAccounts {
     modal.close();
   }
 
-  private async onSubmit(f: BankAccountData) {
-    console.log(f);
+  // private async onSubmit(f: BankAccountData) {
+  //   this.service.create(f).subscribe((_) => window.location.reload());
+  // }
+
+  private async update(f: BankAccountData) {
+    console.log(f.number);
+    this.service.update(f).subscribe((_) => window.location.reload());
+  }
+  private async create(f: BankAccountData): Promise<void> {
     this.service.create(f).subscribe((_) => window.location.reload());
   }
 }
