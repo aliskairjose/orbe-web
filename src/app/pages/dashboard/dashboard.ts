@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import {  Component, DOCUMENT, inject, signal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SIDE_MENU } from '@core/constants';
 import { AuthActions } from '../auth/store/auth.actions';
@@ -30,7 +30,6 @@ const RateSchema = z.object({
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  
   private readonly url = `${API_URL}/v1`;
   private readonly store = inject(Store);
   private readonly router = inject(Router);
@@ -59,7 +58,7 @@ export class Dashboard {
   protected menu = SIDE_MENU;
   protected isSidebarOpen = signal(false);
   protected isSubBarOpen = signal(false);
-  protected userLogged =  this.store.selectSnapshot(AuthSelectors.userLogged)
+  protected userLogged = this.store.selectSnapshot(AuthSelectors.userLogged);
 
   constructor() {
     this.router.events.subscribe((event) => {
@@ -70,7 +69,6 @@ export class Dashboard {
         this.isSubBarOpen.set(false);
       }
     });
-
   }
 
   toggleSidebar() {
@@ -82,10 +80,7 @@ export class Dashboard {
   }
 
   logout(): void {
-    this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
-      this.toast.show(EMessage.GoodBye);
-      this.router.navigate(['']);
-    });
+    this.openAuthModal();
   }
 
   openRateModal(): void {
@@ -96,6 +91,22 @@ export class Dashboard {
   closeRateModal(): void {
     const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
     modal.close();
+  }
+
+  openAuthModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#auth-modal')!);
+    modal.open();
+  }
+  closeAuthModal(logout: boolean): void {
+    const modal = new HSOverlay(this.document.querySelector('#auth-modal')!);
+    modal.close();
+
+    if (logout) {
+      this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
+        this.toast.show(EMessage.GoodBye);
+        this.router.navigate(['']);
+      });
+    }
   }
 
   private updateRate(id: string, f: RateFormData): void {
