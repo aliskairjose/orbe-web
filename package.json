@@ -40,6 +40,7 @@
     "ngx-socket-io": "^4.7.0",
     "ngx-spinner": "^21.1.0",
     "notyf": "^3.10.0",
+    "raty-js": "^4.3.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.1",
     "tinymce": "^8.4.0",
