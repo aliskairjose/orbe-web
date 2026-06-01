@@ -47,6 +47,7 @@ export class AdvisorList {
     'Rate',
     'Registrado',
     'Últ. conexión',
+    ''
   ];
 
   private readonly url = `${API_URL}/v1`;

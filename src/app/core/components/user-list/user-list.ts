@@ -14,7 +14,7 @@ import { IResponse, IUser } from '@core/interfaces';
   styleUrl: './user-list.css',
 })
 export class UserList {
-  protected headers: string[] = ['#', 'Usuario', 'Email', 'Status', 'Registrado', 'Últ. conexión'];
+  protected headers: string[] = ['#', 'Usuario', 'Email', 'Status', 'Registrado', 'Últ. conexión', ''];
   protected readonly connectStatus = EConnectStatus;
 
   private readonly url = `${API_URL}/v1/users`;

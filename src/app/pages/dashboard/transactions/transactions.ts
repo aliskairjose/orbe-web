@@ -13,7 +13,7 @@ import { IResponse, ITransaction } from '@core/interfaces';
   styleUrl: './transactions.css',
 })
 export class Transactions {
-  protected headers = ['Usuario', 'Id transacción', 'Monto', ' Origen', 'Descripción', ' Fecha'];
+  protected headers = ['Usuario', 'Id transacción', 'Monto', ' Origen', 'Descripción', ' Fecha',''];
 
   private readonly url = `${API_URL}/v1/payments`;
   protected search = model<string>('');
