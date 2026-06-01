@@ -20,23 +20,12 @@ export class Details {
   protected readonly connectStatus = EConnectStatus;
   protected user = httpResource<any>(() => `${API_URL}/v1/users/${this.id}`);
 
+  protected safeDniImage = computed(()=>this.sanitizer.bypassSecurityTrustResourceUrl(this.user.value().advisor.dniImage));  
+
   currentIndex = signal<number>(0);
 
-  slides = computed(() => [
-    {
-      url: this.sanitizer.bypassSecurityTrustUrl(this.user.value().advisor.dniImage),
-      alt: 'DNI',
-      title: 'DNI',
-      description: 'DNI del asesor.',
-    },
-    {
-      url: this.sanitizer.bypassSecurityTrustUrl(this.user.value().advisor.dniImage),
-      alt: 'DNI',
-      title: 'DNI',
-      description: 'DNI del asesor.',
-    },
-  ]);
-
+  slides = signal<number[]>([1,2]);
+ 
   // Computed para verificar los límites de manera limpia
   totalSlides = computed(() => this.slides().length);
 
