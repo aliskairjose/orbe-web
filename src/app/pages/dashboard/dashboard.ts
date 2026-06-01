@@ -28,8 +28,9 @@ const rateFormModel = signal<RateFormData>({
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  pageTitle = inject(Title);
+
   private readonly url = `${API_URL}/v1`;
-  titleService = inject(Title);
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);

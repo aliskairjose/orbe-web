@@ -58,7 +58,7 @@
           <span class="material-symbols-outlined"> menu </span>
         </button>
         <h1 class="md:ml-4 text-xl font-medium text-gray-700">
-          {{ titleService.getTitle() }}
+          {{ pageTitle.getTitle().split(' - ')[1] }}
         </h1>
         <button
           (click)="toggleSubBar()"
