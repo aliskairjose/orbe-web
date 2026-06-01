@@ -12,6 +12,7 @@ import { IRateExchange } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
 import { DashboardService } from '@core/services/dashboard';
 import { AuthSelectors } from '../auth/store/auth.selectors';
+import { Title } from '@angular/platform-browser';
 
 interface RateFormData {
   rate: number;
@@ -28,6 +29,7 @@ const rateFormModel = signal<RateFormData>({
 })
 export class Dashboard {
   private readonly url = `${API_URL}/v1`;
+  titleService = inject(Title);
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
@@ -35,7 +37,6 @@ export class Dashboard {
   private document = inject(DOCUMENT);
 
   protected rate = signal<number>(0);
-  title = input<string>();
 
   protected readonly currentYear = new Date().getFullYear();
   protected readonly rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {

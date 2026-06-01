@@ -9,6 +9,6 @@ export class AppTitleStrategy extends TitleStrategy {
     // PageTitle is equal to the "Title" of a route if it's set
     // If its not set it will use the "title" given in index.html
     const pageTitle = this.buildTitle(snapshot) || this.title.getTitle();
-    this.title.setTitle(`Orbe - ${pageTitle}`);
+    this.title.setTitle(`${pageTitle}`);
   }
 }

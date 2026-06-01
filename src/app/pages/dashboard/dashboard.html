@@ -57,7 +57,9 @@
         >
           <span class="material-symbols-outlined"> menu </span>
         </button>
-        <h1 class="md:ml-4 text-xl font-medium text-gray-800">{{title()}}</h1>
+        <h1 class="md:ml-4 text-xl font-medium text-gray-700">
+          {{ titleService.getTitle() }}
+        </h1>
         <button
           (click)="toggleSubBar()"
           class="lg:hidden md:p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
