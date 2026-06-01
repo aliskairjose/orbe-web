@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, TitleStrategy, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 import { withNgxsFormPlugin } from '@ngxs/form-plugin';
@@ -18,9 +18,8 @@ import { AuthStates } from './pages/auth/store/auth.states';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpInterceptor } from '@core/interceptors/http.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
-interface NgxSpinnerConfig {
-  type?: string;
-}
+import { AppTitleStrategy } from '@core/strategies';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })),
@@ -44,5 +43,6 @@ export const appConfig: ApplicationConfig = {
       withNgxsStoragePlugin({ keys: [AuthStates] }),
       withNgxsWebSocketPlugin({ url: API_SOCKET }),
     ),
+    {provide: TitleStrategy, useClass: AppTitleStrategy}
   ],
 };

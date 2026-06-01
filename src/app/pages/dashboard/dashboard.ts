@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, DOCUMENT, inject, signal } from '@angular/core';
+import { Component, DOCUMENT, inject, input, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SIDE_MENU } from '@core/constants';
 import { AuthActions } from '../auth/store/auth.actions';
@@ -11,7 +11,6 @@ import { httpResource } from '@angular/common/http';
 import { IRateExchange } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
 import { DashboardService } from '@core/services/dashboard';
-import { z } from 'zod';
 import { AuthSelectors } from '../auth/store/auth.selectors';
 
 interface RateFormData {
@@ -36,6 +35,7 @@ export class Dashboard {
   private document = inject(DOCUMENT);
 
   protected rate = signal<number>(0);
+  title = input<string>();
 
   protected readonly currentYear = new Date().getFullYear();
   protected readonly rateResource = httpResource<IRateExchange>(() => `${this.url}/rate-exchange`, {
