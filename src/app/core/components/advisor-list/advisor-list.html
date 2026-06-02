@@ -4,13 +4,9 @@
       <button
         type="button"
         class="btn btn-soft btn-primary btn-sm"
-        aria-haspopup="dialog"
-        aria-expanded="false"
-        aria-controls="form-modal"
-        data-overlay="#form-modal"
+        (click)="openModal(false, null)"
       >
         <span class="icon-[tabler--user-plus] size-4.5 rtl:rotate-180"></span>
-
         Agregar asesor
       </button>
     </div>
@@ -96,7 +92,6 @@
                     <select
                       class="select select-sm w-fit"
                       aria-label="select"
-                      [disabled]="item.status === statusEnum.APPROVED"
                       (change)="onChangeStatus($event, item._id)"
                     >
                       @for (s of status; track $index) {
@@ -136,7 +131,7 @@
                     <button
                       class="btn btn-circle btn-text btn-sm"
                       aria-label="Action button"
-                      (click)="openModal(item)"
+                      (click)="openModal(true,item)"
                     >
                       <span class="icon-[tabler--edit] size-5"></span>
                     </button>
@@ -198,8 +193,7 @@
         <button
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          data-overlay="#form-modal"
+          (click)="closeModal()"
         >
           <span class="icon-[tabler--x] size-4"></span>
         </button>
@@ -251,9 +245,9 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="name"> Nombre </label>
-                  <input type="text" class="input" id="name" [formField]="form.name" />
+                  <input type="text" class="input" id="name" [formField]="form.name"  formControlName="name"/>
                   @if (form.name().touched() && form.name().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.name().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -262,9 +256,9 @@
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="lastName"> Apellido </label>
-                  <input type="text" class="input" id="lastName" [formField]="form.lastName" />
+                  <input type="text" class="input" id="lastName" [formField]="form.lastName"  formControlName="lastName"/>
                   @if (form.lastName().touched() && form.lastName().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.lastName().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -275,9 +269,9 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="dni"> DNI </label>
-                  <input type="number" class="input" id="dni" [formField]="form.dni" />
+                  <input type="number" class="input" id="dni" [formField]="form.dni"  formControlName="dni"/>
                   @if (form.dni().touched() && form.dni().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.dni().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -286,9 +280,9 @@
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="email"> Email </label>
-                  <input type="email" class="input" id="email" [formField]="form.email" />
+                  <input type="email" class="input" id="email" [formField]="form.email"  formControlName="email"/>
                   @if (form.email().touched() && form.email().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.email().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -299,9 +293,9 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="alias"> Alias </label>
-                  <input type="text" class="input" id="alias" [formField]="form.alias" />
+                  <input type="text" class="input" id="alias" [formField]="form.alias"  formControlName="alias"/>
                   @if (form.alias().touched() && form.alias().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.alias().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -310,9 +304,9 @@
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
-                  <input type="date" class="input" id="dateOfBirth" [formField]="form.dob" />
+                  <input type="date" class="input" id="dateOfBirth" [formField]="form.dob"  formControlName="dob"/>
                   @if (form.dob().touched() && form.dob().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.dob().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -323,9 +317,9 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="phone"> Teléfono </label>
-                  <input type="phone" class="input" id="phone" [formField]="form.phone" />
+                  <input type="phone" class="input" id="phone" [formField]="form.phone"  formControlName="phone"/>
                   @if (form.phone().touched() && form.phone().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.phone().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -349,10 +343,10 @@
             >
               <div class="mb-0.5 flex justify-between gap-4 max-sm:flex-col items-center">
                 <div class="w-full">
-                  <label class="label-text" for="chatPrice"> Chat price/min </label>
-                  <input type="number" class="input" id="chatPrice" [formField]="form.chatPrice" />
+                  <label class="label-text" for="chatPrice"> Chat precio/min </label>
+                  <input type="number" class="input" id="chatPrice" [formField]="form.chatPrice"  formControlName="chatPrice"/>
                   @if (form.chatPrice().touched() && form.chatPrice().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.chatPrice().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -360,10 +354,10 @@
                   }
                 </div>
                 <div class="w-full">
-                  <label class="label-text" for="callPrice"> Call price/min </label>
-                  <input type="number" class="input" id="callPrice" [formField]="form.callPrice" />
+                  <label class="label-text" for="callPrice"> Call precio/min </label>
+                  <input type="number" class="input" id="callPrice" [formField]="form.callPrice"  formControlName="callPrice"/>
                   @if (form.callPrice().touched() && form.callPrice().invalid()) {
-                    <ul class="field-error">
+                    <ul class="text-xs text-error mt-1">
                       @for (error of form.callPrice().errors(); track error) {
                         <li>{{ error.message }}</li>
                       }
@@ -376,6 +370,7 @@
                     class="switch switch-outline switch-primary"
                     id="isEnabled"
                     [formField]="form.enabledCall"
+                    formControlName="enabledCall"
                   />
                   <label class="label-text text-base" for="isEnabled"> Activar </label>
                 </div>
@@ -383,13 +378,27 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="description"> Descripción </label>
-                  <textarea class="textarea" id="description"></textarea>
+                  <textarea class="textarea" id="description" [formField]="form.description"  formControlName="description"></textarea>
+                  @if (form.description().touched() && form.description().invalid()) {
+                    <ul class="text-xs text-error mt-1">
+                      @for (error of form.description().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="experience"> Experiencia </label>
-                  <textarea class="textarea" id="experience"></textarea>
+                  <textarea class="textarea" id="experience" [formField]="form.experience"  formControlName="experience"></textarea>
+                  @if (form.experience().touched() && form.experience().invalid()) {
+                    <ul class="text-xs text-error mt-1">
+                      @for (error of form.experience().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
@@ -413,7 +422,7 @@
           </div>
         </div>
         <div class="modal-footer border-t border-gray-200 pt-3">
-          <button type="button" class="btn btn-soft btn-secondary" data-overlay="#form-modal">
+          <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
             Cerrar
           </button>
           <button type="submit" class="btn btn-primary">Registrar asesor</button>
@@ -423,50 +432,3 @@
   </div>
 </div>
 
-<!-- Update Advisor Modal -->
-<div
-  id="update-form-modal"
-  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
-  role="dialog"
-  tabindex="-1"
->
-  <div class="modal-dialog modal-dialog-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Cambio de estado</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          (click)="closeModal()"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <div class="modal-body pt-0">
-        <!-- Similar content to the New Advisor Modal but with pre-filled data for updating -->
-        <p class="mb-4 text-gray-600">
-          Seleccione un nuevo estado para el asesor <br />
-          <span class="font-medium">{{ user()?.name }} {{ user()?.lastName }}</span> <br />
-          <small> ({{ user()?.email }})</small>
-        </p>
-        <select
-          class="select w-full"
-          aria-label="select"
-          (change)="onChangeStatus($event, user()!._id)"
-        >
-          @for (s of status; track $index) {
-            <option [selected]="s.val === user()?.status" [value]="s.val">
-              {{ s.title }}
-            </option>
-          }
-        </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>

@@ -68,7 +68,7 @@ interface IProfile {
   decription: string;
   experience: string;
   dniImage: string;
-  dniID: string;
+  dni: string;
   dniType: string;
   videoIntro: string;
   videoIntroID: string;

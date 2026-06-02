@@ -4,12 +4,12 @@ import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
-import { IAdvisor, ICategory, IResponse } from '@core/interfaces';
+import { IAdvisor, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
 import { EConnectStatus, ERole, EStatus } from '@core/enums';
 import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
-import { disabled, form, FormField, FormRoot, required } from '@angular/forms/signals';
+import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
 
 interface ICountry {
   country: string;
@@ -25,7 +25,7 @@ const INITIAL_FORM_DATA: FormData = {
   country: '',
   dob: new Date(),
   alias: '',
-  dni:'',
+  dni: '',
   category: '',
   description: '',
   experience: '',
@@ -74,9 +74,11 @@ export class AdvisorList {
       required(v.country, { message: 'Country is required' });
       required(v.dob, { message: 'Date of birth is required' });
       required(v.alias, { message: 'Alias is required' });
+      required(v.dni, { message: 'DNI is required' });
       required(v.chatPrice, { message: 'Chat price is required' });
+      min(v.chatPrice, 0.25, { message: 'Chat price must be at least 0.25' });
       required(v.callPrice, { message: 'Call price is required' });
-      disabled(v.callPrice, ({valueOf})=> valueOf(v.enabledCall) === true);
+      disabled(v.callPrice, ({ valueOf }) => !valueOf(v.enabledCall));
       required(v.category, { message: 'Category is required' });
       required(v.description, { message: 'Description is required' });
       required(v.experience, { message: 'Experience is required' });
@@ -165,14 +167,37 @@ export class AdvisorList {
     this.page.set(page);
   }
 
-  openModal(user: IAdvisor): void {
-    this.user.set(user);
-    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+  openModal(isEdit: boolean, user: IAdvisor | null): void {
+    if (isEdit && user) {
+      this.user.set(user);
+      formModel.set({
+        _id: user._id,
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone,
+        country: user.country,
+        dob: new Date(user.dob),
+        alias: user.advisor.alias,
+        dni: user.advisor.dni,
+        category: user.advisor.category,
+        description: user.advisor.description,
+        experience: user.advisor.experience,
+        dniImage: '',
+        videointro: '',
+        chatPrice: user.advisor.chatPrice || 0,
+        callPrice: user.advisor.callPrice || 0,
+        enabledCall: !!user.advisor.enabledCall,
+      });
+    } else {
+      formModel.set(INITIAL_FORM_DATA);
+    }
+    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.open();
   }
 
   closeModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.close();
   }
 
