@@ -23,6 +23,7 @@
     <div class="flex items-center justify-end gap-3">
       <!-- Select -->
       <select
+        aria-label="Select page size"
         class="select w-fit max-sm:w-16 select-sm max-w-sm"
         name=""
         id="pagination"
@@ -68,7 +69,7 @@
                         [class.avatar-away-top]="item.connectStatus === connectStatus.Away"
                       >
                         <div class="size-8 rounded-full">
-                          <img [src]="item.avatar" [alt]="item.name" />
+                          <img [src]="item.avatar" alt="{{ item._id }}" />
                         </div>
                       </div>
 
@@ -129,6 +130,7 @@
                       <span class="icon-[tabler--eye] size-5"></span>
                     </button>
                     <button
+                      disabled
                       class="btn btn-circle btn-text btn-sm"
                       aria-label="Action button"
                       (click)="openModal(true, item)"
@@ -191,6 +193,7 @@
       <div class="modal-header">
         <h3 class="modal-title">Datos del asesor</h3>
         <button
+          aria-label="Close modal"
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
           (click)="closeModal()"
@@ -336,7 +339,7 @@
                   <label class="label-text" for="country">País</label>
                   <select class="select" id="country" [formField]="form.country">
                     @for (country of countriesPhoneCodes; track $index) {
-                      <option [value]="country.code" >{{ country.name }}</option>
+                      <option [value]="country.name">{{ country.name }}</option>
                     }
                   </select>
                 </div>
