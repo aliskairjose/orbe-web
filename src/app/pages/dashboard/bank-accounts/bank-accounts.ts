@@ -56,7 +56,6 @@ export class BankAccounts {
 
   protected headers = ['#', 'País', 'Banco', 'Tipo de Cuenta', 'Cuenta', 'Asesor', ''];
   protected search = model<string>('');
-  protected selectedBankAccount: IBankAccount | null = null;
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   private readonly url = `${API_URL}/v1`;
@@ -113,17 +112,16 @@ export class BankAccounts {
     this.page.set(page);
   }
 
-  openModal(isEdit: boolean, plan: IBankAccount | null): void {
+  openModal(isEdit: boolean, bankAccount: IBankAccount | null): void {
     this.hasBankAccount.set(isEdit);
-    this.selectedBankAccount = plan;
     const body: BankAccountData = {
-      type: plan?.type ?? '',
-      number: plan?.number ?? '',
-      bank: plan?.bank._id ?? '',
-      user: plan?.user._id ?? '',
+      type: bankAccount?.type ?? '',
+      number: bankAccount?.number ?? '',
+      bank: bankAccount?.bank._id ?? '',
+      user: bankAccount?.user._id ?? '',
     }
     if (isEdit) {
-      body._id = plan!._id;
+      body._id = bankAccount!._id;
     }
     accountModel.set(body);
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);

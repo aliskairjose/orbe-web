@@ -131,7 +131,7 @@
                     <button
                       class="btn btn-circle btn-text btn-sm"
                       aria-label="Action button"
-                      (click)="openModal(true,item)"
+                      (click)="openModal(true, item)"
                     >
                       <span class="icon-[tabler--edit] size-5"></span>
                     </button>
@@ -245,7 +245,13 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="name"> Nombre </label>
-                  <input type="text" class="input" id="name" [formField]="form.name"  formControlName="name"/>
+                  <input
+                    type="text"
+                    class="input"
+                    id="name"
+                    [formField]="form.name"
+                    formControlName="name"
+                  />
                   @if (form.name().touched() && form.name().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.name().errors(); track error) {
@@ -256,7 +262,13 @@
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="lastName"> Apellido </label>
-                  <input type="text" class="input" id="lastName" [formField]="form.lastName"  formControlName="lastName"/>
+                  <input
+                    type="text"
+                    class="input"
+                    id="lastName"
+                    [formField]="form.lastName"
+                    formControlName="lastName"
+                  />
                   @if (form.lastName().touched() && form.lastName().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.lastName().errors(); track error) {
@@ -269,7 +281,13 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="dni"> DNI </label>
-                  <input type="number" class="input" id="dni" [formField]="form.dni"  formControlName="dni"/>
+                  <input
+                    type="number"
+                    class="input"
+                    id="dni"
+                    [formField]="form.dni"
+                    formControlName="dni"
+                  />
                   @if (form.dni().touched() && form.dni().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.dni().errors(); track error) {
@@ -280,7 +298,13 @@
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="email"> Email </label>
-                  <input type="email" class="input" id="email" [formField]="form.email"  formControlName="email"/>
+                  <input
+                    type="email"
+                    class="input"
+                    id="email"
+                    [formField]="form.email"
+                    formControlName="email"
+                  />
                   @if (form.email().touched() && form.email().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.email().errors(); track error) {
@@ -292,32 +316,14 @@
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
-                  <label class="label-text" for="alias"> Alias </label>
-                  <input type="text" class="input" id="alias" [formField]="form.alias"  formControlName="alias"/>
-                  @if (form.alias().touched() && form.alias().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.alias().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
-                  }
-                </div>
-                <div class="w-full">
-                  <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
-                  <input type="date" class="input" id="dateOfBirth" [formField]="form.dob"  formControlName="dob"/>
-                  @if (form.dob().touched() && form.dob().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.dob().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
-                  }
-                </div>
-              </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
                   <label class="label-text" for="phone"> Teléfono </label>
-                  <input type="phone" class="input" id="phone" [formField]="form.phone"  formControlName="phone"/>
+                  <input
+                    type="phone"
+                    class="input"
+                    id="phone"
+                    [formField]="form.phone"
+                    formControlName="phone"
+                  />
                   @if (form.phone().touched() && form.phone().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.phone().errors(); track error) {
@@ -326,6 +332,34 @@
                     </ul>
                   }
                 </div>
+                <div class="w-full">
+                  <label class="label-text" for="country">País</label>
+                  <select class="select" id="country" [formField]="form.country">
+                    @for (country of countriesPhoneCodes; track $index) {
+                      <option [value]="country.code" >{{ country.name }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                <div class="w-full">
+                  <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
+                  <input
+                    type="date"
+                    class="input"
+                    id="dateOfBirth"
+                    [formField]="form.dob"
+                    formControlName="dob"
+                  />
+                  @if (form.dob().touched() && form.dob().invalid()) {
+                    <ul class="text-xs text-error mt-1">
+                      @for (error of form.dob().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
+                </div>
+
                 <div class="w-full">
                   <label class="label-text" for="idiomas">Seleccione idioma:</label>
                   <select multiple class="select h-auto" size="4" name="idiomas" id="idiomas">
@@ -343,8 +377,33 @@
             >
               <div class="mb-0.5 flex justify-between gap-4 max-sm:flex-col items-center">
                 <div class="w-full">
+                  <label class="label-text" for="alias"> Alias </label>
+                  <input
+                    type="text"
+                    class="input"
+                    id="alias"
+                    [formField]="form.alias"
+                    formControlName="alias"
+                  />
+                  @if (form.alias().touched() && form.alias().invalid()) {
+                    <ul class="text-xs text-error mt-1">
+                      @for (error of form.alias().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
+                </div>
+              </div>
+              <div class="mb-0.5 flex justify-between gap-4 max-sm:flex-col items-center">
+                <div class="w-full">
                   <label class="label-text" for="chatPrice"> Chat precio/min </label>
-                  <input type="number" class="input" id="chatPrice" [formField]="form.chatPrice"  formControlName="chatPrice"/>
+                  <input
+                    type="number"
+                    class="input"
+                    id="chatPrice"
+                    [formField]="form.chatPrice"
+                    formControlName="chatPrice"
+                  />
                   @if (form.chatPrice().touched() && form.chatPrice().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.chatPrice().errors(); track error) {
@@ -355,7 +414,13 @@
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="callPrice"> Call precio/min </label>
-                  <input type="number" class="input" id="callPrice" [formField]="form.callPrice"  formControlName="callPrice"/>
+                  <input
+                    type="number"
+                    class="input"
+                    id="callPrice"
+                    [formField]="form.callPrice"
+                    formControlName="callPrice"
+                  />
                   @if (form.callPrice().touched() && form.callPrice().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.callPrice().errors(); track error) {
@@ -378,7 +443,12 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="description"> Descripción </label>
-                  <textarea class="textarea" id="description" [formField]="form.description"  formControlName="description"></textarea>
+                  <textarea
+                    class="textarea"
+                    id="description"
+                    [formField]="form.description"
+                    formControlName="description"
+                  ></textarea>
                   @if (form.description().touched() && form.description().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.description().errors(); track error) {
@@ -391,7 +461,12 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="experience"> Experiencia </label>
-                  <textarea class="textarea" id="experience" [formField]="form.experience"  formControlName="experience"></textarea>
+                  <textarea
+                    class="textarea"
+                    id="experience"
+                    [formField]="form.experience"
+                    formControlName="experience"
+                  ></textarea>
                   @if (form.experience().touched() && form.experience().invalid()) {
                     <ul class="text-xs text-error mt-1">
                       @for (error of form.experience().errors(); track error) {
@@ -431,4 +506,3 @@
     </div>
   </div>
 </div>
-

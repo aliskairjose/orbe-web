@@ -12,7 +12,7 @@ import { User } from '@core/services';
 import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
 
 interface ICountry {
-  country: string;
+  name: string;
   code: string;
   iso: string;
 }
@@ -22,7 +22,7 @@ const INITIAL_FORM_DATA: FormData = {
   lastName: '',
   email: '',
   phone: '',
-  country: '',
+  country: 'Venezuela',
   dob: new Date(),
   alias: '',
   dni: '',
@@ -168,35 +168,41 @@ export class AdvisorList {
   }
 
   openModal(isEdit: boolean, user: IAdvisor | null): void {
-    if (isEdit && user) {
-      this.user.set(user);
-      formModel.set({
-        _id: user._id,
-        name: user.name,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        country: user.country,
-        dob: new Date(user.dob),
-        alias: user.advisor.alias,
-        dni: user.advisor.dni,
-        category: user.advisor.category,
-        description: user.advisor.description,
-        experience: user.advisor.experience,
-        dniImage: '',
-        videointro: '',
-        chatPrice: user.advisor.chatPrice || 0,
-        callPrice: user.advisor.callPrice || 0,
-        enabledCall: !!user.advisor.enabledCall,
-      });
-    } else {
-      formModel.set(INITIAL_FORM_DATA);
+    // if (isEdit && user) {
+    //   this.user.set(user);
+    //   formModel.set();
+    // } else {
+    //   formModel.set(INITIAL_FORM_DATA);
+    // }
+    const body: FormData = {
+      name: user?.name ?? '',
+      lastName: user?.lastName ?? '',
+      email: user?.email ?? '',
+      phone: user?.phone ?? '',
+      country: user?.country ?? '',
+      dob: new Date(user?.dob ?? ''),
+      alias: user?.advisor?.alias ?? '',
+      dni: user?.advisor?.dni ?? '',
+      category: user?.advisor?.category ?? '',
+      description: user?.advisor?.description ?? '',
+      experience: user?.advisor?.experience ?? '',
+      dniImage: '',
+      videointro: '',
+      chatPrice: user?.advisor?.chatPrice || 0,
+      callPrice: user?.advisor?.callPrice || 0,
+      enabledCall: !!user?.advisor?.enabledCall,
+    };
+    if (isEdit) {
+      body._id = user!._id;
     }
+    formModel.set(body);
+
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.open();
   }
 
   closeModal(): void {
+    this.form().reset(INITIAL_FORM_DATA);
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
     modal.close();
   }
