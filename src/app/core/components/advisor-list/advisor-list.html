@@ -204,7 +204,7 @@
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
-      <form>
+      <form [formRoot]="form" novalidate>
         <div class="modal-body pt-0">
           <nav
             class="tabs tabs-bordered"
@@ -251,37 +251,86 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="name"> Nombre </label>
-                  <input type="text" class="input" id="name" />
+                  <input type="text" class="input" id="name" [formField]="form.name" />
+                  @if (form.name().touched() && form.name().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.name().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="lastName"> Apellido </label>
-                  <input type="text" class="input" id="lastName" />
+                  <input type="text" class="input" id="lastName" [formField]="form.lastName" />
+                  @if (form.lastName().touched() && form.lastName().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.lastName().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="dni"> DNI </label>
-                  <input type="number" class="input" id="dni" />
+                  <input type="number" class="input" id="dni" [formField]="form.dni" />
+                  @if (form.dni().touched() && form.dni().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.dni().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="email"> Email </label>
-                  <input type="email" class="input" id="email" />
+                  <input type="email" class="input" id="email" [formField]="form.email" />
+                  @if (form.email().touched() && form.email().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.email().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="alias"> Alias </label>
-                  <input type="text" class="input" id="alias" />
+                  <input type="text" class="input" id="alias" [formField]="form.alias" />
+                  @if (form.alias().touched() && form.alias().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.alias().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
-                  <input type="date" class="input" id="dateOfBirth" />
+                  <input type="date" class="input" id="dateOfBirth" [formField]="form.dob" />
+                  @if (form.dob().touched() && form.dob().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.dob().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="phone"> Teléfono </label>
-                  <input type="phone" class="input" id="phone" />
+                  <input type="phone" class="input" id="phone" [formField]="form.phone" />
+                  @if (form.phone().touched() && form.phone().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.phone().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="idiomas">Seleccione idioma:</label>
@@ -299,77 +348,36 @@
               aria-labelledby="tabs-basic-item-2"
             >
               <div class="mb-0.5 flex justify-between gap-4 max-sm:flex-col items-center">
-                <div class="max-w-sm" data-input-number>
-                  <label class="label-text" for="number-input-horizontally">Chat costo/min</label>
-                  <div class="input pe-0">
-                    <input
-                      type="text"
-                      value="0"
-                      aria-label="Horizontal stacked buttons"
-                      data-input-number-input
-                      id="number-input-horizontally"
-                    />
-                    <span
-                      class="divide-base-content/25 border-base-content/25 flex items-center divide-x border-s"
-                    >
-                      <button
-                        type="button"
-                        class="flex size-9.5 items-center justify-center"
-                        aria-label="Increment button"
-                        data-input-number-decrement
-                      >
-                        <span class="icon-[tabler--minus] size-3.5 shrink-0"></span>
-                      </button>
-                      <button
-                        type="button"
-                        class="flex size-9.5 items-center justify-center"
-                        aria-label="Decrement button"
-                        data-input-number-increment
-                      >
-                        <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
-                      </button>
-                    </span>
-                  </div>
+                <div class="w-full">
+                  <label class="label-text" for="chatPrice"> Chat price/min </label>
+                  <input type="number" class="input" id="chatPrice" [formField]="form.chatPrice" />
+                  @if (form.chatPrice().touched() && form.chatPrice().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.chatPrice().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
-                <div class="max-w-sm" data-input-number>
-                  <label class="label-text" for="number-input-horizontally">Llamada costo/min</label>
-                  <div class="input pe-0">
-                    <input
-                      type="text"
-                      value="0"
-                      aria-label="Horizontal stacked buttons"
-                      data-input-number-input
-                      id="number-input-horizontally"
-                    />
-                    <span
-                      class="divide-base-content/25 border-base-content/25 flex items-center divide-x border-s"
-                    >
-                      <button
-                        type="button"
-                        class="flex size-9.5 items-center justify-center"
-                        aria-label="Increment button"
-                        data-input-number-decrement
-                      >
-                        <span class="icon-[tabler--minus] size-3.5 shrink-0"></span>
-                      </button>
-                      <button
-                        type="button"
-                        class="flex size-9.5 items-center justify-center"
-                        aria-label="Decrement button"
-                        data-input-number-increment
-                      >
-                        <span class="icon-[tabler--plus] size-3.5 shrink-0"></span>
-                      </button>
-                    </span>
-                  </div>
+                <div class="w-full">
+                  <label class="label-text" for="callPrice"> Call price/min </label>
+                  <input type="number" class="input" id="callPrice" [formField]="form.callPrice" />
+                  @if (form.callPrice().touched() && form.callPrice().invalid()) {
+                    <ul class="field-error">
+                      @for (error of form.callPrice().errors(); track error) {
+                        <li>{{ error.message }}</li>
+                      }
+                    </ul>
+                  }
                 </div>
                 <div class="flex items-center gap-1">
                   <input
                     type="checkbox"
                     class="switch switch-outline switch-primary"
-                    id="switchType3"
+                    id="isEnabled"
+                    [formField]="form.enabledCall"
                   />
-                  <label class="label-text text-base" for="switchType3"> Activar </label>
+                  <label class="label-text text-base" for="isEnabled"> Activar </label>
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">

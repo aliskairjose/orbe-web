@@ -9,7 +9,7 @@ import { FileUpload } from '../file-upload/file-upload';
 import { EConnectStatus, ERole, EStatus } from '@core/enums';
 import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
-import { form } from '@angular/forms/signals';
+import { disabled, form, FormField, FormRoot, required } from '@angular/forms/signals';
 
 interface ICountry {
   country: string;
@@ -25,6 +25,7 @@ const INITIAL_FORM_DATA: FormData = {
   country: '',
   dob: new Date(),
   alias: '',
+  dni:'',
   category: '',
   description: '',
   experience: '',
@@ -32,7 +33,7 @@ const INITIAL_FORM_DATA: FormData = {
   videointro: '',
   chatPrice: 0,
   callPrice: 0,
-  enabledCall: false
+  enabledCall: false,
 };
 interface FormData {
   _id?: string;
@@ -41,6 +42,7 @@ interface FormData {
   email: string;
   phone: string;
   country: string;
+  dni: string;
   dob: Date;
   alias: string;
   category: string;
@@ -57,17 +59,36 @@ const formModel = signal<FormData>(INITIAL_FORM_DATA);
 
 @Component({
   selector: 'app-advisor-list',
-  imports: [DatePipe, FormsModule, RouterLink, FileUpload],
+  imports: [DatePipe, FormsModule, RouterLink, FileUpload, FormRoot, FormField],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })
 export class AdvisorList {
-  
-  form = form(formModel, () => ({}), {
-    submission: {
-      action: async (f) => console.log(f().value()),
+  form = form(
+    formModel,
+    (v) => {
+      required(v.name, { message: 'Name is required' });
+      required(v.lastName, { message: 'Last name is required' });
+      required(v.email, { message: 'Email is required' });
+      required(v.phone, { message: 'Phone is required' });
+      required(v.country, { message: 'Country is required' });
+      required(v.dob, { message: 'Date of birth is required' });
+      required(v.alias, { message: 'Alias is required' });
+      required(v.chatPrice, { message: 'Chat price is required' });
+      required(v.callPrice, { message: 'Call price is required' });
+      disabled(v.callPrice, ({valueOf})=> valueOf(v.enabledCall) === true);
+      required(v.category, { message: 'Category is required' });
+      required(v.description, { message: 'Description is required' });
+      required(v.experience, { message: 'Experience is required' });
+      required(v.dniImage, { message: 'DNI image is required' });
+      required(v.videointro, { message: 'Video intro is required' });
     },
-  });
+    {
+      submission: {
+        action: async (f) => console.log(f().value()),
+      },
+    },
+  );
 
   protected readonly connectStatus = EConnectStatus;
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
@@ -93,7 +114,7 @@ export class AdvisorList {
     'Rate',
     'Registrado',
     'Últ. conexión',
-    ''
+    '',
   ];
 
   private readonly url = `${API_URL}/v1`;
