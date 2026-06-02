@@ -27,7 +27,12 @@ const INITIAL_FORM_DATA: FormData = {
   alias: '',
   category: '',
   description: '',
-  experience: ''
+  experience: '',
+  dniImage: '',
+  videointro: '',
+  chatPrice: 0,
+  callPrice: 0,
+  enabledCall: false
 };
 interface FormData {
   _id?: string;
@@ -41,7 +46,11 @@ interface FormData {
   category: string;
   description: string;
   experience: string;
-
+  dniImage: string;
+  videointro: string;
+  chatPrice: number;
+  callPrice: number;
+  enabledCall: boolean;
 }
 
 const formModel = signal<FormData>(INITIAL_FORM_DATA);
