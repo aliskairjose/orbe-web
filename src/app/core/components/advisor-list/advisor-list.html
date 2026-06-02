@@ -61,10 +61,7 @@
                     <span class="font-medium">{{ $index + 1 }}</span>
                   </td>
                   <td>
-                    <div
-                      class="flex items-center gap-3 cursor-pointer"
-                      [routerLink]="item._id"
-                    >
+                    <div class="flex items-center gap-3 cursor-pointer" [routerLink]="item._id">
                       <!-- Avatar con Indicador de Estado Online ficticio -->
                       <div
                         class="avatar"
@@ -207,148 +204,144 @@
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
-      <div class="modal-body pt-0">
-        <nav
-          class="tabs tabs-bordered"
-          aria-label="Tabs"
-          role="tablist"
-          aria-orientation="horizontal"
-        >
-          <button
-            type="button"
-            class="tab active-tab:tab-active active"
-            id="tabs-basic-item-1"
-            data-tab="#tabs-personal-data"
-            aria-controls="tabs-personal-data"
-            role="tab"
-            aria-selected="true"
+      <form>
+        <div class="modal-body pt-0">
+          <nav
+            class="tabs tabs-bordered"
+            aria-label="Tabs"
+            role="tablist"
+            aria-orientation="horizontal"
           >
-            Datos Personales
-          </button>
-          <button
-            type="button"
-            class="tab active-tab:tab-active"
-            id="tabs-basic-item-2"
-            data-tab="#tabs-profile"
-            aria-controls="tabs-profile"
-            role="tab"
-            aria-selected="false"
-          >
-            Profile
-          </button>
-          <button
-            type="button"
-            class="tab active-tab:tab-active"
-            id="tabs-basic-item-3"
-            data-tab="#tabs-files"
-            aria-controls="tabs-files"
-            role="tab"
-            aria-selected="false"
-          >
-            Archivos
-          </button>
-        </nav>
-        <div class="mt-3">
-          <div id="tabs-personal-data" role="tabpanel" aria-labelledby="tabs-basic-item-1">
-            <form>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="name"> Nombre </label>
-                  <input type="text" placeholder="Jhon" class="input" id="name" />
+            <button
+              type="button"
+              class="tab active-tab:tab-active active"
+              id="tabs-basic-item-1"
+              data-tab="#tabs-personal-data"
+              aria-controls="tabs-personal-data"
+              role="tab"
+              aria-selected="true"
+            >
+              Datos Personales
+            </button>
+            <button
+              type="button"
+              class="tab active-tab:tab-active"
+              id="tabs-basic-item-2"
+              data-tab="#tabs-profile"
+              aria-controls="tabs-profile"
+              role="tab"
+              aria-selected="false"
+            >
+              Profile
+            </button>
+            <button
+              type="button"
+              class="tab active-tab:tab-active"
+              id="tabs-basic-item-3"
+              data-tab="#tabs-files"
+              aria-controls="tabs-files"
+              role="tab"
+              aria-selected="false"
+            >
+              Archivos
+            </button>
+          </nav>
+          <div class="mt-3">
+            <div id="tabs-personal-data" role="tabpanel" aria-labelledby="tabs-basic-item-1">
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="name"> Nombre </label>
+                    <input type="text" class="input" id="name" />
+                  </div>
+                  <div class="w-full">
+                    <label class="label-text" for="lastName"> Apellido </label>
+                    <input type="text" class="input" id="lastName" />
+                  </div>
                 </div>
-                <div class="w-full">
-                  <label class="label-text" for="lastName"> Apellido </label>
-                  <input type="text" placeholder="Doe" class="input" id="text" />
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="dni"> DNI </label>
+                    <input type="number" class="input" id="dni" />
+                  </div>
+                  <div class="w-full">
+                    <label class="label-text" for="email"> Email </label>
+                    <input type="email" class="input" id="email" />
+                  </div>
                 </div>
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="alias"> Alias </label>
+                    <input type="text" class="input" id="alias" />
+                  </div>
+                  <div class="w-full">
+                    <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
+                    <input type="date" class="input" id="dateOfBirth" />
+                  </div>
+                </div>
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="phone"> Teléfono </label>
+                    <input type="phone" class="input" id="phone" />
+                  </div>
+                  <div class="w-full">
+                    <label class="label-text" for="idiomas">Seleccione idioma:</label>
+                    <select multiple class="select h-auto" size="4" name="idiomas" id="idiomas">
+                      <option>Español</option>
+                      <option>Ingles</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div
+              id="tabs-profile"
+              class="hidden"
+              role="tabpanel"
+              aria-labelledby="tabs-basic-item-2"
+            >
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="description"> Descripción </label>
+                    <textarea class="textarea" id="description"></textarea>
+                  </div>
+                </div>
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="experience"> Experiencia </label>
+                    <textarea class="textarea" id="experience"></textarea>
+                  </div>
+                </div>
+                <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+                  <div class="w-full">
+                    <label class="label-text" for="categories">Categorías</label>
+                    <select class="select" id="categories">
+                      @for (cat of catResource.value()?.results; track $index) {
+                        <option [value]="cat._id">{{ cat.name }}</option>
+                      }
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div id="tabs-files" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-3">
+              <div class="modal-body pt-0 grid grid-cols-2 gap-2">
+                <app-file-upload label="Foto perfil" />
+                <app-file-upload label="DNI" />
+                <app-file-upload label="Video" />
               </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="dni"> DNI </label>
-                  <input type="number" placeholder="123456789" class="input" id="dni" />
-                </div>
-                <div class="w-full">
-                  <label class="label-text" for="email"> Email </label>
-                  <input
-                    type="email"
-                    placeholder="johndoe@123@gmail.com"
-                    class="input"
-                    id="email"
-                  />
-                </div>
-              </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="alias"> Alias </label>
-                  <input type="text" placeholder="alias" class="input" id="alias" />
-                </div>
-                <div class="w-full">
-                  <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
-                  <input type="date" class="input" id="dateOfBirth" />
-                </div>
-              </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="phone"> Teléfono </label>
-                  <input type="phone" placeholder="phone" class="input" id="phone" />
-                </div>
-                <div class="w-full">
-                  <label class="label-text" for="idiomas">Seleccione idioma:</label>
-                  <select multiple class="select h-auto" size="4" name="idiomas" id="idiomas">
-                    <option>Español</option>
-                    <option>Ingles</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div id="tabs-profile" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-2">
-            <form>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="description"> Descripción </label>
-                  <textarea class="textarea" id="description"></textarea>
-                </div>
-              </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="experience"> Experiencia </label>
-                  <textarea class="textarea" id="experience"></textarea>
-                </div>
-              </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="categories">Categorías</label>
-                  <select class="select" id="categories">
-                    @for (cat of catResource.value()?.results; track $index) {
-                      <option [value]="cat._id">{{ cat.name }}</option>
-                    }
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div id="tabs-files" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-3">
-            <form class="modal-body pt-0 grid grid-cols-2 gap-2">
-              <app-file-upload label="Foto perfil" />
-              <app-file-upload label="DNI" />
-              <app-file-upload label="Video" />
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-soft btn-secondary" data-overlay="#form-modal">
-                  Close
-                </button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="modal-footer border-t border-gray-200 pt-3">
+          <button type="button" class="btn btn-soft btn-secondary" data-overlay="#form-modal">
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">Registrar asesor</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <!-- Update Advisor Modal -->
-
 <div
   id="update-form-modal"
   class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"

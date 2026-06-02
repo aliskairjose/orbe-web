@@ -9,12 +9,42 @@ import { FileUpload } from '../file-upload/file-upload';
 import { EConnectStatus, ERole, EStatus } from '@core/enums';
 import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
+import { form } from '@angular/forms/signals';
 
 interface ICountry {
   country: string;
   code: string;
   iso: string;
 }
+
+const INITIAL_FORM_DATA: FormData = {
+  name: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  country: '',
+  dob: new Date(),
+  alias: '',
+  category: '',
+  description: '',
+  experience: ''
+};
+interface FormData {
+  _id?: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  dob: Date;
+  alias: string;
+  category: string;
+  description: string;
+  experience: string;
+
+}
+
+const formModel = signal<FormData>(INITIAL_FORM_DATA);
 
 @Component({
   selector: 'app-advisor-list',
@@ -23,7 +53,14 @@ interface ICountry {
   styleUrl: './advisor-list.css',
 })
 export class AdvisorList {
-   protected readonly connectStatus = EConnectStatus;
+  
+  form = form(formModel, () => ({}), {
+    submission: {
+      action: async (f) => console.log(f().value()),
+    },
+  });
+
+  protected readonly connectStatus = EConnectStatus;
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
   protected statusEnum = EStatus;
   protected roleEnum = ERole;
