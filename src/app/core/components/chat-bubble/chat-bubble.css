@@ -1,6 +1,5 @@
+@reference "../../../../styles.css";
+
 .chat.chat-receiver .chat-bubble {
-    grid-column-start: 2;
-    border-end-start-radius: 0;
-    background-color: #EFF6FF;
-    color: var(--color-base-content);
+    @apply col-start-2 bg-primary-content text-base-content rounded-tl-none;
 }

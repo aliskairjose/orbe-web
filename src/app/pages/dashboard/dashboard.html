@@ -128,7 +128,7 @@
                   class="dropdown-item hover:bg-red-100 text-red-500 font-medium"
                   (click)="logout()"
                 >
-                  Logout
+                  Cerrar sesión
                 </a>
               </li>
             </ul>
@@ -227,7 +227,7 @@
 
 <div
   id="auth-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300 modal-middle"
+  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
   role="dialog "
   tabindex="-1"
 >
@@ -247,10 +247,10 @@
       <div class="modal-body">¿Estás seguro de que quieres cerrar sesión?</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-soft btn-secondary" (click)="closeAuthModal(false)">
-          Close
+          No, cancelar
         </button>
-        <button type="button" class="btn btn-primary" (click)="closeAuthModal(true)">
-          Save changes
+        <button type="button" class="btn btn-error btn-soft" (click)="closeAuthModal(true)">
+          Si, cerrar sesión
         </button>
       </div>
     </div>

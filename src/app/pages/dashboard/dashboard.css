@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@reference "../../../styles.css";
 
 .sidebar-link {
     @apply flex items-center px-4 py-3 text-gray-400 rounded-lg transition-colors;

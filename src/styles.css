@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 @import "tailwindcss";
-@plugin "flyonui";
 @import "flyonui/variants.css";
+
+@plugin "flyonui";
 @source "../node_modules/flyonui/flyonui.js"; 
 @plugin "@iconify/tailwind4";
 
