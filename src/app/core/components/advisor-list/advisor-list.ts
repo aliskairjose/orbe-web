@@ -168,12 +168,6 @@ export class AdvisorList {
   }
 
   openModal(isEdit: boolean, user: IAdvisor | null): void {
-    // if (isEdit && user) {
-    //   this.user.set(user);
-    //   formModel.set();
-    // } else {
-    //   formModel.set(INITIAL_FORM_DATA);
-    // }
     const body: FormData = {
       name: user?.name ?? '',
       lastName: user?.lastName ?? '',

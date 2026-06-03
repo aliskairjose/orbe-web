@@ -1,0 +1,19 @@
+<div
+  class="chat"
+  [class.chat-receiver]="message().sender.role === role.User"
+  [class.chat-sender]="message().sender.role === role.Advisor"
+>
+  <div class="chat-avatar avatar">
+    <div class="size-10 rounded-full">
+      <img src="{{ message().sender.avatar }}" alt="avatar" />
+    </div>
+  </div>
+  <div class="chat-header text-base-content">
+    {{ message().sender.name }} {{ message().sender.lastName }}
+    <time class="text-base-content/50">{{ message().createdAt | date }}</time>
+  </div>
+  <div class="chat-bubble text-sm">{{ message().message }}</div>
+  <div class="chat-footer text-base-content/50">
+    <div>{{ message().sender.role }}</div>
+  </div>
+</div>

@@ -13,6 +13,7 @@
     <div class="flex items-center justify-end gap-3">
       <!-- Select -->
       <select
+        aria-label="select"
         class="select w-fit max-sm:w-16 select select-sm max-w-sm"
         name=""
         id="pagination"
@@ -25,7 +26,7 @@
       <!-- End Select -->
     </div>
   </div>
-    <div class="overflow-x-auto">
+  <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
       <div class="overflow-hidden">
         <table class="table min-w-full">
@@ -45,8 +46,9 @@
               @for (item of resource.value().results; track $index) {
                 <tr>
                   <td>
-                    <span class="badge badge-outline border-dashed badge-primary badge-lg cursor-pointer" 
-                    [routerLink]="['..', 'users', item.members[0]._id]"
+                    <span
+                      class="badge badge-outline border-dashed badge-primary badge-lg cursor-pointer"
+                      [routerLink]="['..', 'users', item.members[0]._id]"
                     >
                       <img [src]="item.members[0].avatar" alt="John" class="size-5 rounded-full" />
                       {{ item.members[0].name }}
@@ -54,8 +56,9 @@
                     </span>
                   </td>
                   <td>
-                    <span class="badge badge-outline border-dashed badge-info badge-lg cursor-pointer" 
-                    [routerLink]="['..', 'users', item.members[1]._id]"
+                    <span
+                      class="badge badge-outline border-dashed badge-info badge-lg cursor-pointer"
+                      [routerLink]="['..', 'users', item.members[1]._id]"
                     >
                       <img [src]="item.members[1].avatar" alt="John" class="size-5 rounded-full" />
                       {{ item.members[1].name }}
@@ -65,11 +68,14 @@
                   <td>{{ item.messages.length }}</td>
                   <td>{{ item.createdAt | date }}</td>
                   <td>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--edit] size-5"></span>
-                    </button>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
-                      <span class="icon-[tabler--trash] size-5"></span>
+                    <button
+                      type="button"
+                      aria-label="View chat"
+                      aria-labelledby="view-chat"
+                      class="btn btn-circle btn-text btn-sm"
+                      (click)="openChat(item._id)"
+                    >
+                      <span class="icon-[tabler--eye] size-5"></span>
                     </button>
                   </td>
                 </tr>
@@ -108,6 +114,42 @@
         <span class="sr-only">Next</span>
         <span class="icon-[tabler--chevrons-right] size-4.5 rtl:rotate-180"></span>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Chat -->
+<div
+  id="basic-modal"
+  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Chat</h3>
+        <button
+          aria-label="Close modal"
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          (click)="closeChat()"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @if (room.hasValue()) {
+          @for (message of room.value().messages; track $index) {
+            <app-chat-bubble [message]="message" />
+          }
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-soft btn-secondary" (click)="closeChat()">
+          Cerrar
+        </button>
+      </div>
     </div>
   </div>
 </div>
