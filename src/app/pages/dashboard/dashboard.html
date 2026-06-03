@@ -71,7 +71,7 @@
       <div class="hidden md:flex items-center space-x-4 mr-4">
         <div class="flex flex-row items-center gap-x-4">
           <span
-            class="text-gray-500 text-sm inline-flex items-center gap-x-1.5 cursor-pointer hover:text-gray-700 transition-colors button"
+            class="text-gray-500 text-sm inline-flex items-center gap-x-1.5 cursor-pointer hover:text-gray-700 hover:font-medium transition-colors button"
             (click)="openRateModal()"
           >
             Tasa: {{ rate() | currency }}
@@ -144,7 +144,7 @@
       class="flex items-center justify-between px-6 h-16 border-b border-gray-200 shadow md:mx-6 md:hidden"
     >
       <span
-        class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:text-gray-700 transition-colors button"
+        class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:font-medium hover:text-gray-700 transition-colors button"
         (click)="openRateModal()"
       >
         Tasa: {{ rate() | currency }}
