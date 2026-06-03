@@ -8,7 +8,7 @@ import { ICategory } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/flyonui';
 import { Category } from './services/category';
-import { Paginator } from '@core/components';
+import { Paginator, TableFilter } from '@core/components';
 
 const INITIAL_FORM_VALUE: Data = {
   name: '',
@@ -24,7 +24,7 @@ const Model = signal<Data>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-categories',
-  imports: [FormsModule, DatePipe, FormField, FormRoot, Paginator],
+  imports: [FormsModule, DatePipe, FormField, FormRoot, Paginator, TableFilter],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
@@ -50,7 +50,7 @@ export class Categories {
 
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
-  protected search = model<string>('');
+  protected search = signal<string>('');
 
   protected resource = httpResource<IResponse<ICategory>>(() => ({
     url: this.url,
@@ -63,7 +63,11 @@ export class Categories {
 
   protected selectedCategory: ICategory | null = null;
 
-  onPageChange({ value }: any): void {
+  onSearch(query: string): void {
+    this.search.set(query);
+  }
+
+  pageChange(value: number): void {
     this.selected = value;
     this.limit.set(value);
     this.page.set(1);

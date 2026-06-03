@@ -1,3 +1,4 @@
+export { TableFilter } from './table-filter/table-filter';
 export { Paginator } from "./paginator/paginator";
 export { ProgressBar } from "./progress-bar/progress-bar";
 export { RateStats } from "./rate-stats/rate-stats";

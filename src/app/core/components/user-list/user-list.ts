@@ -7,10 +7,11 @@ import { ITEM_PER_PAGE } from '@core/constants';
 import { EConnectStatus, ERole } from '@core/enums';
 import { IResponse, IUser } from '@core/interfaces';
 import { Paginator } from '../paginator/paginator';
+import { TableFilter } from "../table-filter/table-filter";
 
 @Component({
   selector: 'app-user-list',
-  imports: [DatePipe, FormsModule, RouterLink, Paginator],
+  imports: [DatePipe, FormsModule, RouterLink, Paginator, TableFilter],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
@@ -24,7 +25,7 @@ export class UserList {
 
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
-  protected search = model<string>('');
+  private search = signal<string>('');
 
   protected resource = httpResource<IResponse<IUser>>(() => ({
     url: this.url,
@@ -36,7 +37,11 @@ export class UserList {
     },
   }));
 
-  onPageChange({ value }: any): void {
+  onSearch(query: string): void {
+    this.search.set(query)
+  }
+
+  pageChange(value: number): void {
     this.selected = value;
     this.limit.set(value);
     this.page.set(1);

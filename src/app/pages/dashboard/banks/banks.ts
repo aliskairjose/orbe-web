@@ -7,7 +7,7 @@ import { IBank } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/dist';
 import { BankService } from './service/bank';
-import { Paginator } from '@core/components';
+import { Paginator, TableFilter } from '@core/components';
 
 const INITIAL_FORM_VALUE: Data = {
   name: '',
@@ -26,7 +26,7 @@ const Model = signal<Data>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-banks',
-  imports: [FormField, FormRoot, FormsModule, Paginator],
+  imports: [FormField, FormRoot, FormsModule, Paginator, TableFilter],
   templateUrl: './banks.html',
   styleUrl: './banks.css',
 })
@@ -69,7 +69,11 @@ export class Banks {
     },
   }));
 
-  onPageChange({ value }: any): void {
+  onSearch(query: string): void {
+    this.search.set(query);
+  }
+
+  pageChange(value: number): void {
     this.selected = value;
     this.limit.set(value);
     this.page.set(1);

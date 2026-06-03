@@ -11,6 +11,7 @@ import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
 import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
 import { Paginator } from '../paginator/paginator';
+import { TableFilter } from '../table-filter/table-filter';
 
 interface ICountry {
   name: string;
@@ -60,7 +61,7 @@ const formModel = signal<FormData>(INITIAL_FORM_DATA);
 
 @Component({
   selector: 'app-advisor-list',
-  imports: [DatePipe, FormsModule, RouterLink, FileUpload, FormRoot, FormField, Paginator],
+  imports: [DatePipe, FormsModule, RouterLink, FileUpload, FormRoot, FormField, Paginator, TableFilter],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })
@@ -129,7 +130,7 @@ export class AdvisorList {
 
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
-  protected search = model<string>('');
+  protected search = signal<string>('');
 
   protected resource = httpResource<IResponse<IAdvisor>>(() => ({
     url: `${this.url}/users`,
@@ -148,7 +149,11 @@ export class AdvisorList {
     },
   }));
 
-  onPageChange({ value }: any): void {
+  onSearch(query: string): void {
+    this.search.set(query);
+  }
+
+  pageChange(value: number): void {
     this.selected = value;
     this.limit.set(value);
     this.page.set(1);

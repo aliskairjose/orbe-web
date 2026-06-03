@@ -1,0 +1,36 @@
+<div class="border-base-content/25 flex justify-end-safe items-center border-b px-5 py-3 gap-3">
+  <div class="flex-1">
+    <button type="button" class="btn btn-soft btn-primary btn-sm" (click)="openModal(false, null)">
+      <span class="icon-[tabler--plus] size-4.5 rtl:rotate-180"></span>
+      Agregar asesor
+    </button>
+  </div>
+  <div class="input input-sm max-w-60">
+    <span class="icon-[tabler--search] text-base-content/80 my-auto me-3 size-4 shrink-0"></span>
+    <label class="sr-only" for="table-column-actions-search"></label>
+    <form [formRoot]="searchForm">
+      <input
+        class="grow"
+        type="search"
+        placeholder="Search for items"
+        id="table-column-actions-search"
+        [formField]="searchForm.query"
+      />
+    </form>
+  </div>
+  <div class="flex items-center justify-end gap-3">
+    <!-- Select -->
+    <select
+      aria-label="Select page size"
+      class="select w-fit max-sm:w-16 select-sm max-w-sm"
+      name=""
+      id="pagination"
+      (change)="pageChange($event.target)"
+    >
+      @for (p of itemsPerPage; track $index) {
+        <option [value]="p">{{ p }}</option>
+      }
+    </select>
+    <!-- End Select -->
+  </div>
+</div>
