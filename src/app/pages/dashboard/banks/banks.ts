@@ -34,6 +34,7 @@ export class Banks {
   private readonly document = inject(DOCUMENT);
   private readonly service = inject(BankService);
 
+  protected isEdit = signal(false);
   protected readonly countries: string[] = ['Venezuela', 'Colombia'];
 
   protected form = form(
@@ -84,6 +85,7 @@ export class Banks {
   }
 
   openModal(isEdit: boolean, category: IBank | null): void {
+    this.isEdit.set(isEdit);
     this.selectedBank.set(category);
 
     const body: Data ={

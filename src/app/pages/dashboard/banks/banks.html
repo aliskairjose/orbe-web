@@ -1,5 +1,10 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
- <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)"/>
+  <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)">
+    <button type="button" class="btn btn-soft btn-primary btn-sm" (click)="openModal(false, null)">
+      <span class="icon-[tabler--plus] size-4"></span>
+      Agregar banco
+    </button>
+  </app-table-filter>
   <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
       <div class="overflow-hidden">
@@ -82,7 +87,9 @@
     <form [formRoot]="form" novaidate class="login-form space-y-1">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title">Actualizar Plan</h3>
+          <h3 class="modal-title">
+            {{isEdit() ? 'Actualizar banco':'Agregar banco'}}
+          </h3>
           <button
             type="button"
             class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
@@ -148,7 +155,7 @@
           <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
             Cerrar
           </button>
-          <button type="submit" class="btn btn-primary">Actualizar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </div>
     </form>
