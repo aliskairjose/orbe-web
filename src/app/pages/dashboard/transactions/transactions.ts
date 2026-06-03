@@ -3,12 +3,13 @@ import { httpResource } from '@angular/common/http';
 import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { Paginator } from '@core/components';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IResponse, ITransaction } from '@core/interfaces';
 
 @Component({
   selector: 'app-transactions',
-  imports: [DatePipe, FormsModule, RouterLink, CurrencyPipe],
+  imports: [DatePipe, FormsModule, RouterLink, CurrencyPipe, Paginator],
   templateUrl: './transactions.html',
   styleUrl: './transactions.css',
 })
@@ -31,16 +32,6 @@ export class Transactions {
       search: this.search() ?? '',
     },
   }));
-
-  fromPage = computed(() => {
-    return this.limit() * (this.page() - 1) + 1;
-  });
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
 
   onPageChange({ value }: any): void {
     this.selected = value;

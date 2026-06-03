@@ -9,6 +9,7 @@ import { disabled, form, FormField, FormRoot, required } from '@angular/forms/si
 import { ERole } from '@core/enums';
 import { Service } from './service';
 import { HSOverlay } from 'flyonui/flyonui';
+import { Paginator } from '@core/components';
 
 const INITIAL_FORM_VALUE: BankAccountData = {
   type: '',
@@ -29,7 +30,7 @@ const accountModel = signal<BankAccountData>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-bank-accounts',
-  imports: [FormsModule, RouterLink, FormField, FormRoot],
+  imports: [FormsModule, RouterLink, FormField, FormRoot, Paginator],
   templateUrl: './bank-accounts.html',
   styleUrl: './bank-accounts.css',
 })
@@ -91,16 +92,6 @@ export class BankAccounts {
   }));
 
   private readonly service = inject(Service);
-
-  fromPage = computed(() => {
-    return this.limit() * (this.page() - 1) + 1;
-  });
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
 
   onPageChange({ value }: any): void {
     this.selected = value;

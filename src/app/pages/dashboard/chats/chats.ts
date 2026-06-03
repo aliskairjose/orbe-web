@@ -3,14 +3,14 @@ import { httpResource } from '@angular/common/http';
 import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ChatBubble } from '@core/components';
+import { ChatBubble, Paginator } from '@core/components';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IResponse, IRoom } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
 
 @Component({
   selector: 'app-chats',
-  imports: [DatePipe, FormsModule, RouterLink, ChatBubble],
+  imports: [DatePipe, FormsModule, RouterLink, ChatBubble, Paginator],
   templateUrl: './chats.html',
   styleUrl: './chats.css',
 })
@@ -37,14 +37,6 @@ export class Chats {
   }));
 
   protected room = httpResource<IRoom>(() => `${this.url}/${this.roomID()}`);
-
-  fromPage = computed(() => this.limit() * (this.page() - 1) + 1);
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
 
   onPageChange({ value }: any): void {
     this.selected = value;

@@ -59,8 +59,12 @@
             <tbody>
               @for (item of resource.value()!.results; track $index) {
                 <tr>
-                  <td><span class="font-medium">{{ $index + 1 }}</span></td>
-                  <td><span>{{ item.name }}</span></td>
+                  <td>
+                    <span class="font-medium">{{ $index + 1 }}</span>
+                  </td>
+                  <td>
+                    <span>{{ item.name }}</span>
+                  </td>
                   <td>{{ item.country }}</td>
                   <td>
                     <span
@@ -72,7 +76,11 @@
                     </span>
                   </td>
                   <td>
-                    <button class="btn btn-circle btn-text btn-sm" aria-label="Action button" (click)="openModal(true, item)">
+                    <button
+                      class="btn btn-circle btn-text btn-sm"
+                      aria-label="Action button"
+                      (click)="openModal(true, item)"
+                    >
                       <span class="icon-[tabler--edit] size-5"></span>
                     </button>
                     <button class="btn btn-circle btn-text btn-sm" aria-label="Action button">
@@ -85,43 +93,18 @@
           </table>
         } @else if (resource.error()) {
           <p>Ha ocurrido un error</p>
-        } 
+        }
       </div>
     </div>
   </div>
-  <div
-    class="border-base-content/25 flex items-center gap-3 border-t p-3 max-md:flex-wrap max-md:justify-center"
-  >
-    <div class="text-sm text-base-content/80">
-      <span>Mostrando {{ fromPage() }} </span>
-      <span> a {{ toPage() }} </span>
-      <span> de {{ resource.value()?.metadata?.totalRecords }} registros </span>
-    </div>
-    <div class="md:flex hidden items-center space-x-1">
-      <button
-        type="button"
-        class="btn btn-text btn-circle btn-sm"
-        [disabled]="page() === 1"
-        (click)="goTopage(page() - 1)"
-      >
-        <span class="icon-[tabler--chevrons-left] size-4.5 rtl:rotate-180"></span>
-        <span class="sr-only">Previous</span>
-      </button>
-      <div class="flex items-center space-x-1 [&>.active]:text-bg-soft-primary"></div>
-      <button
-        type="button"
-        class="btn btn-text btn-circle btn-sm"
-        [disabled]="page() === resource.value()?.metadata?.totalPages"
-        (click)="goTopage(page() + 1)"
-      >
-        <span class="sr-only">Next</span>
-        <span class="icon-[tabler--chevrons-right] size-4.5 rtl:rotate-180"></span>
-      </button>
-    </div>
-  </div>
+  @if (resource.hasValue()) {
+    <app-paginator
+      [limit]="limit()"
+      [metadata]="resource.value().metadata"
+      (onPageChange)="goTopage($event)"
+    />
+  }
 </div>
-
-
 
 <!-- MODAL -->
 <div
@@ -169,15 +152,15 @@
             <label class="label-text" for="country">Seleccione país</label>
             <select class="select" id="country" [formField]="form.country">
               @for (country of countries; track $index) {
-              <option [value]="country">{{ country }}</option>
+                <option [value]="country">{{ country }}</option>
               }
             </select>
             @if (form.country().touched() && form.country().invalid()) {
-            <ul class="text-red-500 text-sm">
-              @for (error of form.country().errors(); track error) {
-              <li>{{ error.message }}</li>
-              }
-            </ul>
+              <ul class="text-red-500 text-sm">
+                @for (error of form.country().errors(); track error) {
+                  <li>{{ error.message }}</li>
+                }
+              </ul>
             }
           </div>
           <div class="field">

@@ -7,7 +7,7 @@ import { IBank } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/dist';
 import { BankService } from './service/bank';
-import { MatFormFieldHarness } from '@angular/material/form-field/testing';
+import { Paginator } from '@core/components';
 
 const INITIAL_FORM_VALUE: Data = {
   name: '',
@@ -26,7 +26,7 @@ const Model = signal<Data>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-banks',
-  imports: [FormField, FormRoot, FormsModule],
+  imports: [FormField, FormRoot, FormsModule, Paginator],
   templateUrl: './banks.html',
   styleUrl: './banks.css',
 })
@@ -68,18 +68,6 @@ export class Banks {
       search: this.search() ?? '',
     },
   }));
-
-  // protected countriesResource = httpResource<IResponse<ICountry>>(() => {});
-
-  fromPage = computed(() => {
-    return this.limit() * (this.page() - 1) + 1;
-  });
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
 
   onPageChange({ value }: any): void {
     this.selected = value;

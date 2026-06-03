@@ -8,6 +8,7 @@ import { ICategory } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
 import { HSOverlay } from 'flyonui/flyonui';
 import { Category } from './services/category';
+import { Paginator } from '@core/components';
 
 const INITIAL_FORM_VALUE: Data = {
   name: '',
@@ -23,7 +24,7 @@ const Model = signal<Data>(INITIAL_FORM_VALUE);
 
 @Component({
   selector: 'app-categories',
-  imports: [FormsModule, DatePipe, FormField, FormRoot],
+  imports: [FormsModule, DatePipe, FormField, FormRoot, Paginator],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
@@ -62,14 +63,6 @@ export class Categories {
 
   protected selectedCategory: ICategory | null = null;
 
-  fromPage = computed(() => this.limit() * (this.page() - 1) + 1);
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
-
   onPageChange({ value }: any): void {
     this.selected = value;
     this.limit.set(value);
@@ -81,12 +74,10 @@ export class Categories {
   }
 
   private async update(f: Data): Promise<void> {
-    console.log(' update');
     this.service.update(f).subscribe(() => window.location.reload());
   }
 
   private async create(f: Data): Promise<void> {
-    console.log(' create');
     this.service.create(f).subscribe(() => window.location.reload());
   }
 

@@ -1,3 +1,4 @@
+export { Paginator } from "./paginator/paginator";
 export { ProgressBar } from "./progress-bar/progress-bar";
 export { RateStats } from "./rate-stats/rate-stats";
 export { RequestStatusAnnual } from "./request-status-annual/request-status-annual";

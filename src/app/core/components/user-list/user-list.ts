@@ -6,10 +6,11 @@ import { RouterLink } from '@angular/router';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { EConnectStatus, ERole } from '@core/enums';
 import { IResponse, IUser } from '@core/interfaces';
+import { Paginator } from '../paginator/paginator';
 
 @Component({
   selector: 'app-user-list',
-  imports: [DatePipe, FormsModule, RouterLink],
+  imports: [DatePipe, FormsModule, RouterLink, Paginator],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
@@ -34,14 +35,6 @@ export class UserList {
       search: this.search(),
     },
   }));
-
-  fromPage = computed(() => this.limit() * (this.page() - 1) + 1);
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
 
   onPageChange({ value }: any): void {
     this.selected = value;

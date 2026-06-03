@@ -10,6 +10,7 @@ import { EConnectStatus, ERole, EStatus } from '@core/enums';
 import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
 import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
+import { Paginator } from '../paginator/paginator';
 
 interface ICountry {
   name: string;
@@ -59,7 +60,7 @@ const formModel = signal<FormData>(INITIAL_FORM_DATA);
 
 @Component({
   selector: 'app-advisor-list',
-  imports: [DatePipe, FormsModule, RouterLink, FileUpload, FormRoot, FormField],
+  imports: [DatePipe, FormsModule, RouterLink, FileUpload, FormRoot, FormField, Paginator],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })
@@ -146,16 +147,6 @@ export class AdvisorList {
       limit: this.limit(),
     },
   }));
-
-  fromPage = computed(() => {
-    return this.limit() * (this.page() - 1) + 1;
-  });
-
-  toPage = computed(() => {
-    return this.resource.value()?.metadata
-      ? this.limit() * (this.page() - 1) + this.resource.value()!.metadata!.resultsLength
-      : 0;
-  });
 
   onPageChange({ value }: any): void {
     this.selected = value;
