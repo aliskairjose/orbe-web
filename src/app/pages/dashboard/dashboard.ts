@@ -152,6 +152,7 @@ export class Dashboard {
   closeFcmModal(): void {
     const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
     modal.close();
+    setTimeout(()=>this.formFcm().reset(INITIAL_DATA), 100);
   }
 
   private updateRate(id: string, f: RateFormData): void {
