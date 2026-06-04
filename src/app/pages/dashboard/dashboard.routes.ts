@@ -53,4 +53,9 @@ export const dashboarRoutes: Routes = [
     title: 'Chats',
     loadComponent: () => import('./chats/chats').then((m) => m.Chats),
   },
+  {
+    path: 'notifications',
+    title: 'Notificaciones',
+    loadComponent: () => import('./notifications/notifications').then((m) => m.Notifications),
+  },
 ];

@@ -61,7 +61,16 @@ const formModel = signal<FormData>(INITIAL_FORM_DATA);
 
 @Component({
   selector: 'app-advisor-list',
-  imports: [DatePipe, FormsModule, RouterLink, FileUpload, FormRoot, FormField, Paginator, TableFilter],
+  imports: [
+    DatePipe,
+    FormsModule,
+    RouterLink,
+    FileUpload,
+    FormRoot,
+    FormField,
+    Paginator,
+    TableFilter,
+  ],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })
@@ -194,6 +203,17 @@ export class AdvisorList {
   closeModal(): void {
     this.form().reset(INITIAL_FORM_DATA);
     const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
+    modal.close();
+  }
+
+  openNotificationModal(user: IAdvisor): void {
+    console.log(user);
+    const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
+    modal.open();
+  }
+
+  closeNotificationModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
     modal.close();
   }
 

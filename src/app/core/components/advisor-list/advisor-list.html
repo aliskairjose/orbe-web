@@ -1,13 +1,9 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
-  <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)" >
-    <button
-        type="button"
-        class="btn btn-soft btn-primary btn-sm"
-        (click)="openModal(false, null)"
-      >
-        <span class="icon-[tabler--user-plus] size-4.5 rtl:rotate-180"></span>
-        Agregar asesor
-      </button>
+  <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)">
+    <button type="button" class="btn btn-soft btn-primary btn-sm" (click)="openModal(false, null)">
+      <span class="icon-[tabler--user-plus] size-4.5 rtl:rotate-180"></span>
+      Agregar asesor
+    </button>
   </app-table-filter>
   <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
@@ -102,12 +98,11 @@
                       <span class="icon-[tabler--eye] size-5"></span>
                     </button>
                     <button
-                      disabled
                       class="btn btn-circle btn-text btn-sm"
                       aria-label="Action button"
-                      (click)="openModal(true, item)"
+                      (click)="openNotificationModal(item)"
                     >
-                      <span class="icon-[tabler--edit] size-5"></span>
+                      <span class="icon-[tabler--send] size-5"></span>
                     </button>
                   </td>
                 </tr>
@@ -455,6 +450,42 @@
           <button type="submit" class="btn btn-primary">Registrar asesor</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div
+  id="notification-modal"
+  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Dialog Title</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          (click)="closeNotificationModal()"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This is some placeholder content to show the scrolling behavior for modals. Instead of
+        repeating the text in the modal, we use an inline style to set a minimum height, thereby
+        extending the length of the overall modal and demonstrating the overflow scrolling. When
+        content becomes longer than the height of the viewport, scrolling will move the modal as
+        needed.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-soft btn-secondary" (click)="closeNotificationModal()">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
   </div>
 </div>
