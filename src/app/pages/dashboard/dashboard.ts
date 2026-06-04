@@ -21,6 +21,26 @@ const rateFormModel = signal<RateFormData>({
   rate: 0,
 });
 
+const enum ETarget {
+  USERS = 'Usuarios',
+  ADVISORS = 'Asesores',
+  ALL = 'Todos'
+}
+
+const INITIAL_DATA = {
+  title: '',
+  body: '',
+  target: ETarget.ALL 
+};
+interface FormData {
+  title: string;
+  body: string;
+  target: ETarget
+}
+
+const formModel = signal<FormData>(INITIAL_DATA);
+
+
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
@@ -49,6 +69,13 @@ export class Dashboard {
       return raw[0];
     },
   });
+
+  protected target = [ETarget.ALL, ETarget.USERS, ETarget.ADVISORS];
+    protected formFcm = form(formModel, () => {}, {
+      submission: {
+        action: async (f) => console.log(f().value()),
+      },
+    });
 
   protected form = form(
     rateFormModel,
@@ -115,6 +142,16 @@ export class Dashboard {
         this.router.navigate(['']);
       });
     }
+  }
+
+   openFcmModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
+    modal.open();
+  }
+
+  closeFcmModal(): void {
+    const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
+    modal.close();
   }
 
   private updateRate(id: string, f: RateFormData): void {

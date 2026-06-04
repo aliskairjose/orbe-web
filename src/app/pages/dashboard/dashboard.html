@@ -57,9 +57,6 @@
         >
           <span class="material-symbols-outlined"> menu </span>
         </button>
-        <h1 class="md:ml-4 text-xl font-medium text-gray-700">
-          {{ pageTitle.getTitle().split(' - ')[1] }}
-        </h1>
         <button
           (click)="toggleSubBar()"
           class="lg:hidden md:p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
@@ -68,8 +65,19 @@
           <span class="material-symbols-outlined"> more_horiz </span>
         </button>
       </div>
+      <!-- Header buttons -->
       <div class="hidden md:flex items-center space-x-4 mr-4">
         <div class="flex flex-row items-center gap-x-4">
+          <span
+            class="text-gray-500 text-sm inline-flex items-center gap-x-1.5 cursor-pointer hover:text-gray-700 hover:font-medium transition-colors button"
+            (click)="openFcmModal()"
+          >
+            Enviar notificaciones
+            <span class="material-symbols-outlined" style="font-size: 20px">
+              send
+            </span>
+          </span>
+
           <span
             class="text-gray-500 text-sm inline-flex items-center gap-x-1.5 cursor-pointer hover:text-gray-700 hover:font-medium transition-colors button"
             (click)="openRateModal()"
@@ -120,7 +128,7 @@
               </li>
               <li><a class="dropdown-item" href="#">My Profile</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" routerLink="../dashboard/notifications">Notificaciones</a></li>
+              <li><a class="dropdown-item" href="#">Mails</a></li>
               <li><a class="dropdown-item" href="#">FAQs</a></li>
               <li class="dropdown-footer gap-2">
                 <a
@@ -256,6 +264,67 @@
           Si, cerrar sesión
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Modal -->
+
+<div
+  id="fcm-modal"
+  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
+  role="dialog "
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Send FCM</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          (click)="closeFcmModal()"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <form [formRoot]="formFcm" novalidate>
+        <div class="modal-body space-y-4">
+          <div class="flex gap-4 overflow-x-auto">
+            @for (t of target; track $index) {
+              <div class="flex items-center gap-2">
+                <input
+                  type="radio"
+                  class="radio radio-primary"
+                  [value]="t"
+                  [id]="t"
+                  [formField]="formFcm.target"
+                />
+                <label class="label-text text-base" [for]="t"> {{ t }} </label>
+              </div>
+            }
+          </div>
+          <div class="w-full">
+            <label class="label-text" for="labelAndHelperText">Título</label>
+            <input type="text" class="input" id="title" [formField]="formFcm.title" />
+          </div>
+          <div class="w-full">
+            <label class="label-text" for="body">Mensaje</label>
+            <textarea
+              class="textarea w-full"
+              aria-label="Textarea"
+              [formField]="formFcm.body"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" (click)="closeFcmModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-error btn-soft">Enviar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
