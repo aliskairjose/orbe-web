@@ -1,6 +1,6 @@
 <section id="home" class="mt-12">
   <div class="grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto gap-6">
-    <img src="images/landing/global-team.svg" alt="globateam"/>
+    <img src="images/landing/global-team.svg" alt="globateam" />
     <div class="my-auto">
       <p
         class="text-5xl font-medium tracking-tight text-[#1d4747] leading-tight text-center md:text-left"
@@ -15,7 +15,9 @@
   <div class="grid grid-cols-1 md:grid-cols-3 max-w-7xl mx-auto px-6 py-20 gap-8 mt-10">
     @for (step of steps; track $index) {
       <div class="text-center space-y-2">
-        <span class="material-symbols-outlined text-[#CFAA61]" style="font-size: 4rem"> {{ step.icon }} </span>
+        <span class="material-symbols-outlined text-[#CFAA61]" style="font-size: 4rem">
+          {{ step.icon }}
+        </span>
         <p class="text-xl font-medium text-gray-600 tracking-wider">{{ step.title }}</p>
         <p class="text-gray-600 text-lg">
           {{ step.description }}
@@ -25,6 +27,7 @@
   </div>
 </section>
 
+<!-- App -->
 <section id="mobil-app">
   <div class="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-6xl py-20">
     <img src="images/landing/mobil-app.svg" alt="download" class="size-96 mx-auto drop-shadow-lg" />
@@ -34,16 +37,21 @@
         Accede conectate con nestros asesores de forma rápida y en cualquier parte del munto a
         través de nuestra app, descargala para Android o iOS desde el store de tu preferencia.
       </p>
+      <div class="flex justify-center mt-6 gap-4 w-full">
+        <img alt="google" src="images/logos/store/google-play.png" alt="Google Play" class="w-48" />
+        <img alt="apple" src="images/logos/store/apple-store.png" alt="App Store" class="w-48" />
+      </div>
     </div>
   </div>
 </section>
 
+<!-- Recarga Facil -->
 <section id="payments" class="bg-gray-100">
   <div class="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-6xl py-20">
     <div class="m-auto">
       <p class="text-3xl text-gray-600 mb-4 font-medium">Recarga fácil y rapido.</p>
       <p class="text-lg">
-        Recargar tu wallet es muy sencillo, a travéz de Paypal podrás recargar tu billetera de forma
+        Recargar tu wallet es muy sencillo, a través de Paypal podrás recargar tu billetera de forma
         rápida, fácil y segura!. Pronto tendremos más metodos de pago para tu mayor comodidad.
       </p>
     </div>
@@ -59,7 +67,7 @@
 <section id="about-us">
   <div class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
     <div class="m-auto">
-      <p class="text-3xl text-gray-600 mb-4 font-medium">Quienes somos</p>
+      <p class="text-3xl text-gray-600 mb-4 font-medium">¿Quienes somos?</p>
     </div>
     <div>
       <p class="text-lg">
@@ -106,7 +114,7 @@
           <div class="flex items-center gap-3">
             <div class="avatar avatar-online-bottom">
               <div class="size-10 rounded-full">
-                <img [src]="item.avatar" [alt]="item.name" />
+                <img [src]="item.avatar" [alt]="item.name" aria-label="Avatar de {{ item.name }}" />
               </div>
             </div>
 
