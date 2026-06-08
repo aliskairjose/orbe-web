@@ -5,12 +5,11 @@
     [class.-translate-x-full]="!isSidebarOpen()"
     [class.translate-x-0]="isSidebarOpen()"
   >
-    <div class="flex items-center justify-between lg:justify-center h-16 px-6 bg-white my-6">
+    <div class="flex items-center justify-between lg:justify-center h-16">
       <img
-        src="images/logos/orbe/imagotipo.png"
+        src="images/logos/orbe/logotipo.png"
         alt="logo"
-        srcset=""
-        class="max-w-1/3 lg:max-w-3/8"
+        class="w-2/5 my-auto"
       />
       <button
         (click)="toggleSidebar()"
@@ -23,7 +22,7 @@
 
     <nav
       aria-label="Main dashboard navigation"
-      class="mt-6 px-4 space-y-2 h-screen border-t border-t-gray-200 pt-1.5"
+      class=" px-4 space-y-2 h-screen border-t border-t-gray-200 pt-1.5 flex-1"
     >
       @for (m of menu; track $index) {
         <a
@@ -49,7 +48,7 @@
 
   <div class="flex-1 min-w-0 h-screen overflow-x-hidden overflow-y-scroll">
     <header class="flex items-center justify-between h-16 border-b border-gray-200 md:mx-6">
-      <div class="flex items-center justify-around md:justify-between w-full md:w-fit">
+      <div class="flex items-center justify-between mx-3 w-full md:w-fit">
         <button
           (click)="toggleSidebar()"
           class="lg:hidden md:p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
