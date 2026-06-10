@@ -30,7 +30,7 @@
     </div>
   </section>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-items-stretch ">
     <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
       <h3 class="text-xl font-medium text-gray-800">Nuevos Registros</h3>
       <!-- Card Loop -->
@@ -38,7 +38,7 @@
       <app-user-card [user]="user" />
       }
     </div>
-    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
+    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm ">
       <h3 class="text-xl font-medium text-gray-800">Postulados</h3>
       <!-- Card Loop -->
       @for (user of postulate.value(); track $index) {
