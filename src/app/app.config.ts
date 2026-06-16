@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter, TitleStrategy, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, TitleStrategy, withComponentInputBinding, withHashLocation, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 import { withNgxsFormPlugin } from '@ngxs/form-plugin';
@@ -27,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([httpInterceptor])),
     provideRouter(
       routes,
+      withHashLocation(),
       withComponentInputBinding(),
       withInMemoryScrolling({
         anchorScrolling: 'enabled', // Habilita el salto automático al ancla
@@ -43,6 +44,6 @@ export const appConfig: ApplicationConfig = {
       withNgxsStoragePlugin({ keys: [AuthStates] }),
       withNgxsWebSocketPlugin({ url: API_SOCKET }),
     ),
-    {provide: TitleStrategy, useClass: AppTitleStrategy}
+    { provide: TitleStrategy, useClass: AppTitleStrategy }
   ],
 };
