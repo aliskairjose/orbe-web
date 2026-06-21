@@ -52,6 +52,7 @@ export class Dashboard {
   pageTitle = inject(Title);
   isRateModalOpen = signal<boolean>(false);
   isAuthModalOpen = signal<boolean>(false);
+  isFcmModalOpen = signal<boolean>(false);
 
 
   private readonly url = `${API_URL}/v1`;
@@ -109,9 +110,9 @@ export class Dashboard {
     this.isRateModalOpen.set(true);
   }
 
-  closeRateModal(value: boolean) {
+  closeRateModal(res: boolean) {
     this.isRateModalOpen.set(false);
-    (value) && this.updateRate();
+    (res) && this.updateRate();
   }
 
   toggleSidebar() {
@@ -123,7 +124,10 @@ export class Dashboard {
   }
 
   logout(): void {
-    this.openAuthModal();
+    this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
+      this.toast.show(EMessage.GoodBye);
+      this.router.navigate(['']);
+    });
   }
 
 
@@ -131,19 +135,17 @@ export class Dashboard {
     this.isAuthModalOpen.set(true);
   }
 
-  closeAuthModal(): void {
+  closeAuthModal(res: boolean): void {
     this.isAuthModalOpen.set(false);
+    (res) && this.logout();
   }
 
   openFcmModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
-    modal.open();
+    this.isFcmModalOpen.set(true);
   }
 
-  closeFcmModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
-    modal.close();
-    setTimeout(() => this.formFcm().reset(INITIAL_DATA), 100);
+  closeFcmModal(res: boolean): void {
+    this.isFcmModalOpen.set(false);
   }
 
   private updateRate(): void {

@@ -127,7 +127,7 @@
                 <a
                   href="javascript:;"
                   class="dropdown-item hover:bg-red-100 text-red-500 font-medium"
-                  (click)="logout()"
+                  (click)="openAuthModal()"
                 >
                   Cerrar sesión
                 </a>
@@ -202,68 +202,49 @@
 <!-- Auth Modal -->
 <app-modal
   [isOpen]="isAuthModalOpen()"
-  (closeModal)="closeAuthModal()"
+  (closeModal)="closeAuthModal($event)"
   title="¿Desea cerrar sesión?"
 >
   <p>¿Estás seguro de que quieres cerrar sesión?</p>
 </app-modal>
 
 <!-- Notification Modal -->
-<div
-  id="fcm-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog "
-  tabindex="-1"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Send FCM</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          (click)="closeFcmModal()"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
+<app-modal [isOpen]="isFcmModalOpen()" , (closeModal)="closeFcmModal($event)" title="Send FCM">
+  <form [formRoot]="formFcm" novalidate>
+    <div class="modal-body space-y-4">
+      <div class="flex gap-4 overflow-x-auto">
+        @for (t of target; track $index) {
+          <div class="flex items-center gap-2">
+            <input
+              aria-label="radio"
+              type="radio"
+              class="radio radio-primary"
+              [value]="t"
+              [id]="t"
+              [formField]="formFcm.target"
+            />
+            <label class="label-text text-base" [for]="t"> {{ t }} </label>
+          </div>
+        }
       </div>
-      <form [formRoot]="formFcm" novalidate>
-        <div class="modal-body space-y-4">
-          <div class="flex gap-4 overflow-x-auto">
-            @for (t of target; track $index) {
-              <div class="flex items-center gap-2">
-                <input
-                  type="radio"
-                  class="radio radio-primary"
-                  [value]="t"
-                  [id]="t"
-                  [formField]="formFcm.target"
-                />
-                <label class="label-text text-base" [for]="t"> {{ t }} </label>
-              </div>
-            }
-          </div>
-          <div class="w-full">
-            <label class="label-text" for="labelAndHelperText">Título</label>
-            <input type="text" class="input" id="title" [formField]="formFcm.title" />
-          </div>
-          <div class="w-full">
-            <label class="label-text" for="body">Mensaje</label>
-            <textarea
-              class="textarea w-full"
-              aria-label="Textarea"
-              [formField]="formFcm.body"
-            ></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" (click)="closeFcmModal()">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-error btn-soft">Enviar</button>
-        </div>
-      </form>
+      <div class="w-full">
+        <label class="label-text" for="labelAndHelperText">Título</label>
+        <input
+          aria-label="title"
+          type="text"
+          class="input"
+          id="title"
+          [formField]="formFcm.title"
+        />
+      </div>
+      <div class="w-full">
+        <label class="label-text" for="body">Mensaje</label>
+        <textarea
+          class="textarea w-full"
+          aria-label="Textarea"
+          [formField]="formFcm.body"
+        ></textarea>
+      </div>
     </div>
-  </div>
-</div>
+  </form>
+</app-modal>
