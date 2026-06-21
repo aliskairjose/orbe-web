@@ -97,7 +97,7 @@
 
 <!-- Modal Chat -->
 <app-modal [isOpen]="isChatOpen()" (closeModal)="closeChat($event)" title="Chat">
-  <div class="modal-body">
+  <div>
     @if (room.hasValue()) {
       @for (message of room.value().messages; track $index) {
         <app-chat-bubble [message]="message" />
