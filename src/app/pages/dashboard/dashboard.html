@@ -6,11 +6,7 @@
     [class.translate-x-0]="isSidebarOpen()"
   >
     <div class="flex items-center justify-between lg:justify-center h-16">
-      <img
-        src="images/logos/orbe/logotipo.png"
-        alt="logo"
-        class="w-2/5 my-auto"
-      />
+      <img src="images/logos/orbe/logotipo.png" alt="logo" class="w-2/5 my-auto" />
       <button
         (click)="toggleSidebar()"
         class="lg:hidden flex items-center p-1.5 rounded-md text-gray-600 bg-gray-100 hover:bg-gray-100 focus:outline-none"
@@ -22,7 +18,7 @@
 
     <nav
       aria-label="Main dashboard navigation"
-      class=" px-4 space-y-2 h-screen border-t border-t-gray-200 pt-1.5 flex-1"
+      class="px-4 space-y-2 h-screen border-t border-t-gray-200 pt-1.5 flex-1"
     >
       @for (m of menu; track $index) {
         <a
@@ -72,9 +68,7 @@
             (click)="openFcmModal()"
           >
             Enviar notificaciones
-            <span class="material-symbols-outlined" style="font-size: 20px">
-              send
-            </span>
+            <span class="material-symbols-outlined" style="font-size: 20px"> send </span>
           </span>
 
           <span
