@@ -96,37 +96,12 @@
 </div>
 
 <!-- Modal Chat -->
-<div
-  id="basic-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog"
-  tabindex="-1"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Chat</h3>
-        <button
-          aria-label="Close modal"
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          (click)="closeChat()"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        @if (room.hasValue()) {
-          @for (message of room.value().messages; track $index) {
-            <app-chat-bubble [message]="message" />
-          }
-        }
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" (click)="closeChat()">
-          Cerrar
-        </button>
-      </div>
-    </div>
+<app-modal [isOpen]="isChatOpen()" (closeModal)="closeChat($event)" title="Chat">
+  <div class="modal-body">
+    @if (room.hasValue()) {
+      @for (message of room.value().messages; track $index) {
+        <app-chat-bubble [message]="message" />
+      }
+    }
   </div>
-</div>
+</app-modal>

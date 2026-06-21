@@ -3,18 +3,20 @@ import { httpResource } from '@angular/common/http';
 import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ChatBubble, Paginator } from '@core/components';
+import { ChatBubble, Modal, Paginator } from '@core/components';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IResponse, IRoom } from '@core/interfaces';
 import { HSOverlay } from 'flyonui/flyonui';
 
 @Component({
   selector: 'app-chats',
-  imports: [DatePipe, FormsModule, RouterLink, ChatBubble, Paginator],
+  imports: [DatePipe, FormsModule, RouterLink, ChatBubble, Paginator, Modal],
   templateUrl: './chats.html',
   styleUrl: './chats.css',
 })
 export class Chats {
+  isChatOpen = signal<boolean>(false);
+
   private document = inject(DOCUMENT);
 
   protected headers = ['cliente', 'Asesor', 'Mensajes', 'Fecha', ''];
@@ -50,14 +52,10 @@ export class Chats {
 
   openChat(id: string): void {
     this.roomID.set(id);
-    // Implementar la lógica para abrir el chat con el ID proporcionado
-    const modal = new HSOverlay(this.document.querySelector('#basic-modal')!);
-    modal.open();
+    this.isChatOpen.set(true);
   }
 
-  closeChat(): void {
-    // Implementar la lógica para cerrar el chat
-    const modal = new HSOverlay(this.document.querySelector('#basic-modal')!);
-    modal.close();
+  closeChat(res: boolean): void {
+    this.isChatOpen.set(false);
   }
 }
