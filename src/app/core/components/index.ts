@@ -19,3 +19,4 @@ export { UserCard } from "./user-card/user-card";
 export { AnnualRequestServiceChart } from "./annual-request-service-chart/annual-request-service-chart";
 export { AnnualTimeChart } from "./annual-time-chart/annual-time-chart";
 export { ChatBubble } from "./chat-bubble/chat-bubble";
+export { Modal } from "./modal/modal";

@@ -173,96 +173,42 @@
   </div>
 </div>
 
-<div
-  id="rate-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog"
-  tabindex="-1"
+<!-- Rate Modal -->
+<app-modal
+  [isOpen]="isRateModalOpen()"
+  (closeModal)="closeRateModal($event)"
+  title="Actualizar tasa de cambio
+"
 >
-  <div class="modal-dialog-sm">
-    <div class="modal-content">
-      <form [formRoot]="form" novalidate>
-        <div class="modal-header">
-          <h3 class="modal-title">Actualizar tasa de cambio</h3>
-          <button
-            aria-label="close"
-            type="button"
-            class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-            (click)="closeRateModal()"
-          >
-            <span class="icon-[tabler--x] size-4"></span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="field">
-            <label for="rate">Nueva tasa</label>
-            <div class="input max-w-sm space-x-3">
-              <span class="label-text my-auto">$</span>
-              <input
-                type="number"
-                class="grow"
-                placeholder="00.00"
-                id="rate"
-                [formField]="form.rate"
-              />
+  <form [formRoot]="form" novalidate>
+    <div class="field">
+      <label for="rate">Nueva tasa</label>
+      <div class="input max-w-sm space-x-3">
+        <span class="label-text my-auto">$</span>
+        <input type="number" class="grow" placeholder="00.00" id="rate" [formField]="form.rate" />
 
-              <label class="sr-only" for="rate">Ingresa tasa</label>
-              <span class="label-text my-auto">COP</span>
-            </div>
-            @if (form.rate().touched() && form.rate().invalid()) {
-              @for (error of form.rate().errors(); track error) {
-                <span class="text-sm text-red-500">{{ error.message }}</span>
-              }
-            }
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" (click)="closeRateModal()">
-            Close
-          </button>
-          <button type="submit" class="btn btn-primary">Actualizar</button>
-        </div>
-      </form>
+        <label class="sr-only" for="rate">Ingresa tasa</label>
+        <span class="label-text my-auto">COP</span>
+      </div>
+      @if (form.rate().touched() && form.rate().invalid()) {
+        @for (error of form.rate().errors(); track error) {
+          <span class="text-sm text-red-500">{{ error.message }}</span>
+        }
+      }
     </div>
-  </div>
-</div>
+  </form>
+</app-modal>
 
-<!-- MODAL -->
-
-<div
-  id="auth-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog "
-  tabindex="-1"
+<!-- Auth Modal -->
+<app-modal
+  [isOpen]="isAuthModalOpen()"
+  (closeModal)="closeAuthModal()"
+  title="¿Desea cerrar sesión?"
 >
-  <div class="modal-dialog modal-dialog-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Cerrar sesión</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          data-overlay="#auth-modal"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <div class="modal-body">¿Estás seguro de que quieres cerrar sesión?</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" (click)="closeAuthModal(false)">
-          No, cancelar
-        </button>
-        <button type="button" class="btn btn-error btn-soft" (click)="closeAuthModal(true)">
-          Si, cerrar sesión
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+  <p>¿Estás seguro de que quieres cerrar sesión?</p>
+</app-modal>
 
 <!-- Notification Modal -->
-
 <div
   id="fcm-modal"
   class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
