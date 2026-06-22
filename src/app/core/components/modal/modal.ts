@@ -1,4 +1,5 @@
 import { Component, input, output } from '@angular/core';
+import { TModalSize } from '@core/types';
 
 @Component({
   selector: 'app-modal',
@@ -8,10 +9,9 @@ import { Component, input, output } from '@angular/core';
 })
 export class Modal {
   title = input<string>('');
-  // Recibe si la modal debe estar abierta (Angular Signals)
-  isOpen = input<boolean>(false);
+  size = input<TModalSize>('default');
 
-  // Evento para notificar el cierre al componente padre
+  isOpen = input<boolean>(false);
   closeModal = output<boolean>();
 
   onClose(value: boolean) {

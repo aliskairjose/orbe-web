@@ -7,7 +7,7 @@ declare global {
     _;
     $: typeof import("jquery");
     jQuery: typeof import("jquery");
-    DataTable: any;
+    // DataTable: any;
     // Dropzone: any;
 
     // FlyonUI
@@ -15,4 +15,4 @@ declare global {
   }
 }
 
-export {};  
+export { };
