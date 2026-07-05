@@ -7,8 +7,9 @@ declare global {
     _;
     $: typeof import("jquery");
     jQuery: typeof import("jquery");
-    // DataTable: any;
-    // Dropzone: any;
+    DataTable;
+    Dropzone;
+    Raty;
 
     // FlyonUI
     HSStaticMethods: IStaticMethods;

@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-@import "tailwindcss";
-@import "flyonui/variants.css";
 
+@import "tailwindcss";
 @plugin "flyonui";
-@source "../node_modules/flyonui/flyonui.js"; 
+@import "flyonui/variants.css";
+@source "../node_modules/flyonui/flyonui.js";
+
 @plugin "@iconify/tailwind4";
 
 
@@ -16,7 +17,7 @@
 /* @import "flyonui/src/vendor/fullcalendar.css"; */
 @import "flyonui/src/vendor/raty.css";
 /* @import "flyonui/src/vendor/waves.css"; */
-/* @import "flyonui/src/vendor/apexcharts.css"; */        
+/* @import "flyonui/src/vendor/apexcharts.css"; */
 
 
 html, body{
