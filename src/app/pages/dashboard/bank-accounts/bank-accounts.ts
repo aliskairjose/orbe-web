@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
 import { disabled, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { ERole } from '@core/enums';
 import { Service } from './service';
-import { HSOverlay } from 'flyonui/flyonui';
 import { Paginator, TableFilter } from '@core/components';
 
 const INITIAL_FORM_VALUE: BankAccountData = {

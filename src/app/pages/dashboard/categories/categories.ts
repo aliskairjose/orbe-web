@@ -6,7 +6,6 @@ import { FormField, FormRoot, required, form } from '@angular/forms/signals';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { ICategory } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
-import { HSOverlay } from 'flyonui/flyonui';
 import { Category } from './services/category';
 import { Paginator, TableFilter } from '@core/components';
 
