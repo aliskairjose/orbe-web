@@ -1,6 +1,14 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
   <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)">
-    <button type="button" class="btn btn-soft btn-primary btn-sm" (click)="openModal(false, null)">
+    <button
+      type="button"
+      class="btn btn-soft btn-primary btn-sm"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="form-modal"
+      data-overlay="#form-modal"
+      (click)="openModal(false, null)"
+    >
       <span class="icon-[tabler--plus] size-4"></span>
       Agregar cuenta
     </button>
@@ -80,6 +88,8 @@
       <div class="modal-header">
         <h3 class="modal-title">Cuenta bancaria</h3>
         <button
+          aria-label="Close"
+          data-overlay="#form-modal"
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
           (click)="closeModal()"
@@ -146,7 +156,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
+          <button
+            type="button"
+            class="btn btn-soft btn-secondary"
+            data-overlay="#form-modal"
+            (click)="closeModal()"
+          >
             Cerrar
           </button>
           <button type="submit" class="btn btn-primary">Guardar</button>

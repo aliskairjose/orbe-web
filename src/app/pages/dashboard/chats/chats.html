@@ -73,6 +73,10 @@
                       aria-label="View chat"
                       aria-labelledby="view-chat"
                       class="btn btn-circle btn-text btn-sm"
+                      aria-haspopup="dialog"
+                      aria-expanded="false"
+                      aria-controls="chat-modal"
+                      data-overlay="#chat-modal"
                       (click)="openChat(item._id)"
                     >
                       <span class="icon-[tabler--eye] size-5"></span>
@@ -96,12 +100,34 @@
 </div>
 
 <!-- Modal Chat -->
-<app-modal [isOpen]="isChatOpen()" (closeModal)="closeChat($event)" title="Chat">
-  <div>
-    @if (room.hasValue()) {
-      @for (message of room.value().messages; track $index) {
-        <app-chat-bubble [message]="message" />
-      }
-    }
+<div id="chat-modal" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Chat</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          data-overlay="#chat-modal"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          @if (room.hasValue()) {
+            @for (message of room.value().messages; track $index) {
+              <app-chat-bubble [message]="message" />
+            }
+          }
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-soft btn-secondary" data-overlay="#chat-modal">
+          Close
+        </button>
+      </div>
+    </div>
   </div>
-</app-modal>
+</div>
