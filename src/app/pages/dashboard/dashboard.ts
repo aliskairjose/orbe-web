@@ -42,7 +42,7 @@ const formModel = signal<FormData>(INITIAL_DATA);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
+  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormField, CurrencyPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -123,14 +123,6 @@ export class Dashboard {
   logoutModal(): void {
     this.logout();
   }
-
-  // openFcmModal(): void {
-  //   this.isFcmModalOpen.set(true);
-  // }
-
-  // closeFcmModal(res: boolean): void {
-  //   this.isFcmModalOpen.set(false);
-  // }
 
   updateRate(): void {
     this.service.updateRate(this.rateResource.value()!._id, this.form().value().rate).subscribe((res) => {
