@@ -17,13 +17,13 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "ssr": false,
+            "prerender": false,
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/notyf/notyf.min.js",
-              "node_modules/raty-js/src/raty.js",
-              "node_modules/datatables.net/js/dataTables.min.js",
               "node_modules/dropzone/dist/dropzone-min.js",
               "node_modules/lodash/lodash.js",
               "node_modules/flyonui/flyonui.js"
@@ -43,8 +43,6 @@
             "styles": [
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "node_modules/notyf/notyf.min.css",
-              "node_modules/raty-js/src/raty.css",
-              "node_modules/flyonui/src/vendor/datatables.css",
               "src/styles.css"
             ]
           },

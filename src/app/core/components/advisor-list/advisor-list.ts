@@ -196,14 +196,10 @@ export class AdvisorList {
     }
     formModel.set(body);
 
-    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
-    modal.open();
   }
 
   closeModal(): void {
     this.form().reset(INITIAL_FORM_DATA);
-    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
-    modal.close();
   }
 
   openNotificationModal(user: IAdvisor): void {

@@ -6,7 +6,6 @@ import { FormField, FormRoot, required, form } from '@angular/forms/signals';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { ICategory } from '@core/interfaces';
 import { IResponse } from '@core/interfaces/response';
-import { HSOverlay } from 'flyonui/flyonui';
 import { Category } from './services/category';
 import { Paginator, TableFilter } from '@core/components';
 
@@ -38,7 +37,7 @@ export class Categories {
     },
     {
       submission: {
-        action: async (f) => 
+        action: async (f) =>
           f().value()._id ? this.update(f().value()) : this.create(f().value()),
       },
     },
@@ -88,22 +87,22 @@ export class Categories {
   openModal(isEdit: boolean, category: ICategory | null): void {
     this.selectedCategory = category;
 
-    const body: Data ={
+    const body: Data = {
       name: category?.name ?? '',
       isActive: category?.isActive ?? true,
     }
-    if(isEdit) {
+    if (isEdit) {
       body._id = category!._id;
     }
     Model.set(body);
-    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
-    modal.open();
+    // const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+    // modal.open();
   }
 
   closeModal(): void {
     this.form().reset(INITIAL_FORM_VALUE);
 
-    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
-    modal.close();
+    // const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+    // modal.close();
   }
 }

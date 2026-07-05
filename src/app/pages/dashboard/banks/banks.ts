@@ -45,7 +45,7 @@ export class Banks {
     },
     {
       submission: {
-        action: async (f) => 
+        action: async (f) =>
           f().value()._id ? this.update(f().value()) : this.create(f().value()),
       },
     },
@@ -88,13 +88,13 @@ export class Banks {
     this.isEdit.set(isEdit);
     this.selectedBank.set(category);
 
-    const body: Data ={
+    const body: Data = {
       name: category?.name ?? '',
       country: category?.country ?? '',
       isActive: category?.isActive ?? true,
     }
 
-    if(isEdit) {
+    if (isEdit) {
       body._id = category!._id;
     }
     Model.set(body);

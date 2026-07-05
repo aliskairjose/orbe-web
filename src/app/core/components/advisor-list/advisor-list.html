@@ -1,6 +1,13 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
   <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)">
-    <button type="button" class="btn btn-soft btn-primary btn-sm" (click)="openModal(false, null)">
+    <button
+      type="button"
+      class="btn btn-soft btn-primary btn-sm"
+      aria-expanded="false"
+      aria-controls="form-modal"
+      data-overlay="#form-modal"
+      (click)="openModal(false, null)"
+    >
       <span class="icon-[tabler--user-plus] size-4.5 rtl:rotate-180"></span>
       Agregar asesor
     </button>
@@ -140,6 +147,8 @@
           aria-label="Close modal"
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          data-overlay="#form-modal"
           (click)="closeModal()"
         >
           <span class="icon-[tabler--x] size-4"></span>
@@ -444,7 +453,12 @@
           </div>
         </div>
         <div class="modal-footer border-t border-gray-200 pt-3">
-          <button type="button" class="btn btn-soft btn-secondary" (click)="closeModal()">
+          <button
+            type="button"
+            class="btn btn-soft btn-secondary"
+            data-overlay="#form-modal"
+            (click)="closeModal()"
+          >
             Cerrar
           </button>
           <button type="submit" class="btn btn-primary">Registrar asesor</button>
@@ -454,6 +468,7 @@
   </div>
 </div>
 
+<!-- Notification Modal -->
 <div
   id="notification-modal"
   class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
@@ -468,6 +483,7 @@
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
           aria-label="Close"
+          data-overlay="#form-modal"
           (click)="closeNotificationModal()"
         >
           <span class="icon-[tabler--x] size-4"></span>

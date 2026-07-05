@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ChatBubble, Paginator } from '@core/components';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IResponse, IRoom } from '@core/interfaces';
-import { HSOverlay } from 'flyonui/flyonui';
+import { HSOverlay } from 'flyonui/dist';
 
 @Component({
   selector: 'app-chats',
@@ -14,13 +14,15 @@ import { HSOverlay } from 'flyonui/flyonui';
   templateUrl: './chats.html',
   styleUrl: './chats.css',
 })
-export class Chats {
-  private document = inject(DOCUMENT);
+export class Chats implements AfterViewInit {
 
   protected headers = ['cliente', 'Asesor', 'Mensajes', 'Fecha', ''];
   private readonly url = `${API_URL}/v1/chat/rooms`;
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
+
+  private readonly document = inject(DOCUMENT);
+
 
   protected limit = signal(ITEM_PER_PAGE);
   protected page = signal(1);
@@ -37,6 +39,11 @@ export class Chats {
   }));
 
   protected room = httpResource<IRoom>(() => `${this.url}/${this.roomID()}`);
+  modal: any;
+
+  ngAfterViewInit(): void {
+    this.modal = new HSOverlay(this.document.querySelector('#chat-modal')!);
+  }
 
   onPageChange({ value }: any): void {
     this.selected = value;
@@ -50,14 +57,6 @@ export class Chats {
 
   openChat(id: string): void {
     this.roomID.set(id);
-    // Implementar la lógica para abrir el chat con el ID proporcionado
-    const modal = new HSOverlay(this.document.querySelector('#basic-modal')!);
-    modal.open();
   }
 
-  closeChat(): void {
-    // Implementar la lógica para cerrar el chat
-    const modal = new HSOverlay(this.document.querySelector('#basic-modal')!);
-    modal.close();
-  }
 }

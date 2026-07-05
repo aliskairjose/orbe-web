@@ -1,10 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, DOCUMENT, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, DOCUMENT, inject, signal } from '@angular/core';
 import { form, min, FormField, FormRoot, required } from '@angular/forms/signals';
 import { IPlan } from '@core/interfaces';
-import { HSOverlay } from 'flyonui/flyonui';
 import { PlanService } from './services/plans';
+import { HSOverlay } from 'flyonui/dist';
 
 const INITIAL_FORM_VALUE: PlanData = {
   amount: 0,
@@ -26,9 +26,10 @@ const planModel = signal<PlanData>(INITIAL_FORM_VALUE);
   templateUrl: './plans.html',
   styleUrl: './plans.css',
 })
-export class Plans {
+export class Plans implements AfterViewInit {
   protected readonly resource = httpResource<IPlan[]>(() => `${API_URL}/v1/plan`);
   protected readonly service = inject(PlanService);
+  private readonly document = inject(DOCUMENT);
 
   protected form = form(
     planModel,
@@ -46,8 +47,13 @@ export class Plans {
     },
   );
 
-  private readonly document = inject(DOCUMENT);
+  modal: any;
   protected selectedPlan: IPlan | null = null;
+
+
+  ngAfterViewInit(): void {
+    this.modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
+  }
 
   openModal(isEdit: boolean, category: IPlan | null): void {
     this.selectedPlan = category;
@@ -62,13 +68,12 @@ export class Plans {
       body._id = category!._id;
     }
     planModel.set(body);
-    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
-    modal.open();
+    this.modal.open();
   }
+
   closeModal(): void {
     this.form().reset(INITIAL_FORM_VALUE);
-    const modal = new HSOverlay(this.document.querySelector('#update-form-modal')!);
-    modal.close();
+    this.modal.close();
   }
 
   async update(f: PlanData): Promise<void> {

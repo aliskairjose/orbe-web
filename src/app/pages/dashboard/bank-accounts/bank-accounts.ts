@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
 import { disabled, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { ERole } from '@core/enums';
 import { Service } from './service';
-import { HSOverlay } from 'flyonui/flyonui';
 import { Paginator, TableFilter } from '@core/components';
 
 const INITIAL_FORM_VALUE: BankAccountData = {
@@ -35,7 +34,6 @@ const accountModel = signal<BankAccountData>(INITIAL_FORM_VALUE);
   styleUrl: './bank-accounts.css',
 })
 export class BankAccounts {
-  private readonly document = inject(DOCUMENT);
   protected hasBankAccount = signal(true);
 
   protected form = form(
@@ -97,7 +95,7 @@ export class BankAccounts {
     this.search.set(query);
   }
 
-  pageChange(value:number): void {
+  pageChange(value: number): void {
     this.selected = value;
     this.limit.set(value);
     this.page.set(1);
@@ -119,14 +117,10 @@ export class BankAccounts {
       body._id = bankAccount!._id;
     }
     accountModel.set(body);
-    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
-    modal.open();
   }
 
   closeModal(): void {
     this.form().reset(INITIAL_FORM_VALUE);
-    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
-    modal.close();
   }
 
   // private async onSubmit(f: BankAccountData) {

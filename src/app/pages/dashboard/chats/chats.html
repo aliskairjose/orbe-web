@@ -14,7 +14,7 @@
       <!-- Select -->
       <select
         aria-label="select"
-        class="select w-fit max-sm:w-16 select select-sm max-w-sm"
+        class="select w-fit max-sm:w-16 select-sm max-w-sm"
         name=""
         id="pagination"
         (change)="onPageChange($event.target)"
@@ -96,35 +96,32 @@
 </div>
 
 <!-- Modal Chat -->
-<div
-  id="basic-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog"
-  tabindex="-1"
->
+<div id="chat-modal" class="modal modal-bottom sm:modal-middle">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">Chat</h3>
         <button
-          aria-label="Close modal"
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          (click)="closeChat()"
+          aria-label="Close"
+          (click)="modal.close()"
         >
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
       <div class="modal-body">
-        @if (room.hasValue()) {
-          @for (message of room.value().messages; track $index) {
-            <app-chat-bubble [message]="message" />
+        <div>
+          @if (room.hasValue()) {
+            @for (message of room.value().messages; track $index) {
+              <app-chat-bubble [message]="message" />
+            }
           }
-        }
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" (click)="closeChat()">
-          Cerrar
+        <button type="button" class="btn btn-soft btn-secondary" (click)="modal.close()">
+          Close
         </button>
       </div>
     </div>

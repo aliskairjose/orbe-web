@@ -63,23 +63,27 @@
       <!-- Header buttons -->
       <div class="hidden md:flex items-center space-x-4 mr-4">
         <div class="flex flex-row items-center gap-x-4">
-          <span
+          <!-- <span
             class="text-gray-500 text-sm inline-flex items-center gap-x-1.5 cursor-pointer hover:text-gray-700 hover:font-medium transition-colors button"
             (click)="openFcmModal()"
           >
             Enviar notificaciones
             <span class="material-symbols-outlined" style="font-size: 20px"> send </span>
-          </span>
+          </span> -->
 
-          <span
-            class="text-gray-500 text-sm inline-flex items-center gap-x-1.5 cursor-pointer hover:text-gray-700 hover:font-medium transition-colors button"
-            (click)="openRateModal()"
+          <button
+            type="button"
+            class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:font-medium hover:text-gray-700 transition-colors button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="rate-modal"
+            data-overlay="#rate-modal"
           >
             Tasa: {{ rate() | currency }}
             <span class="material-symbols-outlined" style="font-size: 20px">
               currency_exchange
             </span>
-          </span>
+          </button>
 
           <div class="dropdown relative inline-flex">
             <button
@@ -104,7 +108,7 @@
               aria-orientation="vertical"
               aria-labelledby="dropdown-avatar"
             >
-              <li class="dropdown-header gap-3">
+              <li role="menuitem" class="dropdown-header gap-3">
                 <div class="avatar">
                   <div class="w-8 rounded-full">
                     <img [src]="userLogged.avatar" alt="User Avatar" />
@@ -119,15 +123,16 @@
                   </small>
                 </div>
               </li>
-              <li><a class="dropdown-item" href="#">My Profile</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Mails</a></li>
-              <li><a class="dropdown-item" href="#">FAQs</a></li>
-              <li class="dropdown-footer gap-2">
+              <li role="menuitem"><a class="dropdown-item" href="#">My Profile</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Settings</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Mails</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">FAQs</a></li>
+              <li role="menuitem" class="dropdown-footer gap-2">
                 <a
                   href="javascript:;"
                   class="dropdown-item hover:bg-red-100 text-red-500 font-medium"
-                  (click)="logout()"
+                  aria-controls="auth-modal"
+                  data-overlay="#auth-modal"
                 >
                   Cerrar sesión
                 </a>
@@ -144,13 +149,17 @@
       [class.hidden]="!isSubBarOpen()"
       class="flex items-center justify-between px-6 h-16 border-b border-gray-200 shadow md:mx-6 md:hidden"
     >
-      <span
+      <button
+        type="button"
         class="text-gray-500 text-sm inline-flex items-center gap-x-1 cursor-pointer hover:font-medium hover:text-gray-700 transition-colors button"
-        (click)="openRateModal()"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="rate-modal"
+        data-overlay="#rate-modal"
       >
         Tasa: {{ rate() | currency }}
         <span class="material-symbols-outlined" style="font-size: 20px"> currency_exchange </span>
-      </span>
+      </button>
       <div class="relative shrink-0">
         <img
           aria-label="image"
@@ -173,26 +182,58 @@
   </div>
 </div>
 
+<!-- Auth Modal -->
 <div
-  id="rate-modal"
+  id="auth-modal"
   class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
   role="dialog"
   tabindex="-1"
 >
-  <div class="modal-dialog-sm">
+  <div class="modal-dialog modal-dialog-sm">
     <div class="modal-content">
-      <form [formRoot]="form" novalidate>
-        <div class="modal-header">
-          <h3 class="modal-title">Actualizar tasa de cambio</h3>
-          <button
-            aria-label="close"
-            type="button"
-            class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-            (click)="closeRateModal()"
-          >
-            <span class="icon-[tabler--x] size-4"></span>
-          </button>
-        </div>
+      <div class="modal-header">
+        <h3 class="modal-title">¿Desea cerrar sesión?</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          data-overlay="#auth-modal"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <div class="modal-body">Al cerrar sesión, se perderán los datos no guardados.</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-soft btn-secondary" data-overlay="#auth-modal">
+          No, cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="logoutModal()">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tasa de cambio Modal -->
+<div
+  id="rate-modal"
+  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Actualizar tasa de cambio</h3>
+        <button
+          type="button"
+          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close"
+          data-overlay="#rate-modal"
+        >
+          <span class="icon-[tabler--x] size-4"></span>
+        </button>
+      </div>
+      <form action="">
         <div class="modal-body">
           <div class="field">
             <label for="rate">Nueva tasa</label>
@@ -217,105 +258,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" (click)="closeRateModal()">
-            Close
+          <button type="button" class="btn btn-soft btn-secondary" data-overlay="#rate-modal">
+            Cerrar
           </button>
-          <button type="submit" class="btn btn-primary">Actualizar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL -->
-
-<div
-  id="auth-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog "
-  tabindex="-1"
->
-  <div class="modal-dialog modal-dialog-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Cerrar sesión</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          data-overlay="#auth-modal"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <div class="modal-body">¿Estás seguro de que quieres cerrar sesión?</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" (click)="closeAuthModal(false)">
-          No, cancelar
-        </button>
-        <button type="button" class="btn btn-error btn-soft" (click)="closeAuthModal(true)">
-          Si, cerrar sesión
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Notification Modal -->
-
-<div
-  id="fcm-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog "
-  tabindex="-1"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Send FCM</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          (click)="closeFcmModal()"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <form [formRoot]="formFcm" novalidate>
-        <div class="modal-body space-y-4">
-          <div class="flex gap-4 overflow-x-auto">
-            @for (t of target; track $index) {
-              <div class="flex items-center gap-2">
-                <input
-                  type="radio"
-                  class="radio radio-primary"
-                  [value]="t"
-                  [id]="t"
-                  [formField]="formFcm.target"
-                />
-                <label class="label-text text-base" [for]="t"> {{ t }} </label>
-              </div>
-            }
-          </div>
-          <div class="w-full">
-            <label class="label-text" for="labelAndHelperText">Título</label>
-            <input type="text" class="input" id="title" [formField]="formFcm.title" />
-          </div>
-          <div class="w-full">
-            <label class="label-text" for="body">Mensaje</label>
-            <textarea
-              class="textarea w-full"
-              aria-label="Textarea"
-              [formField]="formFcm.body"
-            ></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" (click)="closeFcmModal()">
-            Cancelar
+          <button type="submit" class="btn btn-primary" (click)="updateRate()">
+            Actualizar tasa
           </button>
-          <button type="submit" class="btn btn-error btn-soft">Enviar</button>
         </div>
       </form>
     </div>

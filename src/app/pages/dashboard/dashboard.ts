@@ -9,7 +9,6 @@ import { ToastService } from '@core/services';
 import { form, FormField, FormRoot, min, required } from '@angular/forms/signals';
 import { httpResource } from '@angular/common/http';
 import { IRateExchange } from '@core/interfaces';
-import { HSOverlay } from 'flyonui/flyonui';
 import { DashboardService } from '@core/services/dashboard';
 import { AuthSelectors } from '../auth/store/auth.selectors';
 import { Title } from '@angular/platform-browser';
@@ -30,7 +29,7 @@ const enum ETarget {
 const INITIAL_DATA = {
   title: '',
   body: '',
-  target: ETarget.ALL 
+  target: ETarget.ALL
 };
 interface FormData {
   title: string;
@@ -43,12 +42,16 @@ const formModel = signal<FormData>(INITIAL_DATA);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
+  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormField, CurrencyPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
   pageTitle = inject(Title);
+  isRateModalOpen = signal<boolean>(false);
+  isAuthModalOpen = signal<boolean>(false);
+  isFcmModalOpen = signal<boolean>(false);
+
 
   private readonly url = `${API_URL}/v1`;
   private readonly store = inject(Store);
@@ -71,22 +74,17 @@ export class Dashboard {
   });
 
   protected target = [ETarget.ALL, ETarget.USERS, ETarget.ADVISORS];
-    protected formFcm = form(formModel, () => {}, {
-      submission: {
-        action: async (f) => console.log(f().value()),
-      },
-    });
+  protected formFcm = form(formModel, () => { }, {
+    submission: {
+      action: async (f) => console.log(f().value()),
+    },
+  });
 
   protected form = form(
     rateFormModel,
     (validator) => {
       min(validator.rate, 1, { message: 'El valor no puede ser cero' });
       required(validator.rate, { message: 'El campo es obligatorio' });
-    },
-    {
-      submission: {
-        action: async (f) => this.updateRate(this.rateResource.value()!._id, f().value()),
-      },
     },
   );
 
@@ -106,6 +104,7 @@ export class Dashboard {
     });
   }
 
+
   toggleSidebar() {
     this.isSidebarOpen.update((isOpen) => !isOpen);
   }
@@ -115,49 +114,18 @@ export class Dashboard {
   }
 
   logout(): void {
-    this.openAuthModal();
+    this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
+      this.toast.show(EMessage.GoodBye);
+      this.router.navigate(['']);
+    });
   }
 
-  openRateModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
-    modal.open();
+  logoutModal(): void {
+    this.logout();
   }
 
-  closeRateModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#rate-modal')!);
-    modal.close();
-  }
-
-  openAuthModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#auth-modal')!);
-    modal.open();
-  }
-  closeAuthModal(isLogout: boolean): void {
-    const modal = new HSOverlay(this.document.querySelector('#auth-modal')!);
-    modal.close();
-
-    if (isLogout) {
-      this.store.dispatch(new AuthActions.Logout()).subscribe(() => {
-        this.toast.show(EMessage.GoodBye);
-        this.router.navigate(['']);
-      });
-    }
-  }
-
-   openFcmModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
-    modal.open();
-  }
-
-  closeFcmModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#fcm-modal')!);
-    modal.close();
-    setTimeout(()=>this.formFcm().reset(INITIAL_DATA), 100);
-  }
-
-  private updateRate(id: string, f: RateFormData): void {
-    this.closeRateModal();
-    this.service.updateRate(id, f.rate).subscribe((res) => {
+  updateRate(): void {
+    this.service.updateRate(this.rateResource.value()!._id, this.form().value().rate).subscribe((res) => {
       this.rate.set(res.currentRate);
       rateFormModel.set({
         rate: this.rate(),

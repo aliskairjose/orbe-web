@@ -5,14 +5,10 @@ declare global {
   interface Window {
     // Optional third-party libraries
     _;
-    $: typeof import("jquery");
-    jQuery: typeof import("jquery");
-    DataTable: any;
-    // Dropzone: any;
 
     // FlyonUI
     HSStaticMethods: IStaticMethods;
   }
 }
 
-export {};  
+export { };
