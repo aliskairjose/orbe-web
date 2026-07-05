@@ -73,10 +73,6 @@
                       aria-label="View chat"
                       aria-labelledby="view-chat"
                       class="btn btn-circle btn-text btn-sm"
-                      aria-haspopup="dialog"
-                      aria-expanded="false"
-                      aria-controls="chat-modal"
-                      data-overlay="#chat-modal"
                       (click)="openChat(item._id)"
                     >
                       <span class="icon-[tabler--eye] size-5"></span>
@@ -109,7 +105,7 @@
           type="button"
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
           aria-label="Close"
-          data-overlay="#chat-modal"
+          (click)="modal.close()"
         >
           <span class="icon-[tabler--x] size-4"></span>
         </button>
@@ -124,7 +120,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" data-overlay="#chat-modal">
+        <button type="button" class="btn btn-soft btn-secondary" (click)="modal.close()">
           Close
         </button>
       </div>
