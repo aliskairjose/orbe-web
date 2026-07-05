@@ -9,11 +9,9 @@ import { ToastService } from '@core/services';
 import { form, FormField, FormRoot, min, required } from '@angular/forms/signals';
 import { httpResource } from '@angular/common/http';
 import { IRateExchange } from '@core/interfaces';
-import { HSOverlay } from 'flyonui/flyonui';
 import { DashboardService } from '@core/services/dashboard';
 import { AuthSelectors } from '../auth/store/auth.selectors';
 import { Title } from '@angular/platform-browser';
-import { Modal } from '@core/components';
 
 interface RateFormData {
   rate: number;
@@ -44,7 +42,7 @@ const formModel = signal<FormData>(INITIAL_DATA);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe, Modal],
+  imports: [RouterOutlet, RouterLinkActive, RouterLink, FormRoot, FormField, CurrencyPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -106,14 +104,6 @@ export class Dashboard {
     });
   }
 
-  openRateModal() {
-    this.isRateModalOpen.set(true);
-  }
-
-  closeRateModal(res: boolean) {
-    this.isRateModalOpen.set(false);
-    (res) && this.updateRate();
-  }
 
   toggleSidebar() {
     this.isSidebarOpen.update((isOpen) => !isOpen);
@@ -130,25 +120,19 @@ export class Dashboard {
     });
   }
 
-
-  openAuthModal(): void {
-    this.isAuthModalOpen.set(true);
+  logoutModal(): void {
+    this.logout();
   }
 
-  closeAuthModal(res: boolean): void {
-    this.isAuthModalOpen.set(false);
-    (res) && this.logout();
-  }
+  // openFcmModal(): void {
+  //   this.isFcmModalOpen.set(true);
+  // }
 
-  openFcmModal(): void {
-    this.isFcmModalOpen.set(true);
-  }
+  // closeFcmModal(res: boolean): void {
+  //   this.isFcmModalOpen.set(false);
+  // }
 
-  closeFcmModal(res: boolean): void {
-    this.isFcmModalOpen.set(false);
-  }
-
-  private updateRate(): void {
+  updateRate(): void {
     this.service.updateRate(this.rateResource.value()!._id, this.form().value().rate).subscribe((res) => {
       this.rate.set(res.currentRate);
       rateFormModel.set({
