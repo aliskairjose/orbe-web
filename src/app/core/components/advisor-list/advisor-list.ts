@@ -7,11 +7,11 @@ import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
 import { EConnectStatus, ERole, EStatus } from '@core/enums';
+import { HSOverlay } from 'flyonui/flyonui';
 import { User } from '@core/services';
 import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
 import { Paginator } from '../paginator/paginator';
 import { TableFilter } from '../table-filter/table-filter';
-import { Modal } from '../modal/modal';
 
 interface ICountry {
   name: string;
@@ -70,7 +70,6 @@ const formModel = signal<FormData>(INITIAL_FORM_DATA);
     FormField,
     Paginator,
     TableFilter,
-    Modal
   ],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
@@ -103,9 +102,6 @@ export class AdvisorList {
       },
     },
   );
-
-  isAdvisorModalOpen = signal<boolean>(false);
-  isFcmModalOpen = signal<boolean>(false);
 
   protected readonly connectStatus = EConnectStatus;
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
@@ -176,47 +172,45 @@ export class AdvisorList {
     this.page.set(page);
   }
 
-  // openModal(isEdit: boolean, user: IAdvisor | null): void {
-  openModal(res: boolean): void {
-    this.isAdvisorModalOpen.set(true);
-    // const body: FormData = {
-    //   name: user?.name ?? '',
-    //   lastName: user?.lastName ?? '',
-    //   email: user?.email ?? '',
-    //   phone: user?.phone ?? '',
-    //   country: user?.country ?? '',
-    //   dob: new Date(user?.dob ?? ''),
-    //   alias: user?.advisor?.alias ?? '',
-    //   dni: user?.advisor?.dni ?? '',
-    //   category: user?.advisor?.category ?? '',
-    //   description: user?.advisor?.description ?? '',
-    //   experience: user?.advisor?.experience ?? '',
-    //   dniImage: '',
-    //   videointro: '',
-    //   chatPrice: user?.advisor?.chatPrice || 0,
-    //   callPrice: user?.advisor?.callPrice || 0,
-    //   enabledCall: !!user?.advisor?.enabledCall,
-    // };
-    // if (isEdit) {
-    //   body._id = user!._id;
-    // }
-    // formModel.set(body);
-    // this.isAdvisorModalOpen.set(true);
+  openModal(isEdit: boolean, user: IAdvisor | null): void {
+    const body: FormData = {
+      name: user?.name ?? '',
+      lastName: user?.lastName ?? '',
+      email: user?.email ?? '',
+      phone: user?.phone ?? '',
+      country: user?.country ?? '',
+      dob: new Date(user?.dob ?? ''),
+      alias: user?.advisor?.alias ?? '',
+      dni: user?.advisor?.dni ?? '',
+      category: user?.advisor?.category ?? '',
+      description: user?.advisor?.description ?? '',
+      experience: user?.advisor?.experience ?? '',
+      dniImage: '',
+      videointro: '',
+      chatPrice: user?.advisor?.chatPrice || 0,
+      callPrice: user?.advisor?.callPrice || 0,
+      enabledCall: !!user?.advisor?.enabledCall,
+    };
+    if (isEdit) {
+      body._id = user!._id;
+    }
+    formModel.set(body);
 
   }
 
-  closeModal(res: boolean): void {
-    this.isAdvisorModalOpen.set(false);
+  closeModal(): void {
     this.form().reset(INITIAL_FORM_DATA);
   }
 
   openNotificationModal(user: IAdvisor): void {
     console.log(user);
-    this.isFcmModalOpen.set(true);
+    const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
+    modal.open();
   }
 
   closeNotificationModal(): void {
-    this.isFcmModalOpen.set(false);
+    const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
+    modal.close();
   }
 
   onChangeStatus(event: Event, id: string): void {
