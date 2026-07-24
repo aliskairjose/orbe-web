@@ -14,15 +14,9 @@ export class VerifyAccount {
   @Input() id!: string;
   isVerified = signal(false);
 
-  private readonly url = `${API_URL}/auth/verify-account`;
-
-  private readonly service = inject(Auth);
-  private readonly route = inject(ActivatedRoute);
+  private readonly url = `${API_URL}/v1/auth/verify-email`;
 
   protected resource = httpResource<boolean>(() => `${this.url}/${this.id}`);
 
-  ngOnInit() {
-    this.isVerified.set(this.resource.value()!);
-  }
 
 }

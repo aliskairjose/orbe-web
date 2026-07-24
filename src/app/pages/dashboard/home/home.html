@@ -4,52 +4,58 @@
       <div class="stat">
         <div class="stat-title">Total Usuarios</div>
         <div class="stat-value">{{ summary.value()?.totalRegisteredUsers! - 1 || 0 }}</div>
-        <div class="stat-desc">18% more than last month</div>
+        <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
     <div class="stats bg-linear-to-r from-green-100 to-green-200">
       <div class="stat">
         <div class="stat-title">Total Clientes</div>
         <div class="stat-value">{{ summary.value()?.roleSummary?.User || 0 }}</div>
-        <div class="stat-desc">18% more than last month</div>
+        <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
     <div class="stats bg-linear-to-r from-indigo-100 to-indigo-200">
       <div class="stat">
         <div class="stat-title">Total Asesores</div>
         <div class="stat-value">{{ summary.value()?.roleSummary?.Advisor || 0 }}</div>
-        <div class="stat-desc">18% more than last month</div>
+        <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
     <div class="stats bg-linear-to-r from-pink-100 to-pink-200">
       <div class="stat">
         <div class="stat-title">Total Emails Sent</div>
         <div class="stat-value">76,250</div>
-        <div class="stat-desc">18% more than last month</div>
+        <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
   </section>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-items-stretch ">
-    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-items-stretch">
+    <div
+      class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
+    >
       <h3 class="text-xl font-medium text-gray-800">Nuevos Registros</h3>
       <!-- Card Loop -->
       @for (user of newReg.value(); track $index) {
-      <app-user-card [user]="user" />
+        <app-user-card [user]="user" />
       }
     </div>
-    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm ">
+    <div
+      class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
+    >
       <h3 class="text-xl font-medium text-gray-800">Postulados</h3>
       <!-- Card Loop -->
       @for (user of postulate.value(); track $index) {
-      <app-top-advisor-card [user]="user" />
+        <app-top-advisor-card [user]="user" />
       }
     </div>
-    <div class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm">
+    <div
+      class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
+    >
       <h3 class="text-xl font-medium text-gray-800">Top 10</h3>
       <!-- Card Loop -->
       @for (user of top.value(); track $index) {
-      <app-top-advisor-card [user]="user" />
+        <app-top-advisor-card [user]="user" />
       }
     </div>
   </section>
@@ -61,13 +67,12 @@
   <section class="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-2 md:gap-6">
     <app-annual-request-service-chart />
     <app-request-month />
-
   </section>
 
   <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
     <app-user-status-pie-chart />
     @if (summary.hasValue()) {
-    <app-role-distribution [summary]="summary.value()" />
+      <app-role-distribution [summary]="summary.value()" />
     }
   </section>
 
@@ -79,5 +84,4 @@
   <section>
     <app-annual-time-chart />
   </section>
-
 </div>
