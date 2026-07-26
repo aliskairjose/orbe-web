@@ -217,6 +217,6 @@ export class AdvisorList {
     const { value } = event.target as HTMLSelectElement;
     const isActive = value === EStatus.APPROVED;
     const body = { status: value as EStatus, isActive };
-    this.service.update(id, body).subscribe((_) => window.location.reload());
+    this.service.updateStatus(id, body).subscribe((_) => window.location.reload());
   }
 }

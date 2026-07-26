@@ -13,4 +13,7 @@ export class User {
   update(id: string, payload: Partial<IUser | IAdvisor>): Observable<IUser | IAdvisor> {
     return this.http.patch<IUser | IAdvisor>(`${this.url}/${id}`, payload);
   }
+  updateStatus(id: string, payload: Partial<IUser | IAdvisor>): Observable<IUser | IAdvisor> {
+    return this.http.patch<IUser | IAdvisor>(`${this.url}/advisor/status/${id}`, payload);
+  }
 }
