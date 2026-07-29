@@ -9,6 +9,8 @@ import { disabled, form, FormField, FormRoot, required } from '@angular/forms/si
 import { ERole } from '@core/enums';
 import { Service } from './service';
 import { Paginator, TableFilter } from '@core/components';
+import { HSOverlay } from 'flyonui/dist';
+
 
 const INITIAL_FORM_VALUE: BankAccountData = {
   type: '',
@@ -62,6 +64,9 @@ export class BankAccounts {
   protected limit = signal(ITEM_PER_PAGE);
   protected selected = 20;
 
+  private readonly document = inject(DOCUMENT);
+
+
   protected resource = httpResource<IResponse<IBankAccount>>(() => ({
     url: `${this.url}/bank-account`,
     method: 'GET',
@@ -106,6 +111,7 @@ export class BankAccounts {
   }
 
   openModal(isEdit: boolean, bankAccount: IBankAccount | null): void {
+    console.log('open modal', bankAccount);
     this.hasBankAccount.set(isEdit);
     const body: BankAccountData = {
       type: bankAccount?.type ?? '',
@@ -117,10 +123,15 @@ export class BankAccounts {
       body._id = bankAccount!._id;
     }
     accountModel.set(body);
+
+    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
+    modal.open();
   }
 
   closeModal(): void {
     this.form().reset(INITIAL_FORM_VALUE);
+    const modal = new HSOverlay(this.document.querySelector('#form-modal')!);
+    modal.close();
   }
 
   // private async onSubmit(f: BankAccountData) {
