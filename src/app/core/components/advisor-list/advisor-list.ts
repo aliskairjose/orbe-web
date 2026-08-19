@@ -58,7 +58,7 @@ interface FormData {
 }
 
 const formModel = signal<FormData>(INITIAL_FORM_DATA);
-const aliasFormModel = signal<{ alias: string }>({ alias: '' });
+const aliasFormModel = signal<{ id: string; alias: string }>({ id: '', alias: '' });
 
 @Component({
   selector: 'app-advisor-list',
@@ -83,9 +83,7 @@ export class AdvisorList {
     },
     {
       submission: {
-        action: async (f) => console.log({
-          'Registro alias': f().value(),
-        }),
+        action: async (f) => await this.onUpdateAlias(f().value()),
       },
     },
   );
@@ -231,11 +229,18 @@ export class AdvisorList {
   }
 
   openAliasModal(user: IAdvisor): void {
-    aliasFormModel.set({ alias: user.advisor.alias });
+    console.log('Abriendo modal de alias para el usuario:', user);
+    aliasFormModel.set({ id: user.advisor.id, alias: user.advisor.alias });
   }
 
   closeAliasModal(): void {
-    aliasFormModel.set({ alias: '' });
+    aliasFormModel.set({ id: '', alias: '' });
+  }
+
+  async onUpdateAlias(data: { id: string; alias: string }): Promise<void> {
+    this.service.updateAdvisor(data.id, { alias: data.alias }).subscribe((_) => {
+      window.location.reload();
+    });
   }
 
 

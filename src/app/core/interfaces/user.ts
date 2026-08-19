@@ -48,7 +48,7 @@ export interface IUserBase {
   wallet: IWallet;
 }
 
-export interface IUser extends IUserBase {}
+export interface IUser extends IUserBase { }
 export interface IAdvisor extends IUserBase {
   advisor: IProfile;
   status: EStatus;
@@ -58,7 +58,8 @@ export interface IAdvisor extends IUserBase {
   bankAccount?: IBankAccount;
 }
 
-interface IProfile {
+export interface IProfile {
+  id: string;
   alias: string;
   chatPrice: number;
   callPrice: number;
