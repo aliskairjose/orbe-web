@@ -58,6 +58,7 @@ interface FormData {
 }
 
 const formModel = signal<FormData>(INITIAL_FORM_DATA);
+const aliasFormModel = signal<{ alias: string }>({ alias: '' });
 
 @Component({
   selector: 'app-advisor-list',
@@ -75,6 +76,20 @@ const formModel = signal<FormData>(INITIAL_FORM_DATA);
   styleUrl: './advisor-list.css',
 })
 export class AdvisorList {
+  aliasForm = form(
+    aliasFormModel,
+    (v) => {
+      required(v.alias, { message: 'Alias is required' });
+    },
+    {
+      submission: {
+        action: async (f) => console.log({
+          'Registro alias': f().value(),
+        }),
+      },
+    },
+  );
+
   form = form(
     formModel,
     (v) => {
@@ -98,7 +113,9 @@ export class AdvisorList {
     },
     {
       submission: {
-        action: async (f) => console.log(f().value()),
+        action: async (f) => console.log({
+          'Registro asesor': f().value(),
+        }),
       },
     },
   );
@@ -121,6 +138,7 @@ export class AdvisorList {
   protected headers: string[] = [
     '#',
     'Usuario',
+    'Alias',
     'Email',
     'Status',
     'Estado',
@@ -203,7 +221,6 @@ export class AdvisorList {
   }
 
   openNotificationModal(user: IAdvisor): void {
-    console.log(user);
     const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
     modal.open();
   }
