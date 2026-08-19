@@ -72,6 +72,7 @@
                         aria-label="Action button"
                         aria-controls="alias-modal"
                         data-overlay="#alias-modal"
+                        (click)="openAliasModal(item)"
                       >
                         <span class="icon-[tabler--edit] size-4"></span>
                       </button>
@@ -537,23 +538,45 @@
           class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
           aria-label="Close"
           data-overlay="#alias-modal"
+          (click)="closeAliasModal()"
         >
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
-      <div class="modal-body">
-        This is some placeholder content to show the scrolling behavior for modals. Instead of
-        repeating the text in the modal, we use an inline style to set a minimum height, thereby
-        extending the length of the overall modal and demonstrating the overflow scrolling. When
-        content becomes longer than the height of the viewport, scrolling will move the modal as
-        needed.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-soft btn-secondary" data-overlay="#alias-modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Actualizar</button>
-      </div>
+      <form [formRoot]="aliasForm" novalidate>
+        <div class="modal-body">
+          <div class="mb-0.5 flex gap-4 max-sm:flex-col">
+            <div class="w-full">
+              <label class="label-text" for="alias"> Alias </label>
+              <input
+                type="text"
+                class="input"
+                id="alias"
+                [formField]="aliasForm.alias"
+                formControlName="alias"
+              />
+              @if (aliasForm.alias().touched() && aliasForm.alias().invalid()) {
+                <ul class="text-xs text-error mt-1">
+                  @for (error of aliasForm.alias().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-soft btn-secondary"
+            data-overlay="#alias-modal"
+            (click)="closeAliasModal()"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

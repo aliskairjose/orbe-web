@@ -230,6 +230,15 @@ export class AdvisorList {
     modal.close();
   }
 
+  openAliasModal(user: IAdvisor): void {
+    aliasFormModel.set({ alias: user.advisor.alias });
+  }
+
+  closeAliasModal(): void {
+    aliasFormModel.set({ alias: '' });
+  }
+
+
   onChangeStatus(event: Event, id: string): void {
     const { value } = event.target as HTMLSelectElement;
     const isActive = value === EStatus.APPROVED;
