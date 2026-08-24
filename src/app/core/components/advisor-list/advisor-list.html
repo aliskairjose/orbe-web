@@ -1,13 +1,7 @@
 <div class="bg-base-100 flex flex-col rounded-md shadow-base-300/20 shadow-sm">
   <app-table-filter (onSearch)="onSearch($event)" (onPageChange)="pageChange($event)">
-    <button
-      type="button"
-      class="btn btn-soft btn-primary btn-sm"
-      aria-expanded="false"
-      aria-controls="form-modal"
-      data-overlay="#form-modal"
-      (click)="openModal(false, null)"
-    >
+    <button type="button" class="btn btn-soft btn-primary btn-sm" aria-expanded="false" aria-controls="form-modal"
+      data-overlay="#form-modal" (click)="openModal(false, null)">
       <span class="icon-[tabler--user-plus] size-4.5 rtl:rotate-180"></span>
       Agregar asesor
     </button>
@@ -16,199 +10,129 @@
     <div class="inline-block min-w-full align-middle">
       <div class="overflow-hidden">
         @if (resource.hasValue()) {
-          <table class="table min-w-full" id="myTable">
-            <thead>
-              <tr>
-                @for (h of headers; track $index) {
-                  <th scope="col" class="group">
-                    <div class="flex items-center justify-between">{{ h }}</div>
-                  </th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of resource.value()!.results; track $index) {
-                <tr class="hover:bg-gray-50">
-                  <td>
-                    <span class="font-medium">{{ $index + 1 }}</span>
-                  </td>
-                  <td>
-                    <div class="flex items-center gap-3 cursor-pointer" [routerLink]="item._id">
-                      <!-- Avatar con Indicador de Estado Online ficticio -->
-                      <div
-                        class="avatar"
-                        class="avatar"
-                        [class.avatar-online-top]="item.connectStatus === connectStatus.Online"
-                        [class.avatar-offline-top]="item.connectStatus === connectStatus.Offline"
-                        [class.avatar-bussy-top]="item.connectStatus === connectStatus.Busy"
-                        [class.avatar-away-top]="item.connectStatus === connectStatus.Away"
-                      >
-                        <div class="size-8 rounded-full">
-                          <img [src]="item.avatar" alt="{{ item._id }}" />
-                        </div>
-                      </div>
-
-                      <!-- Info del Usuario -->
-                      <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                          <h3 class="text-sm font-medium text-gray-800 truncate">
-                            {{ item.name }} {{ item.lastName }}
-                          </h3>
-                        </div>
-
-                        <!-- Metadata -->
-                        <div class="flex items-center text-[11px] text-gray-400 mt-0.5">
-                          {{ item.phone }}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="flex items-center gap-3">
-                      {{ item.advisor.alias }}
-                      <button
-                        type="button"
-                        class="btn btn-circle btn-text btn-sm"
-                        aria-label="Action button"
-                        aria-controls="alias-modal"
-                        data-overlay="#alias-modal"
-                        (click)="openAliasModal(item)"
-                      >
-                        <span class="icon-[tabler--edit] size-4"></span>
-                      </button>
-                    </div>
-                  </td>
-                  <td>{{ item.email }}</td>
-                  <td>
-                    <select
-                      class="select select-sm w-fit"
-                      aria-label="select"
-                      (change)="onChangeStatus($event, item._id)"
-                    >
-                      @for (s of status; track $index) {
-                        <option [selected]="s.val === item.status" [value]="s.val">
-                          {{ s.title }}
-                        </option>
-                      }
-                    </select>
-                  </td>
-                  <td>
-                    <span
-                      class="badge badge-soft badge-sm"
-                      [class.badge-success]="item.isActive"
-                      [class.badge-error]="!item.isActive"
-                    >
-                      {{ item.isActive ? 'Activo' : 'Inactivo' }}
-                    </span>
-                  </td>
-                  <td>
-                    <span class="flex items-center justify-end">
-                      {{ item.rateAvg }}
-                      <span
-                        class="icon-[tabler--star-filled] size-4 shrink-0 text-yellow-400 ms-0.5"
-                      ></span>
-                    </span>
-                  </td>
-                  <td>{{ item.createdAt | date }}</td>
-                  <td>{{ item.lastConnect | date }}</td>
-                  <td>
-                    <button
-                      type="button"
-                      class="btn btn-circle btn-text btn-sm"
-                      aria-label="Action button"
-                      [routerLink]="item._id"
-                    >
-                      <span class="icon-[tabler--eye] size-5"></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-circle btn-text btn-sm"
-                      aria-label="Action button"
-                    >
-                      <span class="icon-[tabler--send] size-5"></span>
-                    </button>
-                  </td>
-                </tr>
+        <table class="table min-w-full" id="myTable">
+          <thead>
+            <tr>
+              @for (h of headers; track $index) {
+              <th scope="col" class="group">
+                <div class="flex items-center justify-between">{{ h }}</div>
+              </th>
               }
-            </tbody>
-          </table>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of resource.value()!.results; track $index) {
+            <tr class="hover:bg-gray-50">
+              <td>
+                <span class="font-medium">{{ $index + 1 }}</span>
+              </td>
+              <td>
+                <div class="flex items-center gap-3 cursor-pointer" [routerLink]="item._id">
+                  <!-- Avatar con Indicador de Estado Online ficticio -->
+                  <div class="avatar" class="avatar"
+                    [class.avatar-online-top]="item.connectStatus === connectStatus.Online"
+                    [class.avatar-offline-top]="item.connectStatus === connectStatus.Offline"
+                    [class.avatar-bussy-top]="item.connectStatus === connectStatus.Busy"
+                    [class.avatar-away-top]="item.connectStatus === connectStatus.Away">
+                    <div class="size-8 rounded-full">
+                      <img [src]="item.avatar" alt="{{ item._id }}" />
+                    </div>
+                  </div>
+
+                  <!-- Info del Usuario -->
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <h3 class="text-sm font-medium text-gray-800 truncate">
+                        {{ item.name }} {{ item.lastName }}
+                      </h3>
+                    </div>
+
+                    <!-- Metadata -->
+                    <div class="flex items-center text-xs text-gray-400 mt-0.5">
+                      {{ item.advisor.alias }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="flex flex-col">
+                  <span>{{ item.email }}</span>
+                  <span class="text-xs text-gray-400">{{ item.phone }}</span>
+                </div>
+              </td>
+              <td>
+                <select class="select select-sm w-fit" aria-label="select" (change)="onChangeStatus($event, item._id)">
+                  @for (s of status; track $index) {
+                  <option [selected]="s.val === item.status" [value]="s.val">
+                    {{ s.title }}
+                  </option>
+                  }
+                </select>
+              </td>
+              <td>
+                <span class="badge badge-soft badge-sm" [class.badge-success]="item.isActive"
+                  [class.badge-error]="!item.isActive">
+                  {{ item.isActive ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td>
+                <span class="flex items-center justify-end">
+                  {{ item.rateAvg }}
+                  <span class="icon-[tabler--star-filled] size-4 shrink-0 text-yellow-400 ms-0.5"></span>
+                </span>
+              </td>
+              <td>{{ item.createdAt | date }}</td>
+              <td>{{ item.lastConnect | date }}</td>
+              <td>
+                <button type="button" class="btn btn-circle btn-text btn-sm" aria-label="Action button"
+                  [routerLink]="item._id">
+                  <span class="icon-[tabler--eye] size-5"></span>
+                </button>
+                <button type="button" class="btn btn-circle btn-text btn-sm" aria-label="Action button">
+                  <span class="icon-[tabler--send] size-5"></span>
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
         } @else if (resource.error()) {
-          <p>Ha ocurrido un error</p>
+        <p>Ha ocurrido un error</p>
         }
       </div>
     </div>
   </div>
 
   @if (resource.hasValue()) {
-    <app-paginator
-      [limit]="limit()"
-      [metadata]="resource.value().metadata"
-      (onPageChange)="goTopage($event)"
-    />
+  <app-paginator [limit]="limit()" [metadata]="resource.value().metadata" (onPageChange)="goTopage($event)" />
   }
 </div>
 
 <!-- New Advisor Modal -->
-<div
-  id="form-modal"
-  class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden"
-  role="dialog"
-  tabindex="-1"
->
+<div id="form-modal" class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 hidden" role="dialog"
+  tabindex="-1">
   <div class="modal-dialog modal-dialog-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">Datos del asesor</h3>
-        <button
-          aria-label="Close modal"
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          data-overlay="#form-modal"
-          (click)="closeModal()"
-        >
+        <button aria-label="Close modal" type="button" class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
+          aria-label="Close" data-overlay="#form-modal" (click)="closeModal()">
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
       <form [formRoot]="form" novalidate>
         <div class="modal-body pt-0">
-          <nav
-            class="tabs tabs-bordered"
-            aria-label="Tabs"
-            role="tablist"
-            aria-orientation="horizontal"
-          >
-            <button
-              type="button"
-              class="tab active-tab:tab-active active"
-              id="tabs-basic-item-1"
-              data-tab="#tabs-personal-data"
-              aria-controls="tabs-personal-data"
-              role="tab"
-              aria-selected="true"
-            >
+          <nav class="tabs tabs-bordered" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+            <button type="button" class="tab active-tab:tab-active active" id="tabs-basic-item-1"
+              data-tab="#tabs-personal-data" aria-controls="tabs-personal-data" role="tab" aria-selected="true">
               Datos Personales
             </button>
-            <button
-              type="button"
-              class="tab active-tab:tab-active"
-              id="tabs-basic-item-2"
-              data-tab="#tabs-profile"
-              aria-controls="tabs-profile"
-              role="tab"
-              aria-selected="false"
-            >
+            <button type="button" class="tab active-tab:tab-active" id="tabs-basic-item-2" data-tab="#tabs-profile"
+              aria-controls="tabs-profile" role="tab" aria-selected="false">
               Perfil
             </button>
-            <button
-              type="button"
-              class="tab active-tab:tab-active"
-              id="tabs-basic-item-3"
-              data-tab="#tabs-files"
-              aria-controls="tabs-files"
-              role="tab"
-              aria-selected="false"
-            >
+            <button type="button" class="tab active-tab:tab-active" id="tabs-basic-item-3" data-tab="#tabs-files"
+              aria-controls="tabs-files" role="tab" aria-selected="false">
               Archivos
             </button>
           </nav>
@@ -217,98 +141,69 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="name"> Nombre </label>
-                  <input
-                    type="text"
-                    class="input"
-                    id="name"
-                    [formField]="form.name"
-                    formControlName="name"
-                  />
+                  <input type="text" class="input" id="name" [formField]="form.name" formControlName="name" />
                   @if (form.name().touched() && form.name().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.name().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.name().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="lastName"> Apellido </label>
-                  <input
-                    type="text"
-                    class="input"
-                    id="lastName"
-                    [formField]="form.lastName"
-                    formControlName="lastName"
-                  />
+                  <input type="text" class="input" id="lastName" [formField]="form.lastName"
+                    formControlName="lastName" />
                   @if (form.lastName().touched() && form.lastName().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.lastName().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.lastName().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="dni"> DNI </label>
-                  <input
-                    type="number"
-                    class="input"
-                    id="dni"
-                    [formField]="form.dni"
-                    formControlName="dni"
-                  />
+                  <input type="number" class="input" id="dni" [formField]="form.dni" formControlName="dni" />
                   @if (form.dni().touched() && form.dni().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.dni().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.dni().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="email"> Email </label>
-                  <input
-                    type="email"
-                    class="input"
-                    id="email"
-                    [formField]="form.email"
-                    formControlName="email"
-                  />
+                  <input type="email" class="input" id="email" [formField]="form.email" formControlName="email" />
                   @if (form.email().touched() && form.email().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.email().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.email().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="phone"> Teléfono </label>
-                  <input
-                    type="phone"
-                    class="input"
-                    id="phone"
-                    [formField]="form.phone"
-                    formControlName="phone"
-                  />
+                  <input type="phone" class="input" id="phone" [formField]="form.phone" formControlName="phone" />
                   @if (form.phone().touched() && form.phone().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.phone().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.phone().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="country">País</label>
                   <select class="select" id="country" [formField]="form.country">
                     @for (country of countriesPhoneCodes; track $index) {
-                      <option [value]="country.name">{{ country.name }}</option>
+                    <option [value]="country.name">{{ country.name }}</option>
                     }
                   </select>
                 </div>
@@ -316,19 +211,13 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
-                  <input
-                    type="date"
-                    class="input"
-                    id="dateOfBirth"
-                    [formField]="form.dob"
-                    formControlName="dob"
-                  />
+                  <input type="date" class="input" id="dateOfBirth" [formField]="form.dob" formControlName="dob" />
                   @if (form.dob().touched() && form.dob().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.dob().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.dob().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
 
@@ -341,110 +230,76 @@
                 </div>
               </div>
             </div>
-            <div
-              id="tabs-profile"
-              class="hidden"
-              role="tabpanel"
-              aria-labelledby="tabs-basic-item-2"
-            >
+            <div id="tabs-profile" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-2">
               <div class="mb-0.5 flex justify-between gap-4 max-sm:flex-col items-center">
                 <div class="w-full">
                   <label class="label-text" for="alias"> Alias </label>
-                  <input
-                    type="text"
-                    class="input"
-                    id="alias"
-                    [formField]="form.alias"
-                    formControlName="alias"
-                  />
+                  <input type="text" class="input" id="alias" [formField]="form.alias" formControlName="alias" />
                   @if (form.alias().touched() && form.alias().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.alias().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.alias().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
               </div>
               <div class="mb-0.5 flex justify-between gap-4 max-sm:flex-col items-center">
                 <div class="w-full">
                   <label class="label-text" for="chatPrice"> Chat precio/min </label>
-                  <input
-                    type="number"
-                    class="input"
-                    id="chatPrice"
-                    [formField]="form.chatPrice"
-                    formControlName="chatPrice"
-                  />
+                  <input type="number" class="input" id="chatPrice" [formField]="form.chatPrice"
+                    formControlName="chatPrice" />
                   @if (form.chatPrice().touched() && form.chatPrice().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.chatPrice().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.chatPrice().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
                 <div class="w-full">
                   <label class="label-text" for="callPrice"> Call precio/min </label>
-                  <input
-                    type="number"
-                    class="input"
-                    id="callPrice"
-                    [formField]="form.callPrice"
-                    formControlName="callPrice"
-                  />
+                  <input type="number" class="input" id="callPrice" [formField]="form.callPrice"
+                    formControlName="callPrice" />
                   @if (form.callPrice().touched() && form.callPrice().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.callPrice().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.callPrice().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
                 <div class="flex items-center gap-1">
-                  <input
-                    type="checkbox"
-                    class="switch switch-outline switch-primary"
-                    id="isEnabled"
-                    [formField]="form.enabledCall"
-                    formControlName="enabledCall"
-                  />
+                  <input type="checkbox" class="switch switch-outline switch-primary" id="isEnabled"
+                    [formField]="form.enabledCall" formControlName="enabledCall" />
                   <label class="label-text text-base" for="isEnabled"> Activar </label>
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="description"> Descripción </label>
-                  <textarea
-                    class="textarea"
-                    id="description"
-                    [formField]="form.description"
-                    formControlName="description"
-                  ></textarea>
+                  <textarea class="textarea" id="description" [formField]="form.description"
+                    formControlName="description"></textarea>
                   @if (form.description().touched() && form.description().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.description().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.description().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="experience"> Experiencia </label>
-                  <textarea
-                    class="textarea"
-                    id="experience"
-                    [formField]="form.experience"
-                    formControlName="experience"
-                  ></textarea>
+                  <textarea class="textarea" id="experience" [formField]="form.experience"
+                    formControlName="experience"></textarea>
                   @if (form.experience().touched() && form.experience().invalid()) {
-                    <ul class="text-xs text-error mt-1">
-                      @for (error of form.experience().errors(); track error) {
-                        <li>{{ error.message }}</li>
-                      }
-                    </ul>
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.experience().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
                   }
                 </div>
               </div>
@@ -453,7 +308,7 @@
                   <label class="label-text" for="categories">Categorías</label>
                   <select class="select" id="categories">
                     @for (cat of catResource.value()?.results; track $index) {
-                      <option [value]="cat._id">{{ cat.name }}</option>
+                    <option [value]="cat._id">{{ cat.name }}</option>
                     }
                   </select>
                 </div>
@@ -469,12 +324,7 @@
           </div>
         </div>
         <div class="modal-footer border-t border-gray-200 pt-3">
-          <button
-            type="button"
-            class="btn btn-soft btn-secondary"
-            data-overlay="#form-modal"
-            (click)="closeModal()"
-          >
+          <button type="button" class="btn btn-soft btn-secondary" data-overlay="#form-modal" (click)="closeModal()">
             Cerrar
           </button>
           <button type="submit" class="btn btn-primary">Registrar asesor</button>
@@ -485,23 +335,14 @@
 </div>
 
 <!-- Notification Modal -->
-<div
-  id="notification-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog"
-  tabindex="-1"
->
+<div id="notification-modal" class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
+  role="dialog" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">Dialog Title</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          data-overlay="#form-modal"
-          (click)="closeNotificationModal()"
-        >
+        <button type="button" class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3" aria-label="Close"
+          data-overlay="#form-modal" (click)="closeNotificationModal()">
           <span class="icon-[tabler--x] size-4"></span>
         </button>
       </div>
@@ -518,65 +359,6 @@
         </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- Alias Modal -->
-<div
-  id="alias-modal"
-  class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
-  role="dialog"
-  tabindex="-1"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Alias del asesor</h3>
-        <button
-          type="button"
-          class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3"
-          aria-label="Close"
-          data-overlay="#alias-modal"
-          (click)="closeAliasModal()"
-        >
-          <span class="icon-[tabler--x] size-4"></span>
-        </button>
-      </div>
-      <form [formRoot]="aliasForm" novalidate>
-        <div class="modal-body">
-          <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-            <div class="w-full">
-              <label class="label-text" for="alias"> Alias </label>
-              <input
-                type="text"
-                class="input"
-                id="alias"
-                [formField]="aliasForm.alias"
-                formControlName="alias"
-              />
-              @if (aliasForm.alias().touched() && aliasForm.alias().invalid()) {
-                <ul class="text-xs text-error mt-1">
-                  @for (error of aliasForm.alias().errors(); track error) {
-                    <li>{{ error.message }}</li>
-                  }
-                </ul>
-              }
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-soft btn-secondary"
-            data-overlay="#alias-modal"
-            (click)="closeAliasModal()"
-          >
-            Close
-          </button>
-          <button type="submit" class="btn btn-primary">Actualizar</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>

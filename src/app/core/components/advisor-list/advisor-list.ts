@@ -136,8 +136,7 @@ export class AdvisorList {
   protected headers: string[] = [
     '#',
     'Usuario',
-    'Alias',
-    'Email',
+    'Email / Phone',
     'Status',
     'Estado',
     'Rate',
@@ -226,15 +225,6 @@ export class AdvisorList {
   closeNotificationModal(): void {
     const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
     modal.close();
-  }
-
-  openAliasModal(user: IAdvisor): void {
-    console.log('Abriendo modal de alias para el usuario:', user);
-    aliasFormModel.set({ id: user.advisor.id, alias: user.advisor.alias });
-  }
-
-  closeAliasModal(): void {
-    aliasFormModel.set({ id: '', alias: '' });
   }
 
   async onUpdateAlias(data: { id: string; alias: string }): Promise<void> {
