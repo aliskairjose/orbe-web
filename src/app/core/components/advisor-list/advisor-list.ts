@@ -23,7 +23,7 @@ interface ICountry {
   styleUrl: './advisor-list.css',
 })
 export class AdvisorList {
-   protected readonly connectStatus = EConnectStatus;
+  protected readonly connectStatus = EConnectStatus;
   protected countriesPhoneCodes: ICountry[] = COUNTRIES;
   protected statusEnum = EStatus;
   protected roleEnum = ERole;
@@ -41,7 +41,7 @@ export class AdvisorList {
   protected headers: string[] = [
     '#',
     'Usuario',
-    'Email',
+    'Email/Phone',
     'Status',
     'Estado',
     'Rate',
