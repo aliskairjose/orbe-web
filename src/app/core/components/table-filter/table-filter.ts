@@ -1,5 +1,6 @@
 import { Component, effect, output, signal } from '@angular/core';
 import { form, debounce, Field, FormRoot, FormField } from '@angular/forms/signals';
+import { ITEM_PER_PAGE } from '@core/constants';
 
 interface SearchData {
   query: string;
@@ -18,6 +19,7 @@ export class TableFilter {
   onPageChange = output<number>();
   onModalOpen = output<any>();
   onSearch = output<string>();
+  protected limit = signal(ITEM_PER_PAGE);
   
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected readonly searchForm = form(searchModel, (schemaPath) => {

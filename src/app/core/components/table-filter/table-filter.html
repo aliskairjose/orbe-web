@@ -25,7 +25,7 @@
       (change)="pageChange($event.target)"
     >
       @for (p of itemsPerPage; track $index) {
-        <option [value]="p">{{ p }}</option>
+        <option [value]="p" [selected]="p === limit()">{{ p }}</option>
       }
     </select>
     <!-- End Select -->
