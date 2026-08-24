@@ -49,6 +49,11 @@ export const dashboarRoutes: Routes = [
     loadComponent: () => import('./transactions/transactions').then((m) => m.Transactions),
   },
   {
+    path: 'advisor-payments',
+    title: 'Pago a asesores',
+    loadComponent: () => import('./advisor-payments/advisor-payments').then((m) => m.AdvisorPayments),
+  },
+  {
     path: 'chats',
     title: 'Chats',
     loadComponent: () => import('./chats/chats').then((m) => m.Chats),

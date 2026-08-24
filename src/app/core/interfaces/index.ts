@@ -12,3 +12,4 @@ export type { IUserSummary, IRoleSummary } from './summary';
 export type { IWallet } from './wallet';
 export type { ITransaction } from './transaction';
 export type { IRequestByAsesor } from './request';
+export type { IAdvisorPayment } from './advisor-payment.interface';
