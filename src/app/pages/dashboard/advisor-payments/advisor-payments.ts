@@ -16,9 +16,9 @@ import { IAdvisorPayment, IResponse } from '@core/interfaces';
 export class AdvisorPayments {
 
   protected headers = [
-    '', 'Balance (40%)', 'Banco', 'País', 'Fecha'
+    '', 'Acum / Pago(40%)', 'Banco', 'País', 'Fecha'
   ];
-  protected search = model<string>('');
+  protected search = signal<string>('');
   protected readonly itemsPerPage = [5, 10, 15, 20];
   private readonly url = `${API_URL}/v1`;
   protected page = signal(1);
