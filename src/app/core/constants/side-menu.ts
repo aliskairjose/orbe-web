@@ -31,6 +31,11 @@ export const SIDE_MENU: ISideMenu[] = [
         path: 'transactions'
     },
     {
+        label: 'Pago a asesores',
+        icon: 'finance_mode',
+        path: 'advisor-payments'
+    },
+    {
         label: 'Bancos',
         icon: 'account_balance',
         path: 'banks'

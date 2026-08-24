@@ -56,7 +56,7 @@ export class BankAccounts {
   );
 
   protected headers = ['#', 'País', 'Banco', 'Tipo de Cuenta', 'Cuenta', 'Asesor', ''];
-  protected search = model<string>('');
+  protected search = signal<string>('');
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   private readonly url = `${API_URL}/v1`;
