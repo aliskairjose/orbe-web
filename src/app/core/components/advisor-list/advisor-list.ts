@@ -7,7 +7,7 @@ import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
 import { EConnectStatus, ERole, EStatus } from '@core/enums';
-import { HSOverlay } from 'flyonui/flyonui';
+import 'flyonui/flyonui';
 import { User } from '@core/services';
 import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
 import { Paginator } from '../paginator/paginator';
@@ -218,12 +218,12 @@ export class AdvisorList {
   }
 
   openNotificationModal(user: IAdvisor): void {
-    const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
+    const modal = new window.HSOverlay(this.document.querySelector('#notification-modal')!);
     modal.open();
   }
 
   closeNotificationModal(): void {
-    const modal = new HSOverlay(this.document.querySelector('#notification-modal')!);
+    const modal = new window.HSOverlay(this.document.querySelector('#notification-modal')!);
     modal.close();
   }
 
@@ -247,12 +247,12 @@ export class AdvisorList {
 
     aliasFormModel.set({ alias, id });
 
-    const modal = new HSOverlay(this.document.querySelector('#alias-modal')!);
+    const modal = new window.HSOverlay(this.document.querySelector('#alias-modal')!);
     modal.open();
   }
 
   closeAliasModal() {
-    const modal = new HSOverlay(this.document.querySelector('#alias-modal')!);
+    const modal = new window.HSOverlay(this.document.querySelector('#alias-modal')!);
     modal.close();
   }
 }
