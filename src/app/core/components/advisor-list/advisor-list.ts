@@ -228,10 +228,10 @@ export class AdvisorList {
   }
 
   async onUpdateAlias(data: { id: string; alias: string }): Promise<void> {
-    console.log('AliasForm: ', data);
-    /* this.service.updateAdvisor(data.id, { alias: data.alias }).subscribe((_) => {
+    const { id, alias } = data;
+    this.service.updateAdvisor(id, { alias }).subscribe((_) => {
       window.location.reload();
-    }); */
+    });
   }
 
 
@@ -243,7 +243,6 @@ export class AdvisorList {
   }
 
   openAliasModal(item: IAdvisor) {
-    console.log(item)
     const { advisor: { _id: id, alias } } = item;
 
     aliasFormModel.set({ alias, id });

@@ -20,6 +20,6 @@ export class User {
   }
 
   updateAdvisor(id: string, payload: Partial<IProfile>): Observable<IProfile> {
-    return this.http.patch<IProfile>(`${this.url}/advisor/${id}`, payload);
+    return this.http.put<IProfile>(`${`${API_URL}`}/v1/advisor/${id}`, payload);
   }
 }
