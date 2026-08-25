@@ -59,7 +59,7 @@ export interface IAdvisor extends IUserBase {
 }
 
 export interface IProfile {
-  id: string;
+  _id: string;
   alias: string;
   chatPrice: number;
   callPrice: number;

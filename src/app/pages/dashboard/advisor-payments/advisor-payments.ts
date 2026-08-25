@@ -1,15 +1,14 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { Component, model, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { Paginator, TableFilter } from '@core/components';
 import { ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisorPayment, IResponse } from '@core/interfaces';
 
 @Component({
   selector: 'app-advisor-payments',
-  imports: [DatePipe, FormsModule, RouterLink, Paginator, TableFilter, CurrencyPipe],
+  imports: [DatePipe, FormsModule, Paginator, TableFilter, CurrencyPipe],
   templateUrl: './advisor-payments.html',
   styleUrl: './advisor-payments.css',
 })

@@ -27,7 +27,7 @@
                 <span class="font-medium">{{ $index + 1 }}</span>
               </td>
               <td>
-                <div class="flex items-center gap-3 cursor-pointer" [routerLink]="item._id">
+                <div class="flex items-center gap-3 cursor-pointer">
                   <!-- Avatar con Indicador de Estado Online ficticio -->
                   <div class="avatar" class="avatar"
                     [class.avatar-online-top]="item.connectStatus === connectStatus.Online"
@@ -48,7 +48,7 @@
                     </div>
 
                     <!-- Metadata -->
-                    <div class="flex items-center text-xs text-gray-400 mt-0.5 truncate">
+                    <div class="flex items-center text-xs text-gray-400 mt-0.5 truncate" (click)="openAliasModal(item)">
                       {{ item.advisor.alias }}
                     </div>
                   </div>
@@ -359,6 +359,44 @@
         </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- AliasModal-->
+<div id="alias-modal" class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300" role="dialog"
+  tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formRoot]="aliasForm" novalidate class="login-form space-y-1">
+        <div class="modal-header">
+          <h3 class="modal-title">Alias</h3>
+          <button type="button" class="btn btn-text btn-circle btn-sm absolute inset-e-3 top-3" aria-label="Close"
+            (click)="closeAliasModal()">
+            <span class="icon-[tabler--x] size-4"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input id="id" formControlName="id" type="hidden" [formField]="aliasForm.id" />
+          <div class="field">
+            <label for="alias" class="label-text">Alias</label>
+            <input id="alias" type="text" formControlName="alias" class="input max-w-sm" autocomplete="alias"
+              aria-describedby="alias-error" [formField]="aliasForm.alias"
+              [class.invalid]="aliasForm.alias().invalid() && aliasForm.alias().touched()" />
+            @if (aliasForm.alias().touched() && aliasForm.alias().invalid()) {
+            <ul class="field-error">
+              @for (error of aliasForm.alias().errors(); track error) {
+              <li>{{ error.message }}</li>
+              }
+            </ul>
+            }
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" (click)="closeAliasModal()">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

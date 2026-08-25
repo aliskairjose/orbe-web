@@ -228,9 +228,10 @@ export class AdvisorList {
   }
 
   async onUpdateAlias(data: { id: string; alias: string }): Promise<void> {
-    this.service.updateAdvisor(data.id, { alias: data.alias }).subscribe((_) => {
+    console.log('AliasForm: ', data);
+    /* this.service.updateAdvisor(data.id, { alias: data.alias }).subscribe((_) => {
       window.location.reload();
-    });
+    }); */
   }
 
 
@@ -239,5 +240,20 @@ export class AdvisorList {
     const isActive = value === EStatus.APPROVED;
     const body = { status: value as EStatus, isActive };
     this.service.updateStatus(id, body).subscribe((_) => window.location.reload());
+  }
+
+  openAliasModal(item: IAdvisor) {
+    console.log(item)
+    const { advisor: { _id: id, alias } } = item;
+
+    aliasFormModel.set({ alias, id });
+
+    const modal = new HSOverlay(this.document.querySelector('#alias-modal')!);
+    modal.open();
+  }
+
+  closeAliasModal() {
+    const modal = new HSOverlay(this.document.querySelector('#alias-modal')!);
+    modal.close();
   }
 }
