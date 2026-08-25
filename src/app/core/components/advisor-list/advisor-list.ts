@@ -6,9 +6,9 @@ import { RouterLink } from '@angular/router';
 import { COUNTRIES, ITEM_PER_PAGE } from '@core/constants';
 import { IAdvisor, IResponse } from '@core/interfaces';
 import { FileUpload } from '../file-upload/file-upload';
-import { EConnectStatus, ERole, EStatus } from '@core/enums';
+import { EConnectStatus, EMessage, ERole, EStatus } from '@core/enums';
 import 'flyonui/flyonui';
-import { User } from '@core/services';
+import { ToastService, User } from '@core/services';
 import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
 import { Paginator } from '../paginator/paginator';
 import { TableFilter } from '../table-filter/table-filter';
@@ -111,9 +111,7 @@ export class AdvisorList {
     },
     {
       submission: {
-        action: async (f) => console.log({
-          'Registro asesor': f().value(),
-        }),
+        action: async (f) => await this.createAdvisor(f().value()),
       },
     },
   );
@@ -148,6 +146,7 @@ export class AdvisorList {
   private readonly url = `${API_URL}/v1`;
   private readonly document = inject(DOCUMENT);
   private readonly service = inject(User);
+  private readonly toast = inject(ToastService);
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
@@ -215,6 +214,21 @@ export class AdvisorList {
 
   closeModal(): void {
     this.form().reset(INITIAL_FORM_DATA);
+  }
+
+  private async createAdvisor(data: FormData): Promise<void> {
+    const { _id, videointro, ...advisorData } = data;
+    const payload = {
+      ...advisorData,
+      role: ERole.Advisor,
+      videoIntro: videointro,
+    };
+
+    this.service.create(payload).subscribe(() => {
+      this.toast.show(EMessage.Successful);
+      this.closeModal();
+      this.resource.reload();
+    });
   }
 
   openNotificationModal(user: IAdvisor): void {

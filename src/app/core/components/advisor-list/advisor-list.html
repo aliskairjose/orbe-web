@@ -306,7 +306,7 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="categories">Categorías</label>
-                  <select class="select" id="categories">
+                  <select class="select" id="categories" [formField]="form.category">
                     @for (cat of catResource.value()?.results; track $index) {
                     <option [value]="cat._id">{{ cat.name }}</option>
                     }
@@ -366,7 +366,7 @@
 <!-- AliasModal-->
 <div id="alias-modal" class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300" role="dialog"
   tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-sm">
     <div class="modal-content">
       <form [formRoot]="aliasForm" novalidate class="login-form space-y-1">
         <div class="modal-header">
