@@ -19,7 +19,7 @@ interface ICountry {
   iso: string;
 }
 
-const INITIAL_FORM_DATA: FormData = {
+const INITIAL_FORM_DATA: FormAdvisor = {
   name: '',
   lastName: '',
   email: '',
@@ -28,16 +28,18 @@ const INITIAL_FORM_DATA: FormData = {
   dob: new Date(),
   alias: '',
   dni: '',
+  languages:'',
   category: '',
   description: '',
   experience: '',
-  dniImage: '',
-  videointro: '',
+  avatar: null,
+  dniImage: null,
+  videoIntro: null,
   chatPrice: 0,
   callPrice: 0,
   enabledCall: false,
 };
-interface FormData {
+interface FormAdvisor {
   _id?: string;
   name: string;
   lastName: string;
@@ -46,18 +48,20 @@ interface FormData {
   country: string;
   dni: string;
   dob: Date;
+  languages: string;
   alias: string;
   category: string;
   description: string;
   experience: string;
-  dniImage: string;
-  videointro: string;
+  avatar: File | null;
+  dniImage: File | null;
+  videoIntro: File | null;
   chatPrice: number;
   callPrice: number;
   enabledCall: boolean;
 }
 
-const formModel = signal<FormData>(INITIAL_FORM_DATA);
+const formModel = signal<FormAdvisor>(INITIAL_FORM_DATA);
 const aliasFormModel = signal<{ id: string; alias: string }>({ id: '', alias: '' });
 
 @Component({
@@ -75,6 +79,7 @@ const aliasFormModel = signal<{ id: string; alias: string }>({ id: '', alias: ''
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
 })
+
 export class AdvisorList {
   aliasForm = form(
     aliasFormModel,
@@ -100,18 +105,24 @@ export class AdvisorList {
       required(v.alias, { message: 'Alias is required' });
       required(v.dni, { message: 'DNI is required' });
       required(v.chatPrice, { message: 'Chat price is required' });
+      required(v.languages, { message: 'Chat price is required' });
       min(v.chatPrice, 0.25, { message: 'Chat price must be at least 0.25' });
-      required(v.callPrice, { message: 'Call price is required' });
+      v.callPrice,
+     /*  required(v.callPrice, { message: 'Call price is required' }); */
       disabled(v.callPrice, ({ valueOf }) => !valueOf(v.enabledCall));
       required(v.category, { message: 'Category is required' });
       required(v.description, { message: 'Description is required' });
       required(v.experience, { message: 'Experience is required' });
+      required(v.avatar, { message: 'DNI image is required' });
       required(v.dniImage, { message: 'DNI image is required' });
-      required(v.videointro, { message: 'Video intro is required' });
+      required(v.videoIntro, { message: 'Video intro is required' });
     },
     {
       submission: {
-        action: async (f) => await this.createAdvisor(f().value()),
+        action: async (f) => {
+          console.log(f().value());
+          await this.createAdvisor(f().value());
+        },
       },
     },
   );
@@ -147,6 +158,8 @@ export class AdvisorList {
   private readonly document = inject(DOCUMENT);
   private readonly service = inject(User);
   private readonly toast = inject(ToastService);
+
+  private formData = new FormData();
 
   protected readonly itemsPerPage = [5, 10, 15, 20];
   protected selected = 20;
@@ -187,7 +200,7 @@ export class AdvisorList {
   }
 
   openModal(isEdit: boolean, user: IAdvisor | null): void {
-    const body: FormData = {
+    const body: FormAdvisor = {
       name: user?.name ?? '',
       lastName: user?.lastName ?? '',
       email: user?.email ?? '',
@@ -196,18 +209,22 @@ export class AdvisorList {
       dob: new Date(user?.dob ?? ''),
       alias: user?.advisor?.alias ?? '',
       dni: user?.advisor?.dni ?? '',
+      languages: '',
       category: user?.advisor?.category ?? '',
       description: user?.advisor?.description ?? '',
       experience: user?.advisor?.experience ?? '',
-      dniImage: '',
-      videointro: '',
+      dniImage: null,
+      videoIntro: null,
+      avatar: null,
       chatPrice: user?.advisor?.chatPrice || 0,
       callPrice: user?.advisor?.callPrice || 0,
       enabledCall: !!user?.advisor?.enabledCall,
     };
+
     if (isEdit) {
       body._id = user!._id;
     }
+    
     formModel.set(body);
 
   }
@@ -216,19 +233,25 @@ export class AdvisorList {
     this.form().reset(INITIAL_FORM_DATA);
   }
 
-  private async createAdvisor(data: FormData): Promise<void> {
-    const { _id, videointro, ...advisorData } = data;
+  uploadFile(file: File | null, type: string) {
+    if (!file) return;
+    this.formData.set(type, file);
+  }
+
+  private async createAdvisor(data: FormAdvisor): Promise<void> {
+    
+
+   /*  const { _id, ...advisorData } = data;
     const payload = {
       ...advisorData,
       role: ERole.Advisor,
-      videoIntro: videointro,
-    };
+    }; */
 
-    this.service.create(payload).subscribe(() => {
+    /* this.service.create(payload).subscribe(() => {
       this.toast.show(EMessage.Successful);
       this.closeModal();
       this.resource.reload();
-    });
+    }); */
   }
 
   openNotificationModal(user: IAdvisor): void {
