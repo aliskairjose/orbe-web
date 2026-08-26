@@ -82,8 +82,16 @@ export class FileUpload {
   private async handleFiles(files: FileList | null): Promise<void> {
     const file = files?.item(0);
     if (!file) return;
-
+    
     const fileType: FileType = this.getFileType(file);
+    
+    if (!this.isAccepted(file)) {
+      this.errorMessage.set('El tipo de archivo no está permitido.');
+      this.selectedFile.set(null);
+      this.fileSelected.emit(null);
+      return;
+    }
+
 
     if (fileType === 'video') {
       const duration = await this.getVideoDuration(file);
@@ -102,13 +110,6 @@ export class FileUpload {
         this.fileSelected.emit(null);
         return;
       }
-    }
-
-    if (!this.isAccepted(file)) {
-      this.errorMessage.set('El tipo de archivo no está permitido.');
-      this.selectedFile.set(null);
-      this.fileSelected.emit(null);
-      return;
     }
 
     this.errorMessage.set('');
