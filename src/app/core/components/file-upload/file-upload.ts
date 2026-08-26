@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, DOCUMENT, inject, input, output, signal } from '@angular/core';
 
 let nextFileUploadId = 0;
+const MAX_VIDEO_DURATION_SECONDS = 30;
+
+export type FileType = 'image' | 'video' | 'invalid';
 
 @Component({
   selector: 'app-file-upload',
@@ -27,6 +30,9 @@ export class FileUpload {
 
   upload(event: Event): void {
     const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length === 0) return;
+
     this.handleFiles(input.files);
     input.value = '';
   }
@@ -48,15 +54,54 @@ export class FileUpload {
     this.document.getElementById(this.fileInputId)?.click();
   }
 
-  private handleFiles(files: FileList | null): void {
+  private getFileType(file: File): FileType {
+    if (file.type.startsWith('image/')) return 'image';
+    if (file.type.startsWith('video/')) return 'video';
+    return 'invalid';
+  }
+
+  getVideoDuration(file: File): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+      const fileURL = URL.createObjectURL(file);
+      video.src = fileURL;
+
+      video.onloadedmetadata = () => {
+        URL.revokeObjectURL(fileURL);
+        resolve(video.duration);
+      };
+
+      video.onerror = () => {
+        URL.revokeObjectURL(fileURL);
+        reject('Error al cargar el archivo de video.');
+      };
+    });
+  }
+
+  private async handleFiles(files: FileList | null): Promise<void> {
     const file = files?.item(0);
     if (!file) return;
 
-    if (file.size > 1024 * 1024) {
-      this.errorMessage.set('El archivo no puede superar 1 MB.');
-      this.selectedFile.set(null);
-      this.fileSelected.emit(null);
-      return;
+    const fileType: FileType = this.getFileType(file);
+
+    if (fileType === 'video') {
+      const duration = await this.getVideoDuration(file);
+      if (duration > MAX_VIDEO_DURATION_SECONDS) {
+        this.errorMessage.set(`El video no puede exceder de los ${MAX_VIDEO_DURATION_SECONDS} segundos`);
+        this.selectedFile.set(null);
+        this.fileSelected.emit(null);
+        return;
+      }
+    }
+
+    if (fileType === 'image') {
+      if (file.size > 1024 * 1024) {
+        this.errorMessage.set('El archivo no puede superar 1 MB.');
+        this.selectedFile.set(null);
+        this.fileSelected.emit(null);
+        return;
+      }
     }
 
     if (!this.isAccepted(file)) {
