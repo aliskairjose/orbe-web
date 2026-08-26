@@ -28,7 +28,7 @@ const INITIAL_FORM_DATA: FormAdvisor = {
   dob: new Date(),
   alias: '',
   dni: '',
-  languages:'',
+  languages: '',
   category: '',
   description: '',
   experience: '',
@@ -108,8 +108,8 @@ export class AdvisorList {
       required(v.languages, { message: 'Chat price is required' });
       min(v.chatPrice, 0.25, { message: 'Chat price must be at least 0.25' });
       v.callPrice,
-     /*  required(v.callPrice, { message: 'Call price is required' }); */
-      disabled(v.callPrice, ({ valueOf }) => !valueOf(v.enabledCall));
+        /*  required(v.callPrice, { message: 'Call price is required' }); */
+        disabled(v.callPrice, ({ valueOf }) => !valueOf(v.enabledCall));
       required(v.category, { message: 'Category is required' });
       required(v.description, { message: 'Description is required' });
       required(v.experience, { message: 'Experience is required' });
@@ -224,7 +224,7 @@ export class AdvisorList {
     if (isEdit) {
       body._id = user!._id;
     }
-    
+
     formModel.set(body);
 
   }
@@ -236,16 +236,17 @@ export class AdvisorList {
   uploadFile(file: File | null, type: string) {
     if (!file) return;
     this.formData.set(type, file);
+
   }
 
   private async createAdvisor(data: FormAdvisor): Promise<void> {
-    
 
-   /*  const { _id, ...advisorData } = data;
-    const payload = {
-      ...advisorData,
-      role: ERole.Advisor,
-    }; */
+
+    /*  const { _id, ...advisorData } = data;
+     const payload = {
+       ...advisorData,
+       role: ERole.Advisor,
+     }; */
 
     /* this.service.create(payload).subscribe(() => {
       this.toast.show(EMessage.Successful);

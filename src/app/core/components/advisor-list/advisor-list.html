@@ -332,7 +332,7 @@
               <div class="modal-body pt-0 grid grid-cols-2 gap-2">
                 <app-file-upload label="Foto perfil"  (fileSelected)="uploadFile($event, 'avatar')" acceptedFiles="image/*" />
                 <app-file-upload label="DNI"  (fileSelected)="uploadFile($event, 'dniImage')" acceptedFiles="image/*"/>
-                <app-file-upload label="Video"  (fileSelected)="uploadFile($event, 'videoIntro')" acceptedFiles="video/*" />
+                <app-file-upload label="Video"  (fileSelected)="uploadFile($event, 'videoIntro')" acceptedFiles="video/*" helpText="Elige un video de hasta 30 segundos"/>
               </div>
             </div>
           </div>

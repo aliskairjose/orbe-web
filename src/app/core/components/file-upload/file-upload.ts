@@ -15,6 +15,7 @@ export class FileUpload {
   private readonly document = inject(DOCUMENT);
 
   label = input<string>('');
+  helpText = input<string>('Elige un archivo de hasta 1 MB.');
   acceptedFiles = input<string>('');
   singleton = input<boolean>(true);
   fileSelected = output<File | null>();
@@ -28,6 +29,8 @@ export class FileUpload {
     return file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : '';
   });
 
+  imagePreview = signal<string | null>(null);
+
   upload(event: Event): void {
     const input = event.target as HTMLInputElement;
 
@@ -35,6 +38,12 @@ export class FileUpload {
 
     this.handleFiles(input.files);
     input.value = '';
+    const reader = new FileReader();
+
+    reader.onload = () => { 
+     this.imagePreview.set(reader.result as string);
+    }
+    reader.readAsDataURL(input.files[0]);
   }
 
   protected handleDrop(event: DragEvent): void {
@@ -60,7 +69,7 @@ export class FileUpload {
     return 'invalid';
   }
 
-  getVideoDuration(file: File): Promise<number> {
+  private getVideoDuration(file: File): Promise<number> {
     return new Promise((resolve, reject) => {
       const video = document.createElement('video');
       video.preload = 'metadata';
@@ -82,9 +91,9 @@ export class FileUpload {
   private async handleFiles(files: FileList | null): Promise<void> {
     const file = files?.item(0);
     if (!file) return;
-    
+
     const fileType: FileType = this.getFileType(file);
-    
+
     if (!this.isAccepted(file)) {
       this.errorMessage.set('El tipo de archivo no está permitido.');
       this.selectedFile.set(null);
