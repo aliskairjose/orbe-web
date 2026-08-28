@@ -206,7 +206,7 @@
                     <option [value]="country.name">{{ country.name }}</option>
                     }
                   </select>
-                   @if (form.country().touched() && form.country().invalid()) {
+                  @if (form.country().touched() && form.country().invalid()) {
                   <ul class="text-xs text-error mt-1">
                     @for (error of form.country().errors(); track error) {
                     <li>{{ error.message }}</li>
@@ -234,7 +234,7 @@
                     <option>Español</option>
                     <option>Ingles</option>
                   </select>
-                   @if (form.phone().touched() && form.phone().invalid()) {
+                  @if (form.phone().touched() && form.phone().invalid()) {
                   <ul class="text-xs text-error mt-1">
                     @for (error of form.phone().errors(); track error) {
                     <li>{{ error.message }}</li>
@@ -252,6 +252,21 @@
                   @if (form.alias().touched() && form.alias().invalid()) {
                   <ul class="text-xs text-error mt-1">
                     @for (error of form.alias().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
+                  }
+                </div>
+                <div class="w-full">
+                  <label class="label-text" for="categories">Categorías</label>
+                  <select class="select" id="categories" [formField]="form.category">
+                    @for (cat of catResource.value()?.results; track $index) {
+                    <option [value]="cat._id">{{ cat.name }}</option>
+                    }
+                  </select>
+                  @if (form.category().touched() && form.category().invalid()) {
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.category().errors(); track error) {
                     <li>{{ error.message }}</li>
                     }
                   </ul>
@@ -317,22 +332,14 @@
                   }
                 </div>
               </div>
-              <div class="mb-0.5 flex gap-4 max-sm:flex-col">
-                <div class="w-full">
-                  <label class="label-text" for="categories">Categorías</label>
-                  <select class="select" id="categories" [formField]="form.category">
-                    @for (cat of catResource.value()?.results; track $index) {
-                    <option [value]="cat._id">{{ cat.name }}</option>
-                    }
-                  </select>
-                </div>
-              </div>
             </div>
             <div id="tabs-files" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-3">
               <div class="modal-body pt-0 grid grid-cols-2 gap-2">
-                <app-file-upload label="Foto perfil"  (fileSelected)="uploadFile($event, 'avatar')" acceptedFiles="image/*" />
-                <app-file-upload label="DNI"  (fileSelected)="uploadFile($event, 'dniImage')" acceptedFiles="image/*"/>
-                <app-file-upload label="Video"  (fileSelected)="uploadFile($event, 'videoIntro')" acceptedFiles="video/*" helpText="Elige un video de hasta 30 segundos"/>
+                <app-file-upload label="Foto perfil" (fileSelected)="uploadFile($event, 'avatar')"
+                  acceptedFiles="image/*" />
+                <app-file-upload label="DNI" (fileSelected)="uploadFile($event, 'dniImage')" acceptedFiles="image/*" />
+                <app-file-upload label="Video" (fileSelected)="uploadFile($event, 'videoIntro')" acceptedFiles="video/*"
+                  helpText="Elige un video de hasta 30 segundos" />
               </div>
             </div>
           </div>

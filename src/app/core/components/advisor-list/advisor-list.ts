@@ -9,7 +9,7 @@ import { FileUpload } from '../file-upload/file-upload';
 import { EConnectStatus, EMessage, ERole, EStatus } from '@core/enums';
 import 'flyonui/flyonui';
 import { ToastService, User } from '@core/services';
-import { disabled, form, FormField, FormRoot, required, min } from '@angular/forms/signals';
+import { disabled, form, FormField, FormRoot, required, min, email } from '@angular/forms/signals';
 import { Paginator } from '../paginator/paginator';
 import { TableFilter } from '../table-filter/table-filter';
 
@@ -99,6 +99,7 @@ export class AdvisorList {
       required(v.name, { message: 'Name is required' });
       required(v.lastName, { message: 'Last name is required' });
       required(v.email, { message: 'Email is required' });
+      email(v.email, {message: 'Formato de email inválido'});
       required(v.phone, { message: 'Phone is required' });
       required(v.country, { message: 'Country is required' });
       required(v.dob, { message: 'Date of birth is required' });
@@ -240,7 +241,7 @@ export class AdvisorList {
   }
 
   private async createAdvisor(data: FormAdvisor): Promise<void> {
-
+    console.log('Create Advisor', data);
 
     /*  const { _id, ...advisorData } = data;
      const payload = {
