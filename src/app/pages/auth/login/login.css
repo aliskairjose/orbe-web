@@ -1,36 +1,69 @@
-@reference "../../../../styles.css";
 .login-page {
-  @apply min-h-screen grid place-items-center p-8 bg-[#f3f4f6];
-  .login-form{
-    width: min(100%, 35vw);
-    @apply p-8 rounded-xl bg-[#ffffff] shadow-lg;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: #f3f4f6;
+}
 
-    .form-title {
-      @apply ml-6 text-3xl text-black text-center
-    }
+.login-form {
+  width: min(100%, 35vw);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+}
 
-    .field {
-      @apply grid gap-2 mb-4;
-      label {
-        @apply font-medium text-black;
-      }
-      
-      input{
-        @apply w-full min-h-12 py-3.5 px-4 border border-[#d1d5db] rounded-xl text-black;
-        &.invalid {
-          @apply border-red-500 outline-[0.5px] outline-solid outline-red-200;
-        }
-      }
+.form-title {
+  margin-left: 1.5rem;
+  color: #000000;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  text-align: center;
+}
 
-      .field-error {
-        @apply m-0 text-red-500 text-sm
-      }
-    }
+.field {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
 
-    button {
-      @apply w-full min-h-12 mt-3 rounded-xl bg-blue-500 text-white font-medium cursor-pointer
-    }
-  }
+.field label {
+  color: #000000;
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  color: #000000;
+}
+
+.field input.invalid {
+  border-color: #ef4444;
+  outline: 0.5px solid #fecaca;
+}
+
+.field-error {
+  margin: 0;
+  color: #ef4444;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.login-form button {
+  width: 100%;
+  min-height: 3rem;
+  margin-top: 0.75rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 

@@ -1,4 +1,4 @@
-import type { IStaticMethods } from "flyonui/flyonui";
+import type { HSOverlay, IStaticMethods } from "flyonui/flyonui";
 import { Editor } from 'ngx-editor';
 
 declare global {
@@ -8,6 +8,7 @@ declare global {
 
     // FlyonUI
     HSStaticMethods: IStaticMethods;
+    HSOverlay: typeof HSOverlay;
   }
 }
 

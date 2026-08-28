@@ -206,12 +206,19 @@
                     <option [value]="country.name">{{ country.name }}</option>
                     }
                   </select>
+                   @if (form.country().touched() && form.country().invalid()) {
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.country().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
+                  }
                 </div>
               </div>
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
-                  <label class="label-text" for="dateOfBirth"> Fecha de nacimiento </label>
-                  <input type="date" class="input" id="dateOfBirth" [formField]="form.dob" formControlName="dob" />
+                  <label class="label-text" for="dob"> Fecha de nacimiento </label>
+                  <input type="date" class="input" id="dob" [formField]="form.dob" formControlName="dob" />
                   @if (form.dob().touched() && form.dob().invalid()) {
                   <ul class="text-xs text-error mt-1">
                     @for (error of form.dob().errors(); track error) {
@@ -222,11 +229,18 @@
                 </div>
 
                 <div class="w-full">
-                  <label class="label-text" for="idiomas">Seleccione idioma:</label>
-                  <select multiple class="select h-auto" size="4" name="idiomas" id="idiomas">
+                  <label class="label-text" for="languages">Seleccione idioma:</label>
+                  <select multiple class="select h-auto" size="4" name="languages" id="languages">
                     <option>Español</option>
                     <option>Ingles</option>
                   </select>
+                   @if (form.phone().touched() && form.phone().invalid()) {
+                  <ul class="text-xs text-error mt-1">
+                    @for (error of form.phone().errors(); track error) {
+                    <li>{{ error.message }}</li>
+                    }
+                  </ul>
+                  }
                 </div>
               </div>
             </div>
@@ -306,7 +320,7 @@
               <div class="mb-0.5 flex gap-4 max-sm:flex-col">
                 <div class="w-full">
                   <label class="label-text" for="categories">Categorías</label>
-                  <select class="select" id="categories">
+                  <select class="select" id="categories" [formField]="form.category">
                     @for (cat of catResource.value()?.results; track $index) {
                     <option [value]="cat._id">{{ cat.name }}</option>
                     }
@@ -316,9 +330,9 @@
             </div>
             <div id="tabs-files" class="hidden" role="tabpanel" aria-labelledby="tabs-basic-item-3">
               <div class="modal-body pt-0 grid grid-cols-2 gap-2">
-                <app-file-upload label="Foto perfil" />
-                <app-file-upload label="DNI" />
-                <app-file-upload label="Video" />
+                <app-file-upload label="Foto perfil"  (fileSelected)="uploadFile($event, 'avatar')" acceptedFiles="image/*" />
+                <app-file-upload label="DNI"  (fileSelected)="uploadFile($event, 'dniImage')" acceptedFiles="image/*"/>
+                <app-file-upload label="Video"  (fileSelected)="uploadFile($event, 'videoIntro')" acceptedFiles="video/*" helpText="Elige un video de hasta 30 segundos"/>
               </div>
             </div>
           </div>
@@ -366,7 +380,7 @@
 <!-- AliasModal-->
 <div id="alias-modal" class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300" role="dialog"
   tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-sm">
     <div class="modal-content">
       <form [formRoot]="aliasForm" novalidate class="login-form space-y-1">
         <div class="modal-header">
