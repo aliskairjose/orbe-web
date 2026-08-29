@@ -1,0 +1,54 @@
+<div
+    class="flex flex-col w-full bg-white rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:pt-12 md:pb-6 space-y-6">
+    <h3 class="text-xl font-medium text-gray-800">Perfil del administrador</h3>
+
+    <!-- Profile info -->
+    <div class="flex flex-col w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8 gap-y-4.5 space-y-4">
+        <div class="flex space-x-4 items-center">
+            <div class="avatar">
+                <div class="w-20 rounded-full">
+                    <img [src]="user.avatar" alt="administrador" />
+                </div>
+            </div>
+            <div class="space-y-2">
+                <p class="text-xl font-bold">{{user.name}} {{user.lastName}}</p>
+                <p class="text-gray-600">{{user.email}}</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 col-span-2 gap-6">
+                <div>
+                    <small class="text-gray-400">Nombre</small>
+                    <p class="font-medium">{{ user.name }}</p>
+                </div>
+                <div>
+                    <small class="text-gray-400 text-xs">Apellido</small>
+                    <p class="font-medium">{{ user.lastName }}</p>
+                </div>
+                <div>
+                    <small class="text-gray-400">Teléfono</small>
+                    <p class="font-medium">{{ user.phone }}</p>
+                </div>
+                <div>
+                    <small class="text-gray-400">Fecha de registro</small>
+                    <p class="font-medium">{{ user.createdAt | date }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security -->
+    <div class="flex flex-col w-full rounded-xl border border-gray-200 px-2 py-3 md:px-6 md:py-8 gap-y-4.5 space-y-4">
+        <h3 class="text-xl font-bold text-gray-800">Security</h3>
+        <div class="flex  justify-between items-center">
+            <div>
+                <p class="font-medium text-lg">Cambiar contraseña</p>
+                <p class="text-gray-600">Actualiza tu contraseña periodicamente.</p>
+            </div>
+            <button class="btn btn-outline btn-secondary">
+                <span class="icon-[tabler--pencil] size-4.5 shrink-0"></span>
+                Cambiar contraseña
+            </button>
+        </div>
+    </div>
+</div>

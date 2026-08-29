@@ -7,6 +7,11 @@ export const dashboarRoutes: Routes = [
     loadComponent: () => import('./home/home').then((m) => m.Home),
   },
   {
+    path: 'admin',
+    title: 'Administrador',
+    loadComponent: () => import('./admin/admin').then((m) => m.Admin),
+  },
+  {
     path: 'home',
     title: 'Resumen General',
     loadComponent: () => import('./home/home').then((m) => m.Home),
