@@ -1,9 +1,9 @@
-<div class="py-4 bg-[#1D4747] flex flex-col text-white ">
+<div class="py-4 bg-[#1D4747] flex flex-col text-white banner-fondo">
     <p class="text-5xl font-serif-elegant text-center">¿Qué quieres descubir hoy?</p>
     <p class="text-center mt-4">Elige el área que más te interesa y cinecta con el experto ideal para ti.</p>
     <div class="flex flex-row gap-2 justify-evenly mt-6">
         @for (item of categories; track $index) {
-        <div class="flex flex-col items-center border border-white/50 rounded-2xl pb-4 w-36">
+        <div class="flex flex-col items-center border border-white/50 rounded-2xl pb-4 w-36 fondo">
             <img [src]="'images/misticos/0'+ ($index+1) +'_' + item.imagen +'.png'" [alt]="item.label">
             <p class="text-white font-sm text-center ">{{item.label}}</p>
         </div>
