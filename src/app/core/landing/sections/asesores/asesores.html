@@ -1,6 +1,6 @@
 <div class=" bg-[#1D4747] text-white py-6">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 md:flex-row gap-x-6">
-        <div >
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 md:flex-row gap-x-6 ">
+        <div class="m-auto">
             <p class="text-5xl font-serif-elegant">Nuestros asesores</p>
             <p class="mt-2 mb-6 w-2/3">
                 Conoce a algunos de nuestros expertos y encuentra el que mejor se adapte a ti.
@@ -11,17 +11,21 @@
                 <span class="icon-[tabler--arrow-right] size-6 shrink-0 "></span>
             </a>
         </div>
-        <div class="flex flex-row col-span-2 gap-4 justify-center">
+        <div class="flex flex-row col-span-2 justify-between">
             @for (item of resource.value(); track $index) {
-            <div class="flex flex-col border border-white/50 w-1/4 rounded-2xl h-60">
+            <div class="flex flex-col border border-white/50 rounded-2xl min-h-60 shadow-xl shadow-cyan-500/10 pb-1.5">
                 <img [src]="item.avatar" [alt]="item.name"
-                    class="h-1/2 rounded-t-2xl mask-b-from-50% mask-radial-[60%_90%] mask-radial-from-75%">
+                    class="h-1/2 rounded-t-2xl mask-b-from-60% mask-radial-[60%_90%] mask-radial-from-75%">
                 <div class="m-2">
-                    <p class="truncate text-[#CFAA61] font-medium mb-1">{{item.advisor.alias}}</p>
-                    <p class="text-sm truncate mb-1.5">{{item.advisor.category}}</p>
+                    <p class="truncate text-[#CFAA61] font-medium">{{item.advisor.alias}}</p>
+                    <p class="text-sm truncate mb-1">{{item.advisor.category}}</p>
+                    <div class="flex items-center text-[#CFAA61] mb-2">
+                        <span class="icon-[tabler--star-filled] size-4 shrink-0 text-yellow-400 me-1"></span>
+                        <span>{{item.rateAvg}}</span>
+                    </div>
                     <p class="text-xs">Chat: {{item.advisor.chatPrice | currency}}/min.</p>
                     @if (item.advisor.enabledCall) {
-                        <p class="text-xs">Llamadas: {{item.advisor.callPrice | currency}}/min.</p>
+                    <p class="text-xs">Llamadas: {{item.advisor.callPrice | currency}}/min.</p>
                     }
                 </div>
             </div>
