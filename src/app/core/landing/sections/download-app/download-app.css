@@ -1,0 +1,6 @@
+.fondo {
+    background-image: url('../../../../../../public/images/bg/fondo-5.png');
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+}
