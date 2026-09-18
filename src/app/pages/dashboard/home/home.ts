@@ -12,7 +12,7 @@ import {
   UserStatusPieChart,
 } from '@core/components';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { IUser, IUserSummary } from '@core/interfaces';
 interface Metric {
@@ -20,6 +20,11 @@ interface Metric {
   value: string;
 }
 
+interface IProfit {
+  balance: number;
+  asesores: number;
+  orbe: number;
+}
 
 interface User {
   id: string;
@@ -31,7 +36,19 @@ interface User {
 }
 @Component({
   selector: 'app-home',
-  imports: [AnnualTimeChart, AnnualRequestServiceChart, CommonModule, UserCard, AnnualUserRegister, UserStatusPieChart,RoleDistribution, RequestMonth, TopAdvisorCard, RequestStatusHorBar, RequestStatusAnnual],
+  imports: [
+    AnnualTimeChart,
+    AnnualRequestServiceChart,
+    CommonModule,
+    UserCard,
+    AnnualUserRegister,
+    UserStatusPieChart,
+    RoleDistribution,
+    RequestMonth,
+    TopAdvisorCard,
+    RequestStatusHorBar,
+    RequestStatusAnnual,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -44,12 +61,9 @@ export class Home {
     { label: 'Acumulado Mayo', value: '$9.000,00' },
   ]);
 
-  summary = httpResource<IUserSummary>(()=>`${this.url}dashboard/users/summary`);
-  newReg = httpResource<IUser[]>(()=>`${this.url}dashboard/new-registrations`);
-  top = httpResource<IUser[]>(()=>`${this.url}dashboard/top-rated-advisors`);
-  postulate = httpResource<IUser[]>(()=>`${this.url}dashboard/nominated-advisors`);
-
-
-
+  summary = httpResource<IUserSummary>(() => `${this.url}dashboard/users/summary`);
+  newReg = httpResource<IUser[]>(() => `${this.url}dashboard/new-registrations`);
+  top = httpResource<IUser[]>(() => `${this.url}dashboard/top-rated-advisors`);
+  postulate = httpResource<IUser[]>(() => `${this.url}dashboard/nominated-advisors`);
+  profit = httpResource<IProfit>(() => `${this.url}dashboard/profits`);
 }
-
