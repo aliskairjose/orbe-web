@@ -1,50 +1,50 @@
 <div class="space-y-6">
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-    <div class="stats bg-linear-to-r from-sky-100 to-sky-200">
+    <div class="stats bg-red-400">
       <div class="stat">
-        <div class="stat-title">Total Usuarios</div>
-        <div class="stat-value">{{ summary.value()?.totalRegisteredUsers! - 1 || 0 }}</div>
+        <div class="stat-title text-white">Total Usuarios</div>
+        <div class="stat-value text-white">{{ summary.value()?.totalRegisteredUsers! - 1 || 0 }}</div>
         <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-green-100 to-green-200">
+    <div class="stats bg-green-400">
       <div class="stat">
-        <div class="stat-title">Total Clientes</div>
-        <div class="stat-value">{{ summary.value()?.roleSummary?.User || 0 }}</div>
+        <div class="stat-title text-white">Total Clientes</div>
+        <div class="stat-value text-white">{{ summary.value()?.roleSummary?.User || 0 }}</div>
         <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-indigo-100 to-indigo-200">
+    <div class="stats bg-indigo-400">
       <div class="stat">
-        <div class="stat-title">Total Asesores</div>
-        <div class="stat-value">{{ summary.value()?.roleSummary?.Advisor || 0 }}</div>
+        <div class="stat-title text-white">Total Asesores</div>
+        <div class="stat-value text-white">{{ summary.value()?.roleSummary?.Advisor || 0 }}</div>
         <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-pink-100 to-pink-200">
+    <div class="stats bg-blue-400 ">
       <div class="stat">
-        <div class="stat-title">Acumulado Mayo</div>
-        <div class="stat-value">{{ profit.value()?.balance | currency }}</div>
+        <div class="stat-title text-white">Acumulado Total {{currentMonth}}</div>
+        <div class="stat-value text-white font-bold">{{ profit.value()?.balance | currency }}</div>
         <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-cyan-100 to-cyan-200">
+    <div class="stats bg-purple-400">
       <div class="stat">
-        <div class="stat-title">Acumulado orbe</div>
-        <div class="stat-value">{{ profit.value()?.orbe | currency }}</div>
+        <div class="stat-title text-white">Ingresos Orbe</div>
+        <div class="stat-value text-white font-bold">{{ profit.value()?.orbe | currency }}</div>
         <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
-    <div class="stats bg-linear-to-r from-yellow-100 to-yellow-200">
+    <div class="stats bg-yellow-400">
       <div class="stat">
-        <div class="stat-title">Acumulado Asesores</div>
-        <div class="stat-value">{{ profit.value()?.asesores | currency }}</div>
+        <div class="stat-title text-white">Ingresos Asesores</div>
+        <div class="stat-value text-white font-bold">{{ profit.value()?.asesores | currency }}</div>
         <!-- <div class="stat-desc">18% more than last month</div> -->
       </div>
     </div>
   </section>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-items-stretch">
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 justify-items-stretch">
     <div
       class="max-w-sm flex flex-col gap-3 p-4 bg-white rounded-xl h-80 overflow-y-auto shadow-sm"
     >

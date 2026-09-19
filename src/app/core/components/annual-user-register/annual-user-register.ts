@@ -21,9 +21,9 @@ interface Response {
 })
 export class AnnualUserRegister {
   private readonly months = MONTHS;
- 
+  protected readonly currentYear = new Date().getFullYear();
   protected resource = httpResource<Response[]>(
-    () => `${API_URL}/v1/users/summary/monthly-register/2026`,
+    () => `${API_URL}/v1/users/summary/monthly-register/${this.currentYear}`,
   );
 
   stats = computed(() => {

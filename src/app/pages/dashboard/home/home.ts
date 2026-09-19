@@ -54,6 +54,7 @@ interface User {
 })
 export class Home {
   private readonly url = `${API_URL}/v1/`;
+  protected readonly currentMonth = new Date().getMonth() + 1;
   math = Math;
   metrics = signal<Metric[]>([
     { label: 'Total Users', value: '27' },
