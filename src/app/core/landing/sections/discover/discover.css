@@ -1,12 +1,12 @@
 .fondo {
-    background-image: url('../../../../../../public/images/bg/fondo-50.png');
+    background-image: url('../../../../../../public/images/landing/fondo-50.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .banner-fondo {
-    background-image: url('../../../../../../public/images/bg/fondo-50.png');
+    background-image: url('../../../../../../public/images/landing/fondo-50.webp');
     background-size: cover;
     background-repeat: no-repeat;
 

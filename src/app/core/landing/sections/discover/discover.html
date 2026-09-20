@@ -4,7 +4,7 @@
     <div class="flex flex-row gap-2 justify-evenly mt-6">
         @for (item of categories; track $index) {
         <div class="flex flex-col items-center border border-white/50 rounded-2xl pb-4 w-36 fondo">
-            <img [src]="'images/misticos/0'+ ($index+1) +'_' + item.imagen +'.png'" [alt]="item.label">
+            <img [src]="'images/misticos/0'+ ($index+1) +'_' + item.imagen +'.webp'" [alt]="item.label">
             <p class="text-white font-sm text-center ">{{item.label}}</p>
         </div>
         }
