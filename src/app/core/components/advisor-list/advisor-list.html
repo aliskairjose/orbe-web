@@ -61,6 +61,9 @@
                 </div>
               </td>
               <td>
+                {{item?.wallet?.balance || 0 | currency}}
+              </td>
+              <td>
                 <select class="select select-sm w-fit" aria-label="select" (change)="onChangeStatus($event, item._id)">
                   @for (s of status; track $index) {
                   <option [selected]="s.val === item.status" [value]="s.val">

@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, DOCUMENT, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -75,6 +75,7 @@ const aliasFormModel = signal<{ id: string; alias: string }>({ id: '', alias: ''
     FormField,
     Paginator,
     TableFilter,
+    CurrencyPipe
   ],
   templateUrl: './advisor-list.html',
   styleUrl: './advisor-list.css',
@@ -147,6 +148,7 @@ export class AdvisorList {
     '#',
     'Usuario',
     'Email / Phone',
+    'Wallet',
     'Status',
     'Estado',
     'Rate',
