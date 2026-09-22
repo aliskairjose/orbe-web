@@ -57,6 +57,7 @@ export class Chats implements AfterViewInit {
 
   openChat(id: string): void {
     this.roomID.set(id);
+    this.modal.open();
   }
 
 }
