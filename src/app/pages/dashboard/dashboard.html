@@ -3,9 +3,8 @@
     class="fixed inset-y-0 left-0 z-50 w-[90vw] md:w-72 bg-white text-white transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:inset-0 shadow-md"
     [class.-translate-x-full]="!isSidebarOpen()" [class.translate-x-0]="isSidebarOpen()">
     <div class="flex items-center justify-between lg:justify-center h-16">
-      <img src="images/logos/orbe/logotipo.webp" alt="logo" class="w-2/5 my-auto" />
-      <picture>
-        <source srcset="images/logos/orbe/logotipo.webp" type="image/webp">
+      <picture class="w-2/5 my-auto">
+        <source srcset="images/logos/orbe/logotipo.webp" type="image/webp" >
         <img src="images/logos/orbe/logotipo.png" alt="logo" loading="lazy">
       </picture>
 
