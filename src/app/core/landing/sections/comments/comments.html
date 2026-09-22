@@ -1,10 +1,10 @@
 <div class="flex flex-col md:flex-row max-w-7xl mx-auto items-center justify-between py-2 md:py-6 gap-8">
-    <div class="flex-1 ">
+    <div class="md:flex-1 w-full text-center md:text-left px-4 md:px-0">
         <p class="text-3xl font-serif-elegant">Lo que dicen quienes ya consultaron Orbe</p>
         <p class="mt-1 mb-4">Historias de personas que encontraron respuestas.</p>
-        <div class="flex flex-row gap-4">
+        <div class="flex md:flex-row flex-col gap-4">
             @for (item of commensts; track $index) {
-            <div class="flex bg-gray-100 rounded-lg p-4 gap-4">
+            <div class="flex bg-gray-100 rounded-lg p-4 gap-4 flex-1">
                 <div class="avatar">
                     <div class="size-14 rounded-full">
                         <img [src]="item.avatar" alt="avatar" />
@@ -21,7 +21,7 @@
             }
         </div>
     </div>
-    <div class="bg-indigo-50 p-6 rounded-lg w-3/12">
+    <div class="bg-indigo-50 p-6 rounded-lg md:w-3/12 w-full">
         <p class="text-2xl/tight font-serif-elegant w-full md:w-2/3 ">Tu privacidad es nuestra prioridad.</p>
         <ul class="space-y-1.5 mt-4">
             <li>Conversaciones privadas</li>
